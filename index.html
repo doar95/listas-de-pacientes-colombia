@@ -110,7 +110,24 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
 .cy div{padding:14px 16px;border-right:1px solid var(--line)}
 .cy div:last-child{border-right:0}
 .cy b{display:block;font:700 1rem Montserrat,sans-serif;color:var(--navy);margin-bottom:4px}
-@media (min-width:861px){nav.tabs .wrap{flex-wrap:wrap;overflow:visible} nav.tabs button{padding:11px 9px 8px;font-size:.88rem}}
+
+.layout{display:block}
+.card{scroll-margin-top:64px}
+.lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin:18px 0 30px}
+.lc{display:flex;flex-direction:column;text-decoration:none;color:var(--text);border:1px solid var(--line);border-left:6px solid var(--k,var(--navy));padding:14px 16px 12px;background:#fff}
+.lc:hover{background:#f7f9fc}
+.lc b{font:700 1rem/1.25 Montserrat,sans-serif;color:var(--k,var(--navy));margin-bottom:6px}
+.lc span{font-size:.92rem;flex:1}
+.lc i{font-style:normal;font-weight:600;font-size:.86rem;color:var(--blue);margin-top:10px}
+@media (min-width:861px){
+ .layout{display:grid;grid-template-columns:230px 1fr;align-items:start}
+ nav.tabs{position:sticky;top:0;height:100vh;overflow-y:auto;border-bottom:0;border-right:1px solid var(--line);background:var(--soft)}
+ nav.tabs .wrap{display:flex;flex-direction:column;flex-wrap:nowrap;overflow:visible;padding:18px 0;gap:0;max-width:none}
+ nav.tabs button{text-align:left;border-bottom:0;border-left:5px solid transparent;padding:11px 18px;font-size:.95rem;white-space:normal}
+ nav.tabs button[aria-selected="true"]{border-left-color:var(--navy);background:#fff}
+ main .wrap{margin:0;padding:0 40px}
+}
+
 @media (max-width:860px){
   .hero,.two,.three,.dofa,.cy{grid-template-columns:1fr}
   .figs{grid-template-columns:1fr 1fr}
@@ -134,6 +151,7 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
   </div>
 </header>
 
+<div class="layout">
 <nav class="tabs" aria-label="Secciones del brief">
   <div class="wrap" role="tablist">
     <button role="tab" data-t="brief" aria-selected="true">Brief</button>
@@ -179,38 +197,36 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
    </div>
   </div>
 
-  <h2 style="margin-top:30px">Por qué ahora</h2>
+  <h2 style="margin-top:30px">Las doce listas y lo que le aportan a Colombia</h2>
+  <p class="read">Cada lista nombra a personas concretas, se construye con datos que el sistema ya recibe y responde a un problema medible del SGSSS. Toque cualquier lista para ver criterios, códigos, destinatario y cierre.</p>
+  <div class="lgrid">
+   <a class="lc" style="--k:var(--red)" href="#listas" data-go="listas" data-anchor="l1"><b>Plan de choque con riesgo vital</b><span>Ordena el cierre de cerca de 1,3 millones de personas con atenciones pendientes por riesgo y no por antigüedad, y deja evidencia verificable del cierre.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:var(--red)" href="#listas" data-go="listas" data-anchor="l2"><b>Tratamientos de los que depende la vida</b><span>Evita muertes y urgencias por suspender antiepilépticos, corticoides, calcitriol o hidroxicloroquina; una entrega oportuna cuesta mucho menos que una UCI.</span><i>Ver lista</i></a>
+   <a class="lc" href="#listas" data-go="listas" data-anchor="l3"><b>Hipertensión o diabetes sin estudio renal</b><span>Más de 4 millones de registros sin el estudio completo. Detectar la enfermedad renal a tiempo frena la llegada a diálisis, que ya atiende a 54.594 personas.</span><i>Ver lista</i></a>
+   <a class="lc" href="#listas" data-go="listas" data-anchor="l4"><b>Hipertensión y diabetes no controladas</b><span>Solo 23% de los hipertensos diagnosticados está controlado. La presión y la glucosa elevadas están entre los cuatro primeros factores de riesgo de carga en Colombia según el IHME.</span><i>Ver lista</i></a>
+   <a class="lc" href="#listas" data-go="listas" data-anchor="l5"><b>Enfermedad renal sin estadio o sin nefrología</b><span>526.918 casos sin estadio asignado. Estadificar permite programar la diálisis en lugar de iniciarla de urgencia.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:var(--red)" href="#listas" data-go="listas" data-anchor="l6"><b>Diálisis o trasplante sin continuidad</b><span>2.103 personas sin la continuidad requerida en 2025. Para ellas la interrupción es riesgo de muerte inmediato.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:var(--green)" href="#listas" data-go="listas" data-anchor="l7"><b>Hospitalizaciones evitables repetidas</b><span>748.212 hospitalizaciones evitables en 2025, con un costo de hasta $8,36 billones. Cada una evitada libera una cama y mejora la experiencia del paciente.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:var(--green)" href="#listas" data-go="listas" data-anchor="l8"><b>Gestantes sin control oportuno o con sífilis sin tratar</b><span>Los trastornos neonatales son la tercera causa de pérdida de salud en el país según el IHME. El control prenatal temprano es la intervención más costo efectiva del sistema.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:var(--green)" href="#listas" data-go="listas" data-anchor="l9"><b>Niños con desnutrición aguda sin seguimiento</b><span>Cada caso ya está notificado al SIVIGILA; la lista asegura que nadie quede sin el control que evita la muerte.</span><i>Ver lista</i></a>
+   <a class="lc" href="#listas" data-go="listas" data-anchor="l10"><b>VIH en tratamiento sin carga viral</b><span>La supresión viral protege a la persona y corta la transmisión; sin carga viral no se sabe si el tratamiento funciona.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:#B37800" href="#listas" data-go="listas" data-anchor="l11"><b>Quejas y tutelas repetidas</b><span>Cerca de 1,2 millones de quejas entre enero y julio de 2026, 92% por barreras de acceso. Resolver el caso de fondo reduce la litigiosidad y su costo.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:#B37800" href="#listas" data-go="listas" data-anchor="l12"><b>Registros con diagnóstico sin soporte</b><span>580.517 inconsistencias en la auditoría renal de 2025. Un dato limpio mejora la gestión del riesgo y el cálculo de la UPC.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:var(--deep)" href="#supersalud" data-go="supersalud"><b>Prescriptores con práctica atípica</b><span>Retroalimentación entre pares para reducir lo que no aporta valor y detectar lo que falta, sin calificar al médico desde el gobierno.</span><i>Ver mecanismo</i></a>
+  </div>
+
+  <h2>Por qué ahora</h2>
   <div class="figs">
-   <div class="fig k-r"><b>1.849.649</b><span>personas únicas registradas en el tablero del plan de choque al 20 de octubre de 2026, de las cuales cerca de 1,3 millones tenían atenciones pendientes</span><a class="f" href="https://www.infobae.com/colombia/2026/10/27/ministerio-de-salud-activo-tablero-para-vigilar-la-crisis-de-salud-y-prepara-el-calculo-de-la-upc-de-2027-estas-son-las-cifras-clave/">fuente</a></div>
-   <div class="fig"><b>7.074.181</b><span>personas con hipertensión, diabetes tipo 2 o enfermedad renal crónica; solo 23% de los hipertensos que conocen su diagnóstico tiene la presión controlada</span><a class="f" href="https://consultorsalud.com/riesgo-cardiovascular-colombia-millones-hta-d/">fuente</a></div>
-   <div class="fig k-y"><b>4 millones</b><span>de registros de hipertensión o diabetes sin el estudio completo para confirmar o descartar enfermedad renal crónica en 2025</span><a class="f" href="https://consultorsalud.com/?p=344637">fuente</a></div>
-   <div class="fig k-g"><b>748.212</b><span>hospitalizaciones por condiciones sensibles a la atención primaria en 2025, el 19,5% de todas las hospitalizaciones</span><a class="f" href="https://consultorsalud.com/wp-content/uploads/2026/07/Hospitalizaciones_evitables_por_condiciones_sensibles_a_la_Atencion_Primaria.pdf">fuente</a></div>
-   <div class="fig k-b"><b>6,9 millones</b><span>de personas con historia clínica interoperable y 21,4 millones de resúmenes digitales de atención recibidos al 4 de agosto de 2026</span><a class="f" href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/OT/informe-especial-ihce.pdf">fuente</a></div>
-   <div class="fig k-d"><b>46.398</b><span>muertes por cardiopatía isquémica en 2023, primera causa de muerte del país; la enfermedad renal crónica causó 7.760</span><a class="f" href="https://vizhub.healthdata.org/gbd-results/">fuente IHME</a></div>
+   <div class="fig k-r"><b>1.849.649</b><span>personas únicas registradas en el tablero del plan de choque al 20 de octubre de 2026</span><a class="f" href="https://www.infobae.com/colombia/2026/10/27/ministerio-de-salud-activo-tablero-para-vigilar-la-crisis-de-salud-y-prepara-el-calculo-de-la-upc-de-2027-estas-son-las-cifras-clave/">fuente</a></div>
+   <div class="fig"><b>7.074.181</b><span>personas con hipertensión, diabetes tipo 2 o enfermedad renal crónica</span><a class="f" href="https://consultorsalud.com/riesgo-cardiovascular-colombia-millones-hta-d/">fuente</a></div>
+   <div class="fig k-b"><b>6,9 millones</b><span>de personas con historia clínica interoperable al 4 de agosto de 2026</span><a class="f" href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/OT/informe-especial-ihce.pdf">fuente</a></div>
   </div>
 
-  <h2>Seis decisiones que ya se pueden tomar</h2>
-  <ol class="decide read">
-   <li><b>Adoptar el ciclo mensual de listas</b> como herramienta de gestión del riesgo del aseguramiento, liderada por el Viceministerio de Protección Social con el Viceministerio de Salud Pública y Atención Primaria, y verificada por la Superintendencia Nacional de Salud.</li>
-   <li><b>Empezar con tres listas</b> que se arman con datos que el Ministerio ya recibe: personas del plan de choque con atención pendiente y riesgo vital, personas con hipertensión o diabetes sin estudio renal, y personas con hospitalizaciones evitables repetidas.</li>
-   <li><b>Producirlas en SISPRO</b> con la Dirección Estratégica de Tecnología de la Información y enviarlas, cifradas y por los canales de reporte existentes, a cada EPS, a cada secretaría departamental y distrital y, cuando aplique, a la IPS primaria.</li>
-   <li><b>Medir con el lenguaje del tablero</b>: personas únicas, casos resueltos y atenciones pendientes por EPS, departamento y fecha de corte. La lista y el tablero se vuelven una sola herramienta.</li>
-   <li><b>Formalizar con lo mínimo necesario</b>: una circular externa del Ministerio que oriente el uso de las listas dentro de obligaciones vigentes, una circular conjunta con la Supersalud para la verificación y una resolución solo si se crean variables nuevas de reporte.</li>
-   <li><b>Evaluar cada trimestre</b> y ajustar criterios con las sociedades científicas y el IETS. Las EPS intervenidas, que hoy agrupan cerca de 21 millones de afiliados, pueden ejecutar las listas desde el primer ciclo.</li>
-  </ol>
-
-  <div class="box navy read">
-   <h3>Lo que esto no es</h3>
-   <p>No es un sistema nuevo ni una plataforma por contratar: usa SISPRO, los RIPS, la historia clínica interoperable, la Cuenta de Alto Costo y el SIVIGILA. No traslada funciones entre entidades: cada paso se apoya en una función que ya existe. No sustituye el criterio del médico tratante: la lista dice a quién mirar primero, el médico decide qué hacer. No es un instrumento para negar servicios.</p>
+  <div class="two">
+   <div class="box navy"><h3>Cómo se hace</h3><p>El Viceministerio de Protección Social lidera, con el Viceministerio de Salud Pública y Atención Primaria. SISPRO corre los algoritmos, las listas se envían a EPS, secretarías e IPS, y la Supersalud verifica el cierre. Se formaliza con una circular externa y una circular conjunta. </p><p class="small"><a href="#ciclo" data-go="ciclo">Ver el ciclo</a>, <a href="#funciones" data-go="funciones">las funciones</a> y <a href="#juridica" data-go="juridica">la base jurídica</a>.</p></div>
+   <div class="box red"><h3>Lo que esto no es</h3><p>No es una plataforma nueva ni una planta nueva. No traslada funciones entre entidades. No sustituye al médico tratante: la lista dice a quién mirar primero, el médico decide qué hacer. No es un instrumento para negar servicios.</p></div>
   </div>
-
-  <h2>Primeros noventa días</h2>
-  <div class="cy">
-   <div><b>Días 1 a 30</b>Mesa técnica interna entre viceministerios, Dirección de Epidemiología y Demografía y Dirección de Tecnología. Primera corrida de las tres listas sobre datos existentes. Mesas con sociedades científicas para fijar umbrales iniciales.</div>
-   <div><b>Días 31 a 60</b>Proyecto de circular publicado para comentarios. Envío piloto de listas a las EPS intervenidas y a cinco secretarías departamentales con distintos perfiles del ASIS. Validación rápida del IETS.</div>
-   <div><b>Días 61 a 90</b>Circular expedida y circular conjunta con la Supersalud. Primer informe de casos resueltos por lista, EPS y departamento en el tablero. Ajuste de criterios y segundo ciclo.</div>
-  </div>
-  <p class="small read">Las cifras de este brief provienen de fuentes públicas enlazadas junto a cada dato. La carga de enfermedad proviene del Estudio de Carga Global de Enfermedad 2023 del IHME. El autor humano está vinculado a un conglomerado de salud con operación en Colombia; las ideas son personales y no representan a esa entidad. Detalles en <a href="#avisos" data-go="avisos">Fuentes y avisos</a>.</p>
+  <p class="small read">Cada cifra enlaza a su fuente. La carga de enfermedad proviene del Estudio de Carga Global de Enfermedad 2023 del IHME. El autor humano está vinculado a un conglomerado de salud con operación en Colombia; las ideas son personales y no representan a esa entidad. Detalles en <a href="#avisos" data-go="avisos">Fuentes y avisos</a>.</p>
  </div>
 </section>
 
@@ -241,7 +257,7 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
   <p class="read">Doce listas construibles con datos que el sistema ya recibe. Los códigos son el punto de partida técnico para la primera corrida; los umbrales clínicos los ajustan las sociedades científicas y los valida el IETS en el primer ciclo.</p>
   <p><span class="tag" style="color:var(--red)">riesgo vital</span><span class="tag" style="color:var(--navy)">enfermedad crónica</span><span class="tag" style="color:var(--green)">atención primaria y salud pública</span><span class="tag" style="color:#B37800">calidad del dato</span></p>
 
-  <div class="card" style="--k:var(--red)"><h3>Personas del plan de choque con atención pendiente y riesgo vital</h3><dl>
+  <div id="l1" class="card" style="--k:var(--red)"><h3>Personas del plan de choque con atención pendiente y riesgo vital</h3><dl>
    <dt>Criterio</dt><dd>Persona con atención pendiente en el tablero y diagnóstico de cáncer (CIE 10 C00 a D09), VIH (B20 a B24), enfermedad renal en estadio 4 o 5 (N18.4, N18.5), trasplante (Z94), gestación (capítulo O) o enfermedad huérfana del listado vigente.</dd>
    <dt>Datos</dt><dd>Tablero del plan de choque, RIPS, Cuenta de Alto Costo, <a href="https://www.minsalud.gov.co/Normatividad_Nuevo/Resolucion%20No%202625%20de%202025.pdf">Resolución 2625 de 2025</a>.</dd>
    <dt>La recibe</dt><dd>EPS de afiliación y secretaría departamental.</dd>
@@ -249,7 +265,7 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
    <dt>Se cierra</dt><dd>Dispensación o procedimiento registrado en RIPS o en el resumen digital de atención.</dd>
   </dl></div>
 
-  <div class="card" style="--k:var(--red)"><h3>Interrupción de tratamientos de los que depende la vida</h3><dl>
+  <div id="l2" class="card" style="--k:var(--red)"><h3>Interrupción de tratamientos de los que depende la vida</h3><dl>
    <dt>Criterio</dt><dd>Diagnóstico y medicamento trazador sin cobertura después de la última dispensación: epilepsia (G40, G41; ATC N03A) más de 30 días; insuficiencia suprarrenal (E27.1, E27.4, E23.0; ATC H02AB09, H02AA02) más de 7 días; lupus (M32; ATC P01BA02) más de 30 días; hipoparatiroidismo posquirúrgico (E89.2; ATC A11CC04) más de 7 días.</dd>
    <dt>Datos</dt><dd>Resumen digital de dispensación (<a href="https://consultorsalud.com/wp-content/uploads/2026/08/Resolucion-1799-de-2026.pdf">Resolución 1799 de 2026</a>), RIPS de medicamentos, quejas.</dd>
    <dt>La recibe</dt><dd>EPS y gestor farmacéutico.</dd>
@@ -257,7 +273,7 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
    <dt>Se cierra</dt><dd>Dispensación registrada y ninguna urgencia por la condición en 90 días.</dd>
   </dl></div>
 
-  <div class="card"><h3>Hipertensión o diabetes sin estudio de enfermedad renal</h3><dl>
+  <div id="l3" class="card"><h3>Hipertensión o diabetes sin estudio de enfermedad renal</h3><dl>
    <dt>Criterio</dt><dd>Diagnóstico I10 a I15 o E10 a E14 sin creatinina sérica (CUPS 903895) y sin microalbuminuria (CUPS 903027) en los últimos 12 meses.</dd>
    <dt>Datos</dt><dd>Cuenta de Alto Costo, RIPS.</dd>
    <dt>La recibe</dt><dd>EPS e IPS primaria.</dd>
@@ -265,7 +281,7 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
    <dt>Se cierra</dt><dd>Ambos exámenes registrados y estadio asignado en el siguiente corte de la Cuenta de Alto Costo.</dd>
   </dl></div>
 
-  <div class="card"><h3>Hipertensión no controlada y diabetes con hemoglobina glicosilada alta</h3><dl>
+  <div id="l4" class="card"><h3>Hipertensión no controlada y diabetes con hemoglobina glicosilada alta</h3><dl>
    <dt>Criterio</dt><dd>Última presión registrada igual o mayor a 140/90 en hipertensos, o hemoglobina glicosilada (CUPS 903426) igual o mayor a 7% en diabéticos, en dos controles consecutivos.</dd>
    <dt>Datos</dt><dd>Cuenta de Alto Costo, historia clínica interoperable.</dd>
    <dt>La recibe</dt><dd>EPS e IPS primaria.</dd>
@@ -273,7 +289,7 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
    <dt>Se cierra</dt><dd>Valor en meta en el siguiente control registrado.</dd>
   </dl></div>
 
-  <div class="card"><h3>Enfermedad renal sin estadio o avanzada sin nefrología</h3><dl>
+  <div id="l5" class="card"><h3>Enfermedad renal sin estadio o avanzada sin nefrología</h3><dl>
    <dt>Criterio</dt><dd>Diagnóstico N18 sin estadio asignado, o N18.4 y N18.5 sin consulta de nefrología en 6 meses.</dd>
    <dt>Datos</dt><dd>Cuenta de Alto Costo: 526.918 casos sin estadio en 2025 <a class="f" href="https://consultorsalud.com/?p=344637">fuente</a>.</dd>
    <dt>La recibe</dt><dd>EPS.</dd>
@@ -281,7 +297,7 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
    <dt>Se cierra</dt><dd>Estadio registrado y consulta realizada.</dd>
   </dl></div>
 
-  <div class="card" style="--k:var(--red)"><h3>Terapia de reemplazo renal sin continuidad</h3><dl>
+  <div id="l6" class="card" style="--k:var(--red)"><h3>Terapia de reemplazo renal sin continuidad</h3><dl>
    <dt>Criterio</dt><dd>Persona en diálisis o con trasplante renal sin la continuidad requerida en el periodo.</dd>
    <dt>Datos</dt><dd>Cuenta de Alto Costo: 2.103 personas en 2025 <a class="f" href="https://consultorsalud.com/?p=344637">fuente</a>.</dd>
    <dt>La recibe</dt><dd>EPS y secretaría departamental.</dd>
@@ -289,7 +305,7 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
    <dt>Se cierra</dt><dd>Sesiones registradas de forma continua en el mes siguiente.</dd>
   </dl></div>
 
-  <div class="card" style="--k:var(--green)"><h3>Hospitalizaciones evitables repetidas</h3><dl>
+  <div id="l7" class="card" style="--k:var(--green)"><h3>Hospitalizaciones evitables repetidas</h3><dl>
    <dt>Criterio</dt><dd>Dos o más hospitalizaciones en 12 meses por condiciones sensibles a la atención primaria (lista de 20 grupos usada por la ADRES: infecciones urinarias, enfermedad cerebrovascular, vías respiratorias bajas, insuficiencia cardiaca, infecciones de piel, entre otras).</dd>
    <dt>Datos</dt><dd>RIPS y factura electrónica; la ADRES identificó 310 personas con cinco o más en 2025 <a class="f" href="https://consultorsalud.com/wp-content/uploads/2026/07/Hospitalizaciones_evitables_por_condiciones_sensibles_a_la_Atencion_Primaria.pdf">fuente</a>.</dd>
    <dt>La recibe</dt><dd>EPS, IPS primaria y secretaría departamental.</dd>
@@ -297,7 +313,7 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
    <dt>Se cierra</dt><dd>Control registrado y ningún reingreso evitable en 90 días.</dd>
   </dl></div>
 
-  <div class="card" style="--k:var(--green)"><h3>Gestantes sin control prenatal oportuno o con sífilis gestacional sin tratamiento</h3><dl>
+  <div id="l8" class="card" style="--k:var(--green)"><h3>Gestantes sin control prenatal oportuno o con sífilis gestacional sin tratamiento</h3><dl>
    <dt>Criterio</dt><dd>Gestación registrada (Z34, Z35, capítulo O) sin consulta prenatal antes de la semana 12; caso de sífilis gestacional (O98.1) sin tratamiento registrado.</dd>
    <dt>Datos</dt><dd>RIPS, SIVIGILA, ruta materno perinatal de la <a href="https://normograma.supersalud.gov.co/compilacion/docs/resolucion_minsaludps_3280_2018.htm">Resolución 3280 de 2018</a>.</dd>
    <dt>La recibe</dt><dd>EPS y secretaría municipal y departamental.</dd>
@@ -305,7 +321,7 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
    <dt>Se cierra</dt><dd>Control y tratamiento registrados.</dd>
   </dl></div>
 
-  <div class="card" style="--k:var(--green)"><h3>Menores de cinco años con desnutrición aguda sin seguimiento</h3><dl>
+  <div id="l9" class="card" style="--k:var(--green)"><h3>Menores de cinco años con desnutrición aguda sin seguimiento</h3><dl>
    <dt>Criterio</dt><dd>Caso notificado al SIVIGILA (E40 a E46) sin control de seguimiento registrado en los plazos del lineamiento nacional.</dd>
    <dt>Datos</dt><dd>SIVIGILA y RIPS.</dd>
    <dt>La recibe</dt><dd>Secretaría municipal y departamental y EPS.</dd>
@@ -313,7 +329,7 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
    <dt>Se cierra</dt><dd>Control registrado y recuperación nutricional documentada.</dd>
   </dl></div>
 
-  <div class="card"><h3>VIH en tratamiento sin carga viral reciente</h3><dl>
+  <div id="l10" class="card"><h3>VIH en tratamiento sin carga viral reciente</h3><dl>
    <dt>Criterio</dt><dd>Persona en terapia antirretroviral (B20 a B24) sin carga viral registrada en 12 meses.</dd>
    <dt>Datos</dt><dd>Cuenta de Alto Costo.</dd>
    <dt>La recibe</dt><dd>EPS.</dd>
@@ -321,7 +337,7 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
    <dt>Se cierra</dt><dd>Carga viral registrada.</dd>
   </dl></div>
 
-  <div class="card" style="--k:#B37800"><h3>Personas con quejas o tutelas repetidas por la misma atención</h3><dl>
+  <div id="l11" class="card" style="--k:#B37800"><h3>Personas con quejas o tutelas repetidas por la misma atención</h3><dl>
    <dt>Criterio</dt><dd>Dos o más quejas ante la Supersalud o acciones de tutela por el mismo servicio en 6 meses.</dd>
    <dt>Datos</dt><dd>Sistema de quejas de la Supersalud.</dd>
    <dt>La recibe</dt><dd>EPS y Delegada para la Protección al Usuario.</dd>
@@ -329,7 +345,7 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
    <dt>Se cierra</dt><dd>Servicio prestado y confirmado con la persona.</dd>
   </dl></div>
 
-  <div class="card" style="--k:#B37800"><h3>Registros con diagnóstico sin soporte</h3><dl>
+  <div id="l12" class="card" style="--k:#B37800"><h3>Registros con diagnóstico sin soporte</h3><dl>
    <dt>Criterio</dt><dd>Diagnóstico reportado a la Cuenta de Alto Costo sin soporte clínico, o persona reportada como fallecida con atenciones posteriores.</dd>
    <dt>Datos</dt><dd>Auditoría de la Cuenta de Alto Costo, RIPS, registro de defunciones.</dd>
    <dt>La recibe</dt><dd>EPS e IPS que reportan.</dd>
@@ -676,11 +692,11 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
  <div class="wrap">
   <h2>Ruta de implementación</h2>
   <ol class="steps">
-   <li class="step"><div class="h">Mes 1<small>Decidir y correr</small></div><div class="b"><p>Mesa interna entre viceministerios, Epidemiología y Demografía, Tecnología y Supersalud. Primera corrida de tres listas sobre datos existentes. Convocatoria a sociedades científicas de cardiología, nefrología, endocrinología, medicina interna, neurología, reumatología y medicina familiar.</p></div></li>
-   <li class="step" style="--k:var(--blue)"><div class="h">Mes 2<small>Pilotear y publicar</small></div><div class="b"><p>Envío piloto a las EPS intervenidas y a cinco secretarías departamentales. Validación rápida de criterios por el IETS. Proyecto de circular publicado para comentarios.</p></div></li>
-   <li class="step" style="--k:var(--green)"><div class="h">Mes 3<small>Formalizar</small></div><div class="b"><p>Circular externa del Ministerio y circular conjunta con la Supersalud. Indicadores de las listas incorporados al tablero.</p></div></li>
-   <li class="step" style="--k:var(--yellow)"><div class="h d">Meses 4 a 6<small>Ampliar</small></div><div class="b"><p>Todas las EPS y las 33 secretarías. Se agregan las listas de gestantes, desnutrición, VIH y calidad del dato. Primer informe trimestral publicado.</p></div></li>
-   <li class="step" style="--k:var(--deep)"><div class="h">Meses 7 a 12<small>Consolidar</small></div><div class="b"><p>Listas de práctica atípica con retroalimentación a prescriptores. Uso de resultados en el análisis de suficiencia de la UPC y en la regulación de beneficios. Evaluación anual con el IETS.</p></div></li>
+   <li class="step"><div class="h">Primera vuelta<small>Decidir y correr</small></div><div class="b"><p>Mesa interna entre viceministerios, Epidemiología y Demografía, Tecnología y Supersalud. Primera corrida de tres listas sobre datos existentes. Convocatoria a sociedades científicas de cardiología, nefrología, endocrinología, medicina interna, neurología, reumatología y medicina familiar.</p></div></li>
+   <li class="step" style="--k:var(--blue)"><div class="h">Piloto<small>Pilotear y publicar</small></div><div class="b"><p>Envío piloto a las EPS intervenidas y a cinco secretarías departamentales. Validación rápida de criterios por el IETS. Proyecto de circular publicado para comentarios.</p></div></li>
+   <li class="step" style="--k:var(--green)"><div class="h">Formalización<small>Formalizar</small></div><div class="b"><p>Circular externa del Ministerio y circular conjunta con la Supersalud. Indicadores de las listas incorporados al tablero.</p></div></li>
+   <li class="step" style="--k:var(--yellow)"><div class="h d">Ampliación<small>Ampliar</small></div><div class="b"><p>Todas las EPS y las 33 secretarías. Se agregan las listas de gestantes, desnutrición, VIH y calidad del dato. Primer informe de resultados publicado.</p></div></li>
+   <li class="step" style="--k:var(--deep)"><div class="h">Consolidación<small>Consolidar</small></div><div class="b"><p>Listas de práctica atípica con retroalimentación a prescriptores. Uso de resultados en el análisis de suficiencia de la UPC y en la regulación de beneficios. Evaluación periódica con el IETS.</p></div></li>
   </ol>
   <div class="box note read"><h3>Con qué recursos</h3><p>SISPRO y la Dirección Estratégica de Tecnología de la Información para el procesamiento; la Dirección de Epidemiología y Demografía para los criterios; las secretarías departamentales y distritales con sus equipos de salud pública; la Subdirección de Analítica de la Supersalud para la verificación; la Cuenta de Alto Costo y el INS con sus bases. No se contrata plataforma ni se amplía planta.</p></div>
  </div>
@@ -719,6 +735,7 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
 </section>
 
 </main>
+</div>
 
 <footer><div class="wrap small">Brief técnico independiente. Corte de información: 1 de noviembre de 2026. Análisis y redacción: Claude (Anthropic). Curaduría: David Aguilar, economista. No es una publicación oficial.</div></footer>
 
@@ -729,7 +746,7 @@ ASIS.forEach(([n,s,y])=>{const u='https://www.minsalud.gov.co/sites/rid/Lists/Bi
 const btns=[...document.querySelectorAll('nav.tabs button')];
 function show(id,push){if(!document.getElementById(id))id='brief';document.querySelectorAll('main section').forEach(s=>s.classList.toggle('on',s.id===id));btns.forEach(b=>b.setAttribute('aria-selected',b.dataset.t===id));if(push)history.replaceState(null,'','#'+id);window.scrollTo({top:0});}
 btns.forEach(b=>b.addEventListener('click',()=>show(b.dataset.t,true)));
-document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();show(a.dataset.go,true)}));
+document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();show(a.dataset.go,true);if(a.dataset.anchor){const el=document.getElementById(a.dataset.anchor);if(el)setTimeout(()=>el.scrollIntoView({block:'start'}),30);}}));
 show(location.hash.slice(1)||'brief',false);
 window.addEventListener('hashchange',()=>show(location.hash.slice(1)||'brief',false));
 window.addEventListener('load',()=>requestAnimationFrame(()=>window.scrollTo(0,0)));

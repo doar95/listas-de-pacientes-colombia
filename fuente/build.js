@@ -13,10 +13,11 @@ const TITLE='Listas para actuar a tiempo: pacientes, médicos y prestadores';
 const navGroups=[
  ['Inicio',[['brief','Brief']]],
  ['Contexto y diagnóstico',[['sistema','Sistema y funciones'],['cac','Cuenta de Alto Costo'],['carga','Carga de enfermedad'],['territorios','Territorios'],['datos','Datos e interoperabilidad']]],
- ...GRUPOS.map(g=>[g[1],L.filter(x=>x.g===g[0]).map(x=>['l-'+x.id,SHORT[x.id]])]),
- ['Instrumentos',[['supersalud','Supersalud'],['juridica','Base jurídica'],['dofa','DOFA'],['mundo','Otros países'],['evidencia','Evidencia'],['ruta','Ruta'],['avisos','Fuentes y avisos']]]
+ ...GRUPOS.map(g=>[g[1],L.filter(x=>x.g===g[0]).map(x=>['l-'+x.id,SHORT[x.id]]),g[2]]),
+ ['Supersalud, normas y fuentes',[['supersalud','Supersalud'],['juridica','Base jurídica'],['dofa','DOFA'],['mundo','Otros países'],['evidencia','Evidencia'],['ruta','Ruta'],['avisos','Fuentes y avisos']]]
 ];
-const nav='<nav class="tabs" aria-label="Secciones del brief"><button class="menu" aria-expanded="false" aria-controls="navlist">Secciones del brief</button><div class="wrap" id="navlist" role="tablist">'+navGroups.map(([h,items])=>'<p class="ng">'+h+'</p>'+items.map(([id,t])=>'<button role="tab" data-t="'+id+'">'+t+'</button>').join('')).join('')+'</div></nav>';
+const navGroup=([h,items,k],idx)=>(k&&idx===2?'<p class="nsup">Listas</p>':'')+(!k&&idx===navGroups.length-1?'<p class="nsup">Instrumentos</p>':'')+'<p class="ng'+(k?' ngl" style="--k:'+k:'')+'">'+h+'</p>'+items.map(([id,t])=>'<button role="tab" data-t="'+id+'"'+(k?' class="lb" style="--k:'+k+'"':'')+'>'+t+'</button>').join('');
+const nav='<nav class="tabs" aria-label="Secciones del brief"><button class="menu" aria-expanded="false" aria-controls="navlist">Secciones del brief</button><div class="wrap" id="navlist" role="tablist">'+navGroups.map(navGroup).join('')+'</div></nav>';
 
 /* ---------- BRIEF ---------- */
 const wheel=`<div class="wheel" aria-label="Ciclo de seis pasos: identificar, priorizar, enviar, actuar, verificar, evaluar">
@@ -94,7 +95,7 @@ const brief=`<section id="brief" class="on" role="tabpanel"><div class="wrap">
 <div><b>Para quien atiende</b>La EPS, la IPS, el gestor farmacéutico y el médico saben a quién buscar primero y ven su resultado comparado con sus pares.</div>
 <div><b>Para el sistema</b>Menos hospitalizaciones evitables, un dato que mejora en cada corte y una medida verificable de gestión del riesgo por EPS.</div>
 </div>
-<h2>El sistema en una página</h2>
+<h2>El sistema</h2>
 ${sysmap}
 <h2>El ciclo</h2>
 ${cycTable}
@@ -431,6 +432,11 @@ ul.ev{padding-left:18px}ul.ev li{margin:0 0 .6em}
 .gh{margin:26px 0 2px;color:var(--k);border-bottom:3px solid var(--k);padding-bottom:4px}
 .gd{margin:4px 0 0;font-size:.92rem}
 td.n{text-align:right;white-space:nowrap}
+nav.tabs .nsup{font:800 .82rem Montserrat,sans-serif;color:var(--navy);margin:20px 18px 2px;padding-top:12px;border-top:1px solid var(--line)}
+nav.tabs .ngl{margin:10px 0 2px;padding:6px 14px;color:var(--k);background:color-mix(in srgb,var(--k) 13%,#fff);border-left:5px solid var(--k)}
+nav.tabs button.lb{position:relative;padding-left:32px;font-weight:500}
+nav.tabs button.lb::before{content:"";position:absolute;left:18px;top:1.05em;width:7px;height:7px;border-radius:50%;background:var(--k)}
+nav.tabs button.lb[aria-selected="true"]{border-left-color:var(--k);font-weight:600;color:var(--k)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
 .lc .chips span,.chips span{flex:none;font-size:.76rem;font-weight:600;color:var(--k,var(--navy));border:1px solid currentColor;padding:1px 7px;background:#fff}
 .lsec .chips{margin:0 0 14px}

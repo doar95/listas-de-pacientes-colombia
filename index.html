@@ -111,6 +111,23 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
 .cy div:last-child{border-right:0}
 .cy b{display:block;font:700 1rem Montserrat,sans-serif;color:var(--navy);margin-bottom:4px}
 
+
+.cit{font-size:.72em;line-height:0;margin-left:2px}
+.cit a{text-decoration:none;font-weight:600}
+.src{display:block;margin-top:8px;font-size:.78rem;line-height:1.4;color:#5b6570}
+.lc .src{margin-top:8px}
+.notes{margin-top:34px;padding-top:14px;border-top:2px solid var(--navy);font-size:.86rem;max-width:90ch}
+.notes h3{font-size:.98rem}
+.notes ol{list-style:none;padding:0;margin:0}
+.notes li{margin:0 0 .55em;padding-left:2.4em;text-indent:-2.4em}
+.notes .nn{font-weight:700;color:var(--navy);display:inline-block;width:2.4em;text-indent:0}
+.notes li.hl{background:#fff4d6}
+.notes a{word-break:break-all}
+dl.rg{display:grid;grid-template-columns:120px 1fr;gap:6px 14px;margin:0}
+dl.rg dt{font-weight:600;color:var(--ink)}
+dl.rg dd{margin:0}
+.step .h{display:flex;align-items:flex-start}
+@media (max-width:860px){dl.rg{grid-template-columns:1fr} dl.rg dt{margin-top:6px}}
 .layout{display:block}
 .card{scroll-margin-top:64px}
 .lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin:18px 0 30px}
@@ -200,19 +217,19 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
   <h2 style="margin-top:30px">Las doce listas y lo que le aportan a Colombia</h2>
   <p class="read">Cada lista nombra a personas concretas, se construye con datos que el sistema ya recibe y responde a un problema medible del SGSSS. Toque cualquier lista para ver criterios, códigos, destinatario y cierre.</p>
   <div class="lgrid">
-   <a class="lc" style="--k:var(--red)" href="#listas" data-go="listas" data-anchor="l1"><b>Plan de choque con riesgo vital</b><span>Ordena el cierre de cerca de 1,3 millones de personas con atenciones pendientes por riesgo y no por antigüedad, y deja evidencia verificable del cierre.</span><i>Ver lista</i></a>
-   <a class="lc" style="--k:var(--red)" href="#listas" data-go="listas" data-anchor="l2"><b>Tratamientos de los que depende la vida</b><span>Evita muertes y urgencias por suspender antiepilépticos, corticoides, calcitriol o hidroxicloroquina; una entrega oportuna cuesta mucho menos que una UCI.</span><i>Ver lista</i></a>
-   <a class="lc" href="#listas" data-go="listas" data-anchor="l3"><b>Hipertensión o diabetes sin estudio renal</b><span>Más de 4 millones de registros sin el estudio completo. Detectar la enfermedad renal a tiempo frena la llegada a diálisis, que ya atiende a 54.594 personas.</span><i>Ver lista</i></a>
-   <a class="lc" href="#listas" data-go="listas" data-anchor="l4"><b>Hipertensión y diabetes no controladas</b><span>Solo 23% de los hipertensos diagnosticados está controlado. La presión y la glucosa elevadas están entre los cuatro primeros factores de riesgo de carga en Colombia según el IHME.</span><i>Ver lista</i></a>
-   <a class="lc" href="#listas" data-go="listas" data-anchor="l5"><b>Enfermedad renal sin estadio o sin nefrología</b><span>526.918 casos sin estadio asignado. Estadificar permite programar la diálisis en lugar de iniciarla de urgencia.</span><i>Ver lista</i></a>
-   <a class="lc" style="--k:var(--red)" href="#listas" data-go="listas" data-anchor="l6"><b>Diálisis o trasplante sin continuidad</b><span>2.103 personas sin la continuidad requerida en 2025. Para ellas la interrupción es riesgo de muerte inmediato.</span><i>Ver lista</i></a>
-   <a class="lc" style="--k:var(--green)" href="#listas" data-go="listas" data-anchor="l7"><b>Hospitalizaciones evitables repetidas</b><span>748.212 hospitalizaciones evitables en 2025, con un costo de hasta $8,36 billones. Cada una evitada libera una cama y mejora la experiencia del paciente.</span><i>Ver lista</i></a>
-   <a class="lc" style="--k:var(--green)" href="#listas" data-go="listas" data-anchor="l8"><b>Gestantes sin control oportuno o con sífilis sin tratar</b><span>Los trastornos neonatales son la tercera causa de pérdida de salud en el país según el IHME. El control prenatal temprano es la intervención más costo efectiva del sistema.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:var(--red)" href="#listas" data-go="listas" data-anchor="l1" data-ref="infobae27"><b>Plan de choque con riesgo vital</b><span>Ordena el cierre de cerca de 1,3 millones de personas con atenciones pendientes por riesgo y no por antigüedad, y deja evidencia verificable del cierre.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:var(--red)" href="#listas" data-go="listas" data-anchor="l2" data-ref="ransom"><b>Tratamientos de los que depende la vida</b><span>Evita muertes y urgencias por suspender antiepilépticos, corticoides, calcitriol o hidroxicloroquina; una entrega oportuna cuesta mucho menos que una UCI.</span><i>Ver lista</i></a>
+   <a class="lc" href="#listas" data-go="listas" data-anchor="l3" data-ref="cacerc"><b>Hipertensión o diabetes sin estudio renal</b><span>Más de 4 millones de registros sin el estudio completo. Detectar la enfermedad renal a tiempo frena la llegada a diálisis, que ya atiende a 54.594 personas.</span><i>Ver lista</i></a>
+   <a class="lc" href="#listas" data-go="listas" data-anchor="l4" data-ref="caccv ihme"><b>Hipertensión y diabetes no controladas</b><span>Solo 23% de los hipertensos diagnosticados está controlado. La presión y la glucosa elevadas están entre los cuatro primeros factores de riesgo de carga en Colombia según el IHME.</span><i>Ver lista</i></a>
+   <a class="lc" href="#listas" data-go="listas" data-anchor="l5" data-ref="cacerc"><b>Enfermedad renal sin estadio o sin nefrología</b><span>526.918 casos sin estadio asignado. Estadificar permite programar la diálisis en lugar de iniciarla de urgencia.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:var(--red)" href="#listas" data-go="listas" data-anchor="l6" data-ref="cacerc"><b>Diálisis o trasplante sin continuidad</b><span>2.103 personas sin la continuidad requerida en 2025. Para ellas la interrupción es riesgo de muerte inmediato.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:var(--green)" href="#listas" data-go="listas" data-anchor="l7" data-ref="adres"><b>Hospitalizaciones evitables repetidas</b><span>748.212 hospitalizaciones evitables en 2025, con un costo de hasta $8,36 billones. Cada una evitada libera una cama y mejora la experiencia del paciente.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:var(--green)" href="#listas" data-go="listas" data-anchor="l8" data-ref="ihme"><b>Gestantes sin control oportuno o con sífilis sin tratar</b><span>Los trastornos neonatales son la tercera causa de pérdida de salud en el país según el IHME. El control prenatal temprano es la intervención más costo efectiva del sistema.</span><i>Ver lista</i></a>
    <a class="lc" style="--k:var(--green)" href="#listas" data-go="listas" data-anchor="l9"><b>Niños con desnutrición aguda sin seguimiento</b><span>Cada caso ya está notificado al SIVIGILA; la lista asegura que nadie quede sin el control que evita la muerte.</span><i>Ver lista</i></a>
    <a class="lc" href="#listas" data-go="listas" data-anchor="l10"><b>VIH en tratamiento sin carga viral</b><span>La supresión viral protege a la persona y corta la transmisión; sin carga viral no se sabe si el tratamiento funciona.</span><i>Ver lista</i></a>
-   <a class="lc" style="--k:#B37800" href="#listas" data-go="listas" data-anchor="l11"><b>Quejas y tutelas repetidas</b><span>Cerca de 1,2 millones de quejas entre enero y julio de 2026, 92% por barreras de acceso. Resolver el caso de fondo reduce la litigiosidad y su costo.</span><i>Ver lista</i></a>
-   <a class="lc" style="--k:#B37800" href="#listas" data-go="listas" data-anchor="l12"><b>Registros con diagnóstico sin soporte</b><span>580.517 inconsistencias en la auditoría renal de 2025. Un dato limpio mejora la gestión del riesgo y el cálculo de la UPC.</span><i>Ver lista</i></a>
-   <a class="lc" style="--k:var(--deep)" href="#supersalud" data-go="supersalud"><b>Prescriptores con práctica atípica</b><span>Retroalimentación entre pares para reducir lo que no aporta valor y detectar lo que falta, sin calificar al médico desde el gobierno.</span><i>Ver mecanismo</i></a>
+   <a class="lc" style="--k:#B37800" href="#listas" data-go="listas" data-anchor="l11" data-ref="infobae22"><b>Quejas y tutelas repetidas</b><span>Cerca de 1,2 millones de quejas entre enero y julio de 2026, 92% por barreras de acceso. Resolver el caso de fondo reduce la litigiosidad y su costo.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:#B37800" href="#listas" data-go="listas" data-anchor="l12" data-ref="cacerc"><b>Registros con diagnóstico sin soporte</b><span>580.517 inconsistencias en la auditoría renal de 2025. Un dato limpio mejora la gestión del riesgo y el cálculo de la UPC.</span><i>Ver lista</i></a>
+   <a class="lc" style="--k:var(--deep)" href="#supersalud" data-go="supersalud" data-ref="hallsworth"><b>Prescriptores con práctica atípica</b><span>Retroalimentación entre pares para reducir lo que no aporta valor y detectar lo que falta, sin calificar al médico desde el gobierno.</span><i>Ver mecanismo</i></a>
   </div>
 
   <h2>Por qué ahora</h2>
@@ -222,11 +239,22 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
    <div class="fig k-b"><b>6,9 millones</b><span>de personas con historia clínica interoperable al 4 de agosto de 2026</span><a class="f" href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/OT/informe-especial-ihce.pdf">fuente</a></div>
   </div>
 
-  <div class="two">
-   <div class="box navy"><h3>Cómo se hace</h3><p>El Viceministerio de Protección Social lidera, con el Viceministerio de Salud Pública y Atención Primaria. SISPRO corre los algoritmos, las listas se envían a EPS, secretarías e IPS, y la Supersalud verifica el cierre. Se formaliza con una circular externa y una circular conjunta. </p><p class="small"><a href="#ciclo" data-go="ciclo">Ver el ciclo</a>, <a href="#funciones" data-go="funciones">las funciones</a> y <a href="#juridica" data-go="juridica">la base jurídica</a>.</p></div>
-   <div class="box red"><h3>Lo que esto no es</h3><p>No es una plataforma nueva ni una planta nueva. No traslada funciones entre entidades. No sustituye al médico tratante: la lista dice a quién mirar primero, el médico decide qué hacer. No es un instrumento para negar servicios.</p></div>
-  </div>
-  <p class="small read">Cada cifra enlaza a su fuente. La carga de enfermedad proviene del Estudio de Carga Global de Enfermedad 2023 del IHME. El autor humano está vinculado a un conglomerado de salud con operación en Colombia; las ideas son personales y no representan a esa entidad. Detalles en <a href="#avisos" data-go="avisos">Fuentes y avisos</a>.</p>
+  <h2>Quién hace qué y con qué norma</h2>
+  <div class="tw"><table class="rgt">
+   <thead><tr><th>Paso</th><th>Responsable</th><th>Norma que le da la competencia</th></tr></thead>
+   <tbody>
+    <tr><td>Identificar</td><td>Dirección de Epidemiología y Demografía y Dirección Estratégica de Tecnología de la Información, Ministerio de Salud</td><td>Ley 1438 de 2011, art. 112; Ley 1751 de 2015, art. 19; Decreto 120 de 2026, arts. 5 y 9</td></tr>
+    <tr><td>Priorizar</td><td>Viceministerio de Protección Social y Dirección de Regulación de Operación del Aseguramiento</td><td>Ley 1122 de 2007, art. 14; Decreto 120 de 2026, art. 5; antecedente Decreto 4107 de 2011, art. 28, num. 4</td></tr>
+    <tr><td>Validar criterios</td><td>IETS, con las sociedades científicas</td><td>Ley 1438 de 2011, art. 92</td></tr>
+    <tr><td>Enviar</td><td>Dirección Estratégica de Tecnología de la Información</td><td>Ley 1438 de 2011, art. 112; Ley 1581 de 2012, art. 10, lit. a</td></tr>
+    <tr><td>Actuar</td><td>EPS, IPS, gestores farmacéuticos y secretarías de salud</td><td>Ley 100 de 1993, art. 178; Ley 1122 de 2007, art. 14; Resolución 1604 de 2013; Ley 715 de 2001, art. 43</td></tr>
+    <tr><td>Verificar</td><td>Superintendencia Nacional de Salud y Cuenta de Alto Costo</td><td>Decreto 1080 de 2021, arts. 7, 17 y 22; Ley 1949 de 2019</td></tr>
+    <tr><td>Evaluar</td><td>Ambos viceministerios e IETS</td><td>Decreto 120 de 2026, arts. 19 y 20; Ley 1438 de 2011, art. 92</td></tr>
+   </tbody>
+  </table></div>
+  <p class="small read">Instrumento: circular externa del Ministerio para orientar el uso de las listas dentro de obligaciones vigentes, y circular conjunta con la Supersalud para la verificación. Resolución solo si se crean variables nuevas de reporte. Detalle en <a href="#ciclo" data-go="ciclo">El ciclo</a>, <a href="#funciones" data-go="funciones">Funciones</a> y <a href="#juridica" data-go="juridica">Base jurídica</a>.</p>
+  <div class="box red read"><h3>Lo que esto no es</h3><p>No es una plataforma nueva ni una planta nueva. No traslada funciones entre entidades. No sustituye al médico tratante: la lista dice a quién mirar primero, el médico decide qué hacer. No es un instrumento para negar servicios.</p></div>
+  <p class="small read">Cada cifra lleva su fuente debajo y una nota numerada con la referencia completa al final de la sección. La carga de enfermedad proviene del Estudio de Carga Global de Enfermedad 2023 del IHME. El autor humano está vinculado a un conglomerado de salud con operación en Colombia; las ideas son personales y no representan a esa entidad. Detalles en <a href="#avisos" data-go="avisos">Fuentes y avisos</a>.</p>
  </div>
 </section>
 
@@ -234,18 +262,42 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
 <section id="ciclo" role="tabpanel">
  <div class="wrap">
   <h2>El ciclo, paso a paso</h2>
-  <p class="read">El ciclo corre cada mes con un corte fijo, igual que el tablero del plan de choque. Cada paso tiene una dependencia que lo lidera según sus funciones vigentes, una fuente de datos y un producto verificable.</p>
+  <p class="read">El ciclo corre cada mes con un corte fijo, igual que el tablero del plan de choque. Para cada paso se indica la dependencia responsable, la norma que le atribuye la competencia y el producto que deja. Ninguna dependencia hace algo distinto de lo que su norma de funciones ya le asigna (Constitución Política, arts. 6 y 121).</p>
   <ol class="steps">
-   <li class="step"><div class="h">1. Identificar<small>Epidemiología y Demografía, Tecnología de la Información</small></div><div class="b"><p>Se aplican criterios clínicos escritos en códigos (CIE 10 para diagnósticos, CUPS para procedimientos, ATC para medicamentos) sobre RIPS, resúmenes digitales de atención, bases de la Cuenta de Alto Costo, SIVIGILA y el tablero del plan de choque. Los criterios los proponen las sociedades científicas y los valida el IETS.</p><p><b>Producto:</b> universo de personas que cumplen el criterio, con su EPS, régimen y municipio.</p></div></li>
-   <li class="step" style="--k:var(--blue)"><div class="h">2. Priorizar<small>Viceministerio de Protección Social</small></div><div class="b"><p>Cada persona recibe un nivel de prioridad: alto cuando hay riesgo vital o un evento grave reciente, estándar en los demás casos. La prioridad define el plazo de acción.</p><p><b>Producto:</b> lista nominal ordenada, una por EPS y una por departamento.</p></div></li>
-   <li class="step" style="--k:var(--green)"><div class="h">3. Enviar<small>Tecnología de la Información</small></div><div class="b"><p>La EPS recibe solo a sus afiliados; la secretaría departamental o distrital recibe su territorio para seguimiento y para la población que atiende directamente; la IPS primaria recibe a sus usuarios cuando la EPS lo dispone. El envío usa canales cifrados ya habilitados para reportes del sistema.</p><p><b>Producto:</b> constancia de entrega por destinatario.</p></div></li>
-   <li class="step" style="--k:var(--yellow)"><div class="h d">4. Actuar<small>EPS, IPS, gestores farmacéuticos</small></div><div class="b"><p>La EPS contacta a la persona, gestiona la entrega o la cita y reporta el cierre persona por persona. El médico tratante decide la conducta clínica.</p><p><b>Producto:</b> archivo de cierre por persona con fecha, código del servicio entregado y estado.</p></div></li>
-   <li class="step" style="--k:var(--red)"><div class="h">5. Verificar<small>Supersalud, Cuenta de Alto Costo</small></div><div class="b"><p>El cierre reportado se cruza con RIPS, factura electrónica y resúmenes digitales de dispensación. Las inconsistencias vuelven a la EPS y, si persisten, pasan a la escalera de supervisión de la Supersalud.</p><p><b>Producto:</b> tasa de cierre verificado y tasa de inconsistencia por EPS.</p></div></li>
-   <li class="step" style="--k:var(--deep)"><div class="h">6. Evaluar y ajustar<small>Ambos viceministerios, IETS</small></div><div class="b"><p>Cada trimestre se revisa qué listas reducen eventos evitables, qué criterios generan ruido y qué EPS o territorios necesitan apoyo. Se publican resultados agregados por EPS y departamento.</p><p><b>Producto:</b> informe trimestral y criterios ajustados para el siguiente ciclo.</p></div></li>
+   <li class="step"><div class="h">1. Identificar</div><div class="b"><dl class="rg">
+    <dt>Responsable</dt><dd>Dirección de Epidemiología y Demografía, con la Dirección Estratégica de Tecnología de la Información, ambas del Ministerio de Salud y Protección Social.</dd>
+    <dt>Fundamento</dt><dd>El Ministerio articula y administra la información del sistema a través de SISPRO (Ley 1438 de 2011, art. 112) y todos los agentes deben entregarle la información que requiera (Ley 1751 de 2015, art. 19). La Dirección de Epidemiología y Demografía hace parte del Viceministerio de Salud Pública y Atención Primaria (Decreto 120 de 2026, art. 5) y desde 2011 dirige los estudios de situación de salud (Decreto 4107 de 2011, art. 21, num. 1). La Dirección de Tecnología fija los lineamientos de interoperabilidad y calidad de datos (Decreto 120 de 2026, art. 9, num. 3 y 6).</dd>
+    <dt>Qué se hace</dt><dd>Se aplican criterios clínicos escritos en códigos (CIE 10, CUPS y ATC) sobre RIPS, resúmenes digitales de atención, Cuenta de Alto Costo, SIVIGILA y el tablero del plan de choque. Los criterios los proponen las sociedades científicas y los valida el IETS (Ley 1438 de 2011, art. 92).</dd>
+    <dt>Producto</dt><dd>Universo de personas que cumplen el criterio, con EPS, régimen y municipio.</dd></dl></div></li>
+   <li class="step" style="--k:var(--blue)"><div class="h">2. Priorizar</div><div class="b"><dl class="rg">
+    <dt>Responsable</dt><dd>Despacho del Viceministro de Protección Social, con la Dirección de Regulación de Operación del Aseguramiento.</dd>
+    <dt>Fundamento</dt><dd>El aseguramiento incluye la gestión del riesgo en salud (Ley 1122 de 2007, art. 14). El Viceministerio de Protección Social tiene a su cargo la regulación de la operación del aseguramiento (Decreto 120 de 2026, art. 5) y, desde 2011, la consolidación y evaluación del seguimiento al aseguramiento (Decreto 4107 de 2011, art. 28, num. 4).</dd>
+    <dt>Qué se hace</dt><dd>Cada persona recibe prioridad alta cuando hay riesgo vital o un evento grave reciente, y estándar en los demás casos. La prioridad fija el plazo de acción.</dd>
+    <dt>Producto</dt><dd>Lista nominal ordenada, una por EPS y una por departamento.</dd></dl></div></li>
+   <li class="step" style="--k:var(--green)"><div class="h">3. Enviar</div><div class="b"><dl class="rg">
+    <dt>Responsable</dt><dd>Dirección Estratégica de Tecnología de la Información.</dd>
+    <dt>Fundamento</dt><dd>SISPRO es el sistema de información del sector (Ley 1438 de 2011, art. 112). La entrega de datos personales a una entidad que los requiere en ejercicio de sus funciones legales no exige autorización del titular (Ley 1581 de 2012, art. 10, lit. a), siempre limitada a la finalidad y al destinatario competente.</dd>
+    <dt>Qué se hace</dt><dd>Cada EPS recibe solo a sus afiliados; cada secretaría departamental o distrital, su territorio; la IPS primaria, sus usuarios cuando la EPS lo dispone. El envío usa los canales cifrados de reporte que ya existen.</dd>
+    <dt>Producto</dt><dd>Constancia de entrega por destinatario.</dd></dl></div></li>
+   <li class="step" style="--k:var(--yellow)"><div class="h d">4. Actuar</div><div class="b"><dl class="rg">
+    <dt>Responsable</dt><dd>EPS, IPS, gestores farmacéuticos y secretarías de salud.</dd>
+    <dt>Fundamento</dt><dd>Las EPS organizan el acceso y controlan la atención integral y oportuna de sus afiliados (Ley 100 de 1993, art. 178) y gestionan el riesgo en salud (Ley 1122 de 2007, art. 14). Los medicamentos pendientes se entregan en los plazos de la Resolución 1604 de 2013. Las IPS atienden según las rutas integrales (Resolución 3280 de 2018). Las secretarías dirigen y vigilan el sistema en su territorio (Ley 715 de 2001, art. 43).</dd>
+    <dt>Qué se hace</dt><dd>La EPS contacta a la persona, gestiona la entrega o la cita y reporta el cierre persona por persona. El médico tratante decide la conducta clínica.</dd>
+    <dt>Producto</dt><dd>Archivo de cierre por persona con fecha, código del servicio entregado y estado.</dd></dl></div></li>
+   <li class="step" style="--k:var(--red)"><div class="h">5. Verificar</div><div class="b"><dl class="rg">
+    <dt>Responsable</dt><dd>Superintendencia Nacional de Salud: Subdirección de Analítica, Delegada para Entidades de Aseguramiento y Delegada para la Protección al Usuario. Apoyo de la Cuenta de Alto Costo.</dd>
+    <dt>Fundamento</dt><dd>La Supersalud instruye a sus vigilados y fija la información que reportan (Decreto 1080 de 2021, art. 7, num. 2 y 15), valida la calidad del dato (art. 17, num. 8) y ejerce inspección, vigilancia y control sobre la gestión del riesgo de las EPS (art. 22, num. 1). Incumplir sus instrucciones es infracción (Ley 1438 de 2011, art. 130, num. 17, modificado por la Ley 1949 de 2019).</dd>
+    <dt>Qué se hace</dt><dd>El cierre reportado se cruza con RIPS, factura electrónica y resúmenes digitales de dispensación. Las inconsistencias vuelven a la EPS y, si persisten, pasan a la escalera de supervisión.</dd>
+    <dt>Producto</dt><dd>Tasa de cierre verificado y tasa de inconsistencia por EPS.</dd></dl></div></li>
+   <li class="step" style="--k:var(--deep)"><div class="h">6. Evaluar y ajustar</div><div class="b"><dl class="rg">
+    <dt>Responsable</dt><dd>Viceministerio de Protección Social y Viceministerio de Salud Pública y Atención Primaria, con el IETS.</dd>
+    <dt>Fundamento</dt><dd>El Viceministerio de Salud Pública coordina y hace seguimiento a las acciones de salud pública y atención primaria (Decreto 120 de 2026, art. 19, num. 6) y evalúa con EPS y territorios las acciones de promoción y prevención (art. 20, num. 6). El IETS evalúa la evidencia (Ley 1438 de 2011, art. 92).</dd>
+    <dt>Qué se hace</dt><dd>Se revisa qué listas reducen eventos evitables, qué criterios generan ruido y qué EPS o territorios necesitan apoyo. Se publican resultados agregados por EPS y departamento.</dd>
+    <dt>Producto</dt><dd>Informe de resultados y criterios ajustados para la siguiente vuelta.</dd></dl></div></li>
   </ol>
   <div class="box note read">
    <h3>El ciclo mejora el dato</h3>
-   <p>Cada lista que vuelve con inconsistencias muestra dónde está fallando el registro. La Cuenta de Alto Costo encontró 580.517 inconsistencias documentales en su auditoría de enfermedad renal 2025, la mayoría por falta de soporte clínico del diagnóstico <a class="f" href="https://consultorsalud.com/?p=344637">fuente</a>. Devolver esas inconsistencias a quien las genera, mes a mes, es la forma más barata de mejorar la calidad de la información.</p>
+   <p>Cada lista que vuelve con inconsistencias muestra dónde está fallando el registro. La Cuenta de Alto Costo encontró 580.517 inconsistencias documentales en su auditoría de enfermedad renal 2025, la mayoría por falta de soporte clínico del diagnóstico <a class="f" href="https://consultorsalud.com/?p=344637">fuente</a>. Devolver esas inconsistencias a quien las genera es la forma más barata de mejorar la calidad de la información.</p>
   </div>
  </div>
 </section>
@@ -719,17 +771,8 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
    <li>Las cifras de afiliación provienen de <a href="https://doar95.github.io/aseguramiento-salud-colombia/">un repositorio abierto de aseguramiento en salud</a> construido con datos de SISPRO, ADRES y MinSalud; no reemplaza las cifras oficiales y cuenta afiliados por municipio de afiliación, que no siempre es el de residencia.</li>
    <li>Las cifras de prensa citan a sus fuentes oficiales; donde existe el documento oficial se enlaza directamente.</li>
   </ul>
-  <h3>Fuentes principales</h3>
-  <ol class="refs small">
-   <li>Ministerio de Salud y Protección Social. Tablero del plan de choque, reportado por <a href="https://www.infobae.com/colombia/2026/10/27/ministerio-de-salud-activo-tablero-para-vigilar-la-crisis-de-salud-y-prepara-el-calculo-de-la-upc-de-2027-estas-son-las-cifras-clave/">Infobae, 27 de octubre de 2026</a>, y <a href="https://www.infobae.com/colombia/2026/10/16/mas-de-270-mil-pacientes-han-recibido-medicamentos-y-se-han-realizado-cerca-de-170-mil-procedimientos-segun-reporte-del-plan-de-choque-en-salud-vamos-por-buen-camino/">16 de octubre de 2026</a>.</li>
-   <li>Presidencia de la República. <a href="https://www.presidencia.gov.co/prensa/Paginas/Presidente-De-La-Espriella-anuncio-primera-fase-del-Plan-de-Choque-en-Salud-260921.aspx">Primera fase del plan de choque en salud</a>.</li>
-   <li>Cuenta de Alto Costo. Situación de la enfermedad renal crónica 2025 y boletín de riesgo cardiovascular 2026, reseñados en <a href="https://consultorsalud.com/?p=344637">ConsultorSalud</a> y <a href="https://consultorsalud.com/riesgo-cardiovascular-colombia-millones-hta-d/">ConsultorSalud</a>.</li>
-   <li>ADRES. <a href="https://consultorsalud.com/wp-content/uploads/2026/07/Hospitalizaciones_evitables_por_condiciones_sensibles_a_la_Atencion_Primaria.pdf">Hospitalizaciones evitables por condiciones sensibles a la atención primaria, 2025</a>.</li>
-   <li>Ministerio de Salud. <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/OT/informe-especial-ihce.pdf">Informe especial de interoperabilidad de la historia clínica electrónica</a>, agosto de 2026.</li>
-   <li>Institute for Health Metrics and Evaluation. Global Burden of Disease Study 2023. <a href="https://vizhub.healthdata.org/gbd-results/">GBD Results</a>.</li>
-   <li>Decreto 120 de 2026, Decreto 4107 de 2011 y Decreto 1080 de 2021 en las compilaciones enlazadas en la pestaña Funciones.</li>
-   <li>Repositorio Institucional Digital del Ministerio de Salud: ASIS departamentales y distritales 2024 y 2025.</li>
-  </ol>
+  <h3>Referencias citadas</h3>
+  <ol class="refs small notes" id="allrefs" style="border:0;margin-top:0"></ol>
   <p class="small">Código y datos de este brief: <a href="https://github.com/doar95/listas-de-pacientes-colombia">repositorio del brief en GitHub</a>.</p>
  </div>
 </section>
@@ -740,6 +783,42 @@ footer{background:var(--soft);padding:26px 0;font-size:.88rem}
 <footer><div class="wrap small">Brief técnico independiente. Corte de información: 1 de noviembre de 2026. Análisis y redacción: Claude (Anthropic). Curaduría: David Aguilar, economista. No es una publicación oficial.</div></footer>
 
 <script>
+const REFS=[
+{id:'infobae27',url:'https://www.infobae.com/colombia/2026/10/27/ministerio-de-salud-activo-tablero-para-vigilar-la-crisis-de-salud-y-prepara-el-calculo-de-la-upc-de-2027-estas-son-las-cifras-clave/',short:'Ministerio de Salud, tablero del plan de choque, corte 20 de octubre de 2026, reportado por Gaona (2026)',apa:'Gaona, J. (2026, 27 de octubre). Ministerio de Salud activó tablero para vigilar la crisis de salud y prepara el cálculo de la UPC de 2027: estas son las cifras clave. Infobae.'},
+{id:'infobae16',url:'https://www.infobae.com/colombia/2026/10/16/mas-de-270-mil-pacientes-han-recibido-medicamentos-y-se-han-realizado-cerca-de-170-mil-procedimientos-segun-reporte-del-plan-de-choque-en-salud-vamos-por-buen-camino/',short:'Ministerio de Salud, reporte del plan de choque, corte 5 de octubre de 2026 (Infobae, 2026)',apa:'Infobae. (2026, 16 de octubre). Más de 270 mil pacientes han recibido medicamentos y se han realizado cerca de 170 mil procedimientos, según reporte del Plan de Choque en Salud. Infobae.'},
+{id:'infobae22',url:'https://www.infobae.com/colombia/2026/09/22/abelardo-de-la-espriella-anuncia-plan-de-choque-en-salud-para-destrabar-la-atencion-de-1069196-pacientes/',short:'Presidencia de la República, anuncio del plan de choque y datos de quejas de la Supersalud (Infobae, 2026)',apa:'Infobae. (2026, 22 de septiembre). Abelardo de la Espriella anuncia plan de choque en salud para destrabar la atención de 1.069.196 pacientes. Infobae.'},
+{id:'caccv',url:'https://consultorsalud.com/riesgo-cardiovascular-colombia-millones-hta-d/',short:'Cuenta de Alto Costo, boletín de riesgo cardiovascular, periodo julio de 2024 a junio de 2025 (ConsultorSalud, 2026)',apa:'ConsultorSalud. (2026). Siete millones de colombianos enfrentan riesgo cardiovascular: avance, brechas y prioridades de gestión para 2026 [Reseña del boletín de la Cuenta de Alto Costo]. ConsultorSalud.'},
+{id:'cacerc',url:'https://consultorsalud.com/?p=344637',short:'Cuenta de Alto Costo, situación de la enfermedad renal crónica en Colombia 2025 (ConsultorSalud, 2026)',apa:'ConsultorSalud. (2026). Enfermedad renal crónica en Colombia: casos reportados aumentaron 20 % y superaron 1,5 millones en 2025 [Reseña del informe de la Cuenta de Alto Costo]. ConsultorSalud.'},
+{id:'adres',url:'https://consultorsalud.com/wp-content/uploads/2026/07/Hospitalizaciones_evitables_por_condiciones_sensibles_a_la_Atencion_Primaria.pdf',short:'ADRES, hospitalizaciones evitables por condiciones sensibles a la atención primaria, RIPS 2025 (ADRES, 2026)',apa:'Administradora de los Recursos del Sistema General de Seguridad Social en Salud. (2026). Hospitalizaciones evitables por condiciones sensibles a la atención primaria. ADRES.'},
+{id:'adresnota',url:'https://consultorsalud.com/?p=339525',short:'ADRES, análisis territorial de hospitalizaciones evitables (ConsultorSalud, 2026)',apa:'ConsultorSalud. (2026, 16 de julio). Hospitalizaciones evitables revelan profundas diferencias territoriales en la atención primaria colombiana: ADRES. ConsultorSalud.'},
+{id:'ihce',url:'https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/OT/informe-especial-ihce.pdf',short:'Ministerio de Salud, informe especial de interoperabilidad de la historia clínica, corte 4 de agosto de 2026 (MinSalud, 2026)',apa:'Ministerio de Salud y Protección Social. (2026). Implementación de la interoperabilidad de la historia clínica electrónica en Colombia: una utopía hecha realidad [Informe especial]. MinSalud.'},
+{id:'res1799',url:'https://consultorsalud.com/wp-content/uploads/2026/08/Resolucion-1799-de-2026.pdf',short:'Resolución 1799 de 2026 del Ministerio de Salud',apa:'Ministerio de Salud y Protección Social. (2026). Resolución 1799 de 2026, por la cual se modifica la Resolución 1888 de 2025 en relación con el resumen digital de atención de dispensación de medicamentos.'},
+{id:'ihme',url:'https://vizhub.healthdata.org/gbd-results/',short:'IHME, Estudio de Carga Global de Enfermedad 2023, Colombia (IHME, 2025)',apa:'Institute for Health Metrics and Evaluation. (2025). Global Burden of Disease Study 2023 (GBD 2023) results [Base de datos]. Universidad de Washington. Consultado el 1 de noviembre de 2026.'},
+{id:'asis',url:'https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VS/ED/PSP/actualizacion-asis-participativo-territorial-2025.pdf',short:'Ministerio de Salud, actualización del ASIS participativo territorial (MinSalud, 2025)',apa:'Ministerio de Salud y Protección Social, Dirección de Epidemiología y Demografía. (2025). Actualización del análisis de situación de salud participativo territorial [Presentación]. MinSalud.'},
+{id:'aseg',url:'https://doar95.github.io/aseguramiento-salud-colombia/',short:'Repositorio abierto de aseguramiento en salud con datos de SISPRO, ADRES y MinSalud, agosto de 2026',apa:'Claude, Aguilar, D., y Gómez, C. (2026). Aseguramiento en salud en Colombia, 2013 a 2026 (Versión 1.1) [Repositorio de datos y código]. GitHub.'},
+{id:'ransom',url:'https://ghdx.healthdata.org/record/nonadherence-antiepileptic-drugs-and-increased-mortality-findings-ransom-study',short:'Faught y colaboradores (2008), estudio RANSOM',apa:'Faught, E., Duh, M. S., Weiner, J. R., Guérin, A., y Cunnington, M. C. (2008). Nonadherence to antiepileptic drugs and increased mortality: findings from the RANSOM Study. Neurology, 71(20), 1572 a 1578.'},
+{id:'hallsworth',url:'https://pubmed.ncbi.nlm.nih.gov/26898856/',short:'Hallsworth y colaboradores (2016), Lancet',apa:'Hallsworth, M., Chadborn, T., Sallis, A., Sanders, M., Berry, D., Greaves, F., Clements, L., y Davies, S. C. (2016). Provision of social norm feedback to high prescribers of antibiotics in general practice: a pragmatic national randomised controlled trial. The Lancet, 387(10029), 1743 a 1752.'},
+{id:'d120',url:'https://normativa.colpensiones.gov.co/colpensiones/compilacion/docs/decreto_0120_2026.htm',short:'Decreto 120 de 2026',apa:'Presidencia de la República de Colombia. (2026). Decreto 120 de 2026, por el cual se modifica la estructura del Ministerio de Salud y Protección Social [Compilación jurídica de Colpensiones].'},
+{id:'d4107',url:'https://normativa.colpensiones.gov.co/colpens/compilacion/docs/decreto_4107_2011.htm',short:'Decreto 4107 de 2011',apa:'Presidencia de la República de Colombia. (2011). Decreto 4107 de 2011, por el cual se determinan los objetivos y la estructura del Ministerio de Salud y Protección Social [Compilación jurídica de Colpensiones].'},
+{id:'d1080',url:'https://normativa.colpensiones.gov.co/colpens/compilacion/docs/decreto_1080_2021.htm',short:'Decreto 1080 de 2021',apa:'Presidencia de la República de Colombia. (2021). Decreto 1080 de 2021, por el cual se modifica la estructura de la Superintendencia Nacional de Salud [Compilación jurídica de Colpensiones].'}
+];
+const RIX={},RU={};REFS.forEach((r,i)=>{r.n=i+1;RIX[r.id]=r;RU[r.url]=r;});
+function cite(r,secId){return '<sup class="cit"><a href="#'+secId+'-n'+r.n+'" data-note="'+secId+'-n'+r.n+'">['+r.n+']</a></sup>';}
+document.querySelectorAll('main section').forEach(sec=>{
+  const used=new Set();
+  sec.querySelectorAll('a.f').forEach(a=>{const r=RU[a.getAttribute('href')];if(!r)return;used.add(r);
+    const fig=a.closest('.fig');
+    a.outerHTML=cite(r,sec.id);
+    if(fig&&!fig.querySelector('.src'))fig.insertAdjacentHTML('beforeend','<small class="src">Fuente: '+r.short+'.</small>');});
+  sec.querySelectorAll('[data-ref]').forEach(el=>{el.dataset.ref.split(' ').forEach(k=>{const r=RIX[k];if(!r)return;used.add(r);
+    el.insertAdjacentHTML('beforeend','<small class="src">Fuente: '+r.short+' ['+r.n+'].</small>');});});
+  if(used.size){const list=[...used].sort((a,b)=>a.n-b.n).map(r=>'<li id="'+sec.id+'-n'+r.n+'"><span class="nn">['+r.n+']</span> '+r.apa+' <a href="'+r.url+'">Disponible en línea</a></li>').join('');
+    sec.querySelector('.wrap').insertAdjacentHTML('beforeend','<div class="notes"><h3>Notas y fuentes de esta sección</h3><ol>'+list+'</ol></div>');}
+});
+const all=document.getElementById('allrefs');
+if(all)all.innerHTML=REFS.map(r=>'<li><span class="nn">['+r.n+']</span> '+r.apa+' <a href="'+r.url+'">Disponible en línea</a></li>').join('');
+document.addEventListener('click',e=>{const a=e.target.closest('a[data-note]');if(!a)return;e.preventDefault();const t=document.getElementById(a.dataset.note);if(t){t.scrollIntoView({block:'center'});t.classList.add('hl');setTimeout(()=>t.classList.remove('hl'),1600);}});
+
 const ASIS=[["Amazonas","amazonas",2025],["Antioquia","antioquia",2025],["Arauca","arauca",2025],["Atlántico","atlantico",2025],["Bogotá, D.C.","bogota",2025],["Bolívar","bolivar",2025],["Boyacá","boyaca",2025],["Caldas","caldas",2024],["Caquetá","caqueta",2025],["Casanare","casanare",2025],["Cauca","cauca",2025],["Cesar","cesar",2025],["Chocó","choco",2025],["Córdoba","cordoba",2024],["Cundinamarca","cundinamarca",2025],["Guainía","guainia",2025],["Guaviare","guaviare",2025],["Huila","huila",2025],["La Guajira","la-guajira",2025],["Magdalena","magdalena",2025],["Meta","meta",2025],["Nariño","narino",2025],["Norte de Santander","norte-santander",2024],["Putumayo","putumayo",2025],["Quindío","quindio",2025],["Risaralda","risaralda",2025],["San Andrés, Providencia y Santa Catalina","san-andres",2025],["Santander","santander",2025],["Sucre","sucre",2025],["Tolima","tolima",2025],["Valle del Cauca","valle-del-cauca",2025],["Vaupés","vaupes",2025],["Vichada","vichada",2025]];
 const tb=document.querySelector('#asis tbody');
 ASIS.forEach(([n,s,y])=>{const u='https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VS/ED/PSP/asis-'+s+'-'+y+'.zip';tb.insertAdjacentHTML('beforeend','<tr><td>'+n+'</td><td>'+y+'</td><td><a href="'+u+'">Descargar ASIS '+y+'</a></td></tr>')});

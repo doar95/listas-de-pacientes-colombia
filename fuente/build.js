@@ -60,7 +60,7 @@ const sysmap=`<div class="smap" role="img" aria-label="Mapa del sistema: los dat
 
 const steps=[
  ['Identificar','var(--navy)','Dirección de Epidemiología y Demografía con la Dirección Estratégica de Tecnología de la Información.','El Ministerio administra la información del sistema en SISPRO (Ley 1438 de 2011, art. 112) y todos los agentes deben entregarle la que requiera (Ley 1751 de 2015, art. 19). Epidemiología y Demografía está en el Viceministerio de Salud Pública y Atención Primaria (Decreto 120 de 2026, art. 5) y dirige desde 2011 los estudios de situación de salud (Decreto 4107 de 2011, art. 21, num. 1).','Se aplican los criterios en códigos CIE 10, CUPS y ATC sobre RIPS, historia clínica interoperable, Cuenta de Alto Costo, SIVIGILA, MIPRES y el tablero del plan de choque.','Universo de personas, prescriptores o prestadores que cumplen cada criterio.'],
- ['Priorizar','var(--blue)','Despacho del Viceministro de Protección Social y Dirección de Regulación de Operación del Aseguramiento.','El aseguramiento incluye la gestión del riesgo en salud (Ley 1122 de 2007, art. 14). El Viceministerio de Protección Social tiene a cargo la regulación de la operación del aseguramiento (Decreto 120 de 2026, art. 5) y desde 2011 consolida y evalúa el seguimiento al aseguramiento (Decreto 4107 de 2011, art. 28, num. 4).','Cada registro recibe prioridad alta o estándar según el criterio clínico de la lista.','Lista ordenada por EPS y por departamento.'],
+ ['Priorizar','var(--blue)','Viceministerio de Protección Social y Dirección de Regulación de Operación del Aseguramiento.','El aseguramiento incluye la gestión del riesgo en salud (Ley 1122 de 2007, art. 14). El Viceministerio de Protección Social tiene a cargo la regulación de la operación del aseguramiento (Decreto 120 de 2026, art. 5) y desde 2011 consolida y evalúa el seguimiento al aseguramiento (Decreto 4107 de 2011, art. 28, num. 4).','Cada registro recibe prioridad alta o estándar según el criterio clínico de la lista.','Lista ordenada por EPS y por departamento.'],
  ['Enviar','var(--green)','Dirección Estratégica de Tecnología de la Información.','Lineamientos de interoperabilidad y calidad de datos (Decreto 120 de 2026, art. 9, num. 3 y 6). La entrega de datos a una entidad que los requiere en ejercicio de sus funciones no exige autorización del titular (Ley 1581 de 2012, art. 10, lit. a), limitada a la finalidad y al destinatario competente.','Cada EPS recibe solo a sus afiliados; cada secretaría, su territorio; cada IPS, la comparación de sus profesionales.','Constancia de entrega por destinatario.'],
  ['Actuar','var(--yellow)','EPS, IPS, gestores farmacéuticos y secretarías.','Las EPS organizan el acceso y controlan la atención de sus afiliados (Ley 100 de 1993, art. 178) y gestionan el riesgo (Ley 1122 de 2007, art. 14; Decreto 682 de 2018). Las secretarías dirigen y vigilan el sistema en su territorio (Ley 715 de 2001, art. 43).','La EPS contacta, entrega o agenda y reporta el cierre. El médico tratante decide la conducta.','Archivo de cierre por persona con fecha y código del servicio.'],
  ['Verificar','var(--red)','Supersalud: Subdirección de Analítica y delegadas. Apoyo de la Cuenta de Alto Costo.','La Supersalud instruye y fija la información que reportan sus vigilados (Decreto 1080 de 2021, art. 7, num. 2 y 15), valida la calidad del dato (art. 17, num. 8) y vigila la gestión del riesgo de las EPS (art. 22, num. 1).','El cierre se cruza con RIPS, factura y resúmenes digitales; las inconsistencias vuelven a la EPS y, si persisten, suben en la escalera de supervisión.','Tasa de cierre verificado por EPS.'],
@@ -68,43 +68,42 @@ const steps=[
 ];
 const stepsHtml='<ol class="steps">'+steps.map(([t,k,r,f,q,p])=>`<li class="step" style="--k:${k}"><div class="h${k.includes('yellow')?' d':''}">${t}</div><div class="b"><dl class="rg"><dt>Responsable</dt><dd>${r}</dd><dt>Fundamento</dt><dd>${f}</dd><dt>Qué se hace</dt><dd>${q}</dd><dt>Producto</dt><dd>${p}</dd></dl></div></li>`).join('')+'</ol>';
 
-const index=GRUPOS.map(g=>{const ls=L.filter(x=>x.g===g[0]);return `<h3 class="gh" style="--k:${g[2]}">${g[1]}</h3><p class="gd">${g[3]}</p><div class="lgrid">`+ls.map(x=>`<a class="lc" style="--k:${g[2]}" href="#l-${x.id}" data-go="l-${x.id}"><b>${x.t}</b><span>${x.valor}</span>${x.cifra?'<small class="src">'+x.cifra[0]+' '+x.cifra[1]+'. Fuente: '+RIX[x.cifra[2]].short+'.</small>':''}<i>Abrir la lista</i></a>`).join('')+'</div>';}).join('');
 
+
+const cycNorm={Identificar:'Ley 1438 de 2011, art. 112; Ley 1751 de 2015, art. 19; Decreto 120 de 2026, art. 5',Priorizar:'Ley 1122 de 2007, art. 14; Decreto 120 de 2026, art. 5; Decreto 4107 de 2011, art. 28',Enviar:'Decreto 120 de 2026, art. 9; Ley 1581 de 2012, art. 10',Actuar:'Ley 100 de 1993, art. 178; Ley 1122 de 2007, art. 14; Ley 715 de 2001, art. 43',Verificar:'Decreto 1080 de 2021, arts. 7, 17 y 22; Ley 1949 de 2019','Evaluar y ajustar':'Decreto 120 de 2026, arts. 19 y 20; Ley 1438 de 2011, art. 92'};
+const cycTable='<div class="tw"><table class="cyc"><thead><tr><th>Paso</th><th>Quién</th><th>Norma</th><th>Producto</th></tr></thead><tbody>'+steps.map(([t,k,r,f,q,pr])=>'<tr><td style="border-left:6px solid '+k+'"><b>'+t+'</b></td><td>'+r+'</td><td>'+cycNorm[t]+'</td><td>'+pr+'</td></tr>').join('')+'</tbody></table></div>';
+const existe=[
+['Pirámide de riesgo del plan de choque','Ordena a los pacientes con pendientes en tres niveles, con la Cuenta de Alto Costo y las sociedades científicas; el propio Ministerio la describe como un modelo en construcción [[pdcpiramide]].','La escribe en códigos, la aplica en cada corte y la extiende a quien nunca figuró como pendiente.'],
+['Mesa Técnica de Control del Ministerio, la Supersalud y la ADRES','Hace seguimiento al plan de choque; el avance se reporta en unidades de medicamento [[pdcavance]].','Cuenta el cierre en pacientes por nivel y lo verifica contra RIPS y la historia clínica.'],
+['Circular de la Supersalud para menores en riesgo vital','Exige a las EPS una base de menores en cohortes priorizadas, con seguimiento mensual, anexo de 19 campos y acceso directo de la Supersalud [[cenna]].','Usa el mismo formato para adultos y para las demás listas; no hace falta un reporte nuevo.'],
+['Cuenta de Alto Costo','Cohortes nominales auditadas desde 2007; participa en el plan de choque [[caccv]].','Las brechas vuelven a la EPS en cada corte, con nombre propio.'],
+['Analítica de hospitalizaciones evitables de la ADRES','Identificó 748.212 hospitalizaciones evitables en 2025 [[adres]].','Lista nominal y control después del egreso.'],
+['Acuerdo de la ADRES y el Invima','Cruza prescripción, suministro y gasto por producto [[adresinvima]].','Comparación entre pares por prescriptor, confidencial y revisada en la IPS.'],
+['Supervisión de la Supersalud','46 indicadores de seguimiento a EPS en 2026 y un reto declarado de supervisión con analítica y alertas tempranas [[rcsuper]].','Las listas son esas alertas, a nivel de persona.']];
+const existeTable='<div class="tw"><table><thead><tr><th>Lo que ya existe</th><th>Qué hace hoy</th><th>Qué agrega el ciclo</th></tr></thead><tbody>'+existe.map(r=>'<tr><td><b>'+r[0]+'</b></td><td>'+cite(r[1])+'</td><td>'+r[2]+'</td></tr>').join('')+'</tbody></table></div>';
+const chips=x=>'<div class="chips"><span>Daño en '+x.dano+'</span><span>Fuente nominal '+x.dato+'</span><span>Vuelta '+x.vuelta+'</span></div>';
+const index=GRUPOS.map(g=>{const ls=L.filter(x=>x.g===g[0]);return `<h3 class="gh" style="--k:${g[2]}">${g[1]}</h3><p class="gd">${g[3]}</p><div class="lgrid">`+ls.map(x=>`<a class="lc" style="--k:${g[2]}" href="#l-${x.id}" data-go="l-${x.id}"><b>${x.t}</b><span>${x.valor}</span>${chips(x)}<i>Abrir la lista</i></a>`).join('')+'</div>';}).join('');
 const brief=`<section id="brief" class="on" role="tabpanel"><div class="wrap">
 <div class="hero"><div>
-<p class="lead">El sistema de salud ya sabe, persona por persona, quién dejó de recibir un medicamento del que depende su vida, quién tiene diabetes sin estudio renal, qué gestante no ha tenido su primer control y qué médico prescribe muy distinto a sus pares. Ese conocimiento está repartido entre SISPRO, la Cuenta de Alto Costo, los RIPS, la historia clínica interoperable, el SIVIGILA, MIPRES y el tablero del plan de choque.</p>
-<p class="lead">Este brief propone que el Viceministerio de Protección Social, con el de Salud Pública y Atención Primaria, lo convierta en listas con dueño: cada EPS y cada secretaría recibe a sus personas pendientes, cada IPS recibe la comparación de sus profesionales y la Supersalud verifica que se cerraron. Sin ley nueva, sin planta nueva y sin plataforma nueva.</p>
+<p class="lead">El sistema ya sabe, persona por persona, quién dejó de recibir un medicamento del que depende su vida, quién tiene diabetes sin estudio renal, qué gestante no ha tenido su primer control y qué médico prescribe muy distinto a sus pares.</p>
+<p class="lead">La propuesta: convertir ese conocimiento en listas con responsable. Cada EPS y cada secretaría recibe a sus personas pendientes, cada IPS recibe la comparación de sus profesionales y la Supersalud verifica el cierre. Con las normas, los datos y los equipos que ya existen.</p>
 </div>${wheel}</div>
-
-<h2>Lo que recibe el despacho y lo que decide</h2>
+<h2>Qué cambia</h2>
 <div class="cy">
-<div><b>Recibe en cada corte</b>Para cada lista, tres cifras por EPS y por departamento: personas identificadas, cierres reportados y cierres verificados. Es el mismo lenguaje de personas únicas y casos resueltos del tablero del plan de choque.</div>
-<div><b>Decide</b>Qué listas van primero, con qué instrumento se ordenan y dónde se pilotean. Las tres decisiones caben en una circular externa y una mesa técnica.</div>
-<div><b>Obtiene</b>Una forma verificable de mostrar que la atención llega primero a quien más la necesita, y la información de gestión del riesgo por EPS que pide el análisis de suficiencia de la UPC.</div>
+<div><b>Para las personas</b>La atención llega antes de la urgencia: el medicamento antes de la crisis, el examen antes de la diálisis, el control antes del parto.</div>
+<div><b>Para quien atiende</b>La EPS, la IPS, el gestor farmacéutico y el médico saben a quién buscar primero y ven su resultado comparado con sus pares.</div>
+<div><b>Para el sistema</b>Menos hospitalizaciones evitables, un dato que mejora en cada corte y una medida verificable de gestión del riesgo por EPS.</div>
 </div>
-
 <h2>El sistema en una página</h2>
-<p class="read">Cada caja es una entidad o dependencia que ya existe, con la norma que le da la función. Las flechas son flujos de información que ya ocurren; lo nuevo es que vuelvan como listas con nombre propio.</p>
 ${sysmap}
-
-<h2>El ciclo: quién hace qué y con qué norma</h2>
-<p class="read">Ninguna dependencia hace algo distinto de lo que su norma de funciones le asigna (Constitución Política, arts. 6 y 121). La estructura vigente del Ministerio es la del Decreto 120 de 2026; se cita además el Decreto 4107 de 2011 para mostrar que las funciones son de larga data.</p>
-${stepsHtml}
-
+<h2>El ciclo</h2>
+${cycTable}
+<p class="small">Detalle de funciones por dependencia en <a href="#sistema" data-go="sistema">Sistema y funciones</a>.</p>
+<h2>Lo que ya existe y lo que el ciclo agrega</h2>
+${existeTable}
 <h2 style="margin-top:34px">Las ${L.length} listas</h2>
-<p class="read">Cada lista nombra a personas, prescriptores o prestadores concretos, usa datos que el sistema ya recibe y tiene su propia pestaña con el problema epidemiológico, la justificación clínica, los factores de riesgo, los códigos, el algoritmo, quién hace qué, el cierre, la experiencia de otros países y la evidencia. Las listas de las cohortes de la Cuenta de Alto Costo aprovechan un trabajo que el país hace desde 2007.</p>
+<div class="box note read"><h3>Cómo leer el orden</h3><p>Las listas se agrupan por tipo de problema; el orden no es un ranking de importancia. La prioridad clínica entre pacientes la fija la pirámide oficial del plan de choque. Cada tarjeta muestra tres datos para decidir el arranque: en cuánto tiempo llega el daño si no se actúa, si la fuente nominal ya está lista y en qué vuelta se sugiere empezar. La primera vuelta se elige por factibilidad: dato listo y criterio sin discusión clínica. Las listas de médicos van en la tercera vuelta porque necesitan indicadores validados por las sociedades científicas, no porque importen menos.</p></div>
 ${index}
-
-<h2>Lo que hace el Viceministerio, en orden</h2>
-<ol class="acts">
-<li>Instala una mesa técnica con Epidemiología y Demografía, Tecnología de la Información, Regulación de Operación del Aseguramiento, Medicamentos y Tecnologías, la Cuenta de Alto Costo, el INS y la Supersalud, con su Subdirección de Analítica y su Delegada de Aseguramiento.</li>
-<li>Escoge tres listas de primera vuelta que no admiten discusión clínica: plan de choque con riesgo vital, tratamientos de continuidad vital y estudio renal pendiente.</li>
-<li>Pide a la Dirección de Tecnología correr los algoritmos en SISPRO con el corte del tablero y entregar las listas a las EPS intervenidas, cuya administración designa la Supersalud, y a cinco secretarías departamentales.</li>
-<li>Convoca a las sociedades científicas y pide al IETS la validación de criterios de las siguientes listas, incluida la de prescriptores.</li>
-<li>Expide una circular externa que ordena el uso de las listas dentro de obligaciones vigentes y una circular conjunta con la Supersalud para la verificación.</li>
-<li>Publica en el tablero las tres cifras por lista, EPS y departamento, y lleva los resultados al análisis de suficiencia de la UPC y a la regulación de beneficios.</li>
-</ol>
-
 <h2>Por qué ahora</h2>
 <div class="figs">
 <div class="fig k-r"><b>1.849.649</b><span>personas únicas registradas en el tablero del plan de choque al 20 de octubre de 2026</span>${cite('[[infobae27]]')}</div>
@@ -112,16 +111,19 @@ ${index}
 <div class="fig k-b"><b>6,9 millones</b><span>de personas con historia clínica interoperable al 4 de agosto de 2026</span>${cite('[[ihce]]')}</div>
 </div>
 <div class="box red read"><h3>Lo que esto no es</h3><p>No es una plataforma nueva ni una planta nueva. No traslada funciones entre entidades. No sustituye al médico tratante: la lista dice a quién mirar primero y el médico decide qué hacer. La lista de prescriptores no califica a ningún médico desde el gobierno: se entrega en confidencialidad a su IPS para revisión entre pares. Ninguna lista es un instrumento para negar servicios.</p></div>
-<p class="small read">Cada cifra lleva su fuente debajo y una nota numerada con la referencia completa al final de la sección. La carga de enfermedad proviene del Estudio de Carga Global de Enfermedad 2023 del IHME. El curador humano está vinculado a un conglomerado de salud con operación en Colombia; las ideas son personales y no representan a esa entidad. Detalles en <a href="#avisos" data-go="avisos">Fuentes y avisos</a>.</p>
+<p class="small read">Cada cifra lleva su fuente debajo y una nota numerada con la referencia completa al final de la sección. El curador humano está vinculado a un conglomerado de salud con operación en Colombia; las ideas son personales y no representan a esa entidad. Detalles en <a href="#avisos" data-go="avisos">Fuentes y avisos</a>.</p>
 </div></section>`;
 
 /* ---------- SISTEMA ---------- */
 const ent=(t,k,rows,nota)=>`<div class="ent" style="--k:${k}"><h3>${t}</h3><div class="tw"><table><thead><tr><th>Dependencia</th><th>Función y norma</th><th>Qué hace en el ciclo</th></tr></thead><tbody>${rows.map(r=>'<tr><td>'+r[0]+'</td><td>'+cite(r[1])+'</td><td>'+r[2]+'</td></tr>').join('')}</tbody></table></div>${nota?'<p class="small">'+cite(nota)+'</p>':''}</div>`;
 const sistema=`<section id="sistema" role="tabpanel"><div class="wrap">
 <h2>Sistema y funciones: quién hace qué</h2>
+<h3>El ciclo en detalle</h3>
+${stepsHtml}
+<h3 style="margin-top:28px">Funciones por dependencia</h3>
 <p class="read">Esta pestaña baja del nivel de entidad al de dependencia. Para cada una se indica la función que ya tiene y lo que haría en el ciclo de listas. Donde la compilación pública del Decreto 120 de 2026 no permite citar el numeral, se cita el artículo de estructura y la función equivalente del Decreto 4107 de 2011.</p>
 ${ent('Ministerio de Salud y Protección Social','var(--navy)',[
-['Despacho del Ministro','Dirige el sector y expide los actos administrativos generales del Ministerio (Decreto 120 de 2026) [[d120]].','Firma la circular externa y, si se necesitan variables nuevas de reporte, la resolución.'],
+['Ministro de Salud y Protección Social','Dirige el sector y expide los actos administrativos generales del Ministerio (Decreto 120 de 2026) [[d120]].','Firma la circular externa y, si se necesitan variables nuevas de reporte, la resolución.'],
 ['Viceministerio de Protección Social','Tiene a cargo las direcciones de Regulación de Operación del Aseguramiento; de Regulación de Beneficios, Costos y Tarifas; y de Financiamiento Sectorial (Decreto 120 de 2026, art. 5). Antecedente: consolidar y evaluar el seguimiento y control del aseguramiento (Decreto 4107 de 2011, art. 28, num. 4) y proponer medidas contra la selección de riesgo (art. 29, num. 8) [[d4107]].','Lidera el ciclo, fija la regla de prioridad y recibe los resultados por EPS.'],
 ['Dirección de Regulación de Operación del Aseguramiento','Regulación de la operación del aseguramiento y de las condiciones de las EPS.','Convierte la lista en una obligación de gestión del riesgo exigible dentro de la habilitación y permanencia de las EPS (Decreto 682 de 2018) [[d682]].'],
 ['Dirección de Regulación de Beneficios, Costos y Tarifas','Regulación de beneficios y cálculo de la UPC.','Usa el cierre por EPS como información de gestión del riesgo en el análisis de suficiencia de la UPC 2027.'],
@@ -132,7 +134,7 @@ ${ent('Ministerio de Salud y Protección Social','var(--navy)',[
 ['Dirección de Medicamentos y Tecnologías en Salud','Política farmacéutica y vigilancia del abastecimiento.','Cruza las brechas de continuidad con desabastecimientos y define los códigos ATC trazadores.'],
 ['Dirección Estratégica de Tecnología de la Información','Lineamientos de interoperabilidad (Decreto 120 de 2026, art. 9, num. 3) y de gobernanza y calidad de datos (num. 6). El Ministerio tiene a cargo la historia clínica electrónica interoperable (art. 2, num. 61 y 62).','Corre los algoritmos en SISPRO y envía las listas por canal cifrado.']])}
 ${ent('Superintendencia Nacional de Salud','var(--red)',[
-['Despacho del Superintendente','Instruir a los vigilados y fijar la información que reportan (Decreto 1080 de 2021, art. 7, num. 2 y 15); órdenes de inmediato cumplimiento (num. 3) [[d1080]].','Firma la circular conjunta y define el archivo de cierre.'],
+['Superintendente Nacional de Salud','Instruir a los vigilados y fijar la información que reportan (Decreto 1080 de 2021, art. 7, num. 2 y 15); órdenes de inmediato cumplimiento (num. 3) [[d1080]].','Firma la circular conjunta y define el archivo de cierre.'],
 ['Subdirección de Analítica','Alertas tempranas y validación de la calidad del dato (art. 17, num. 7 y 8); modelos de analítica (num. 6).','Cruza el cierre reportado con RIPS y factura; calcula la comparación entre prescriptores.'],
 ['Delegada para Entidades de Aseguramiento en Salud','Inspección, vigilancia y control de la gestión del riesgo de las EPS (art. 22, num. 1); correctivos (num. 4); medidas especiales (num. 22); planes de mejoramiento (art. 23, num. 19).','Aplica la escalera de supervisión a la EPS que no cierra.'],
 ['Delegada para Prestadores de Servicios de Salud','Calidad de la atención y autocontrol de las IPS (art. 25, num. 6 y 17).','Vigila que las IPS revisen en comité la señal de prescriptores y que los prestadores con demoras actúen.'],
@@ -274,7 +276,7 @@ const order=L.map(x=>x.id);
 const listSec=x=>{const g=G[x.g];const i=order.indexOf(x.id);const prev=L[i-1],next=L[i+1];
 const cupsCell=/\d{6}/.test(x.cups)?x.cups+' '+cite('[[cups]]'):x.cups;
 return `<section id="l-${x.id}" role="tabpanel" class="lsec" style="--k:${g[2]}"><div class="wrap">
-<p class="kicker">${g[1]}</p><h2>${x.t}</h2><p class="lead2">${x.valor}</p>
+<p class="kicker">${g[1]}</p><h2>${x.t}</h2>${chips(x)}<p class="lead2">${x.valor}</p>
 ${x.cifra?`<div class="figs one"><div class="fig" style="--k:${g[2]}"><b>${x.cifra[0]}</b><span>${x.cifra[1]}</span>${cite('[['+x.cifra[2]+']]')}</div></div>`:''}
 <div class="two"><div><h3>El problema</h3><p>${cite(x.problema)}</p></div><div><h3>Justificación clínica</h3><p>${cite(x.clinica)}</p></div></div>
 <h3>Factores de riesgo y de prioridad</h3><ul class="clean">${x.factores.map(f=>'<li>'+cite(f)+'</li>').join('')}</ul>
@@ -309,6 +311,15 @@ const supersalud=`<section id="supersalud" role="tabpanel"><div class="wrap">
 <div style="background:var(--green);width:100%">Lista, retroalimentación y comparación entre pares<small>art. 17</small></div></div>
 <p>La base se usa casi siempre y la cima casi nunca. Corregir antes del fallo atenúa la sanción (Ley 1438 de 2011, art. 134, num. 3, modificado por la Ley 1949 de 2019), así que a la EPS le conviene cerrar la lista. En un sistema con EPS de patrimonio negativo, la multa poco disuade y descapitaliza a quien debe atender; la corrección, en cambio, llega al paciente.</p>
 </div></div>
+<h3>Por qué la escalera es un incentivo</h3>
+<div class="args">
+<div class="box" style="border-color:var(--green)"><h3>Corregir paga</h3><p>La ley atenúa la sanción a quien corrige antes del fallo (Ley 1438 de 2011, art. 134, num. 3, modificado por la Ley 1949 de 2019). La lista le dice a la EPS exactamente qué corregir.</p></div>
+<div class="box navy"><h3>La información pesa</h3><p>Comparar a EPS, IPS y médicos con sus pares cambia la práctica sin sanción, como muestran el ensayo nacional de retroalimentación con norma social ${cite('[[hallsworth]]')} y la revisión Cochrane de auditoría y retroalimentación ${cite('[[ivers]]')}.</p></div>
+<div class="box" style="border-color:var(--blue)"><h3>Proporcionalidad</h3><p>La regulación responsiva empieza por persuadir y escala solo ante el incumplimiento ${cite('[[ayres]]')}; la OCDE recomienda inspección basada en riesgo ${cite('[[oecd]]')}.</p></div>
+<div class="box red"><h3>El dinero va al paciente</h3><p>Lo que la EPS gasta en corregir llega a la atención. Una multa contra una entidad sin liquidez no se cobra o la debilita más.</p></div>
+</div>
+<p class="read">El ciclo apunta a la quíntuple meta: mejores resultados en salud, mejor experiencia del paciente, bienestar de quienes atienden, menor costo y equidad ${cite('[[nundy]]')}.</p>
+<div class="box note read"><h3>Dos rutas compatibles</h3><p>El ciclo puede arrancar por el Ministerio, con una circular externa a EPS, IPS y secretarías y la Supersalud verificando, o por la Supersalud, con una circular a sus vigilados que pida las bases nominales y su cierre, como ya hizo para los menores en riesgo vital ${cite('[[cenna]]')}. En la segunda ruta, las sociedades científicas definen los criterios clínicos, el IETS los valida, la circular de la Supersalud los vuelve exigibles, su Subdirección de Analítica genera las listas, las EPS, gestores e IPS ejecutan y las delegadas verifican. Las dos rutas usan las mismas listas y no se excluyen: una da el lineamiento técnico, la otra la exigibilidad inmediata.</p></div>
 <p class="small">Fuente de funciones: ${cite('[[d1080]]')}</p>
 </div></section>`;
 
@@ -371,7 +382,7 @@ const evidencia=`<section id="evidencia" role="tabpanel"><div class="wrap">
 <p class="read">Revisiones sistemáticas, metaanálisis y ensayos que sustentan cada lista, verificados en PubMed. La conclusión se resume en una línea; la referencia completa está en las notas. Donde la evidencia es débil se dice.</p>
 <div class="tw"><table><thead><tr><th>Lista</th><th>Estudio</th><th>Conclusión</th></tr></thead><tbody>${evRows}</tbody></table></div>
 <h3>Regulación e incentivos</h3><ul class="clean">
-<li>Regulación responsiva: persuadir primero y escalar ante el incumplimiento (Ayres y Braithwaite, 1992).</li>
+<li>Regulación responsiva: persuadir primero y escalar ante el incumplimiento ${cite('[[ayres]]')}; inspección basada en riesgo ${cite('[[oecd]]')}.</li>
 <li>Auditoría y retroalimentación como estrategia general de cambio de práctica ${cite('[[ivers]]')}.</li></ul>
 </div></section>`;
 
@@ -420,6 +431,12 @@ ul.ev{padding-left:18px}ul.ev li{margin:0 0 .6em}
 .gh{margin:26px 0 2px;color:var(--k);border-bottom:3px solid var(--k);padding-bottom:4px}
 .gd{margin:4px 0 0;font-size:.92rem}
 td.n{text-align:right;white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.lc .chips span,.chips span{flex:none;font-size:.76rem;font-weight:600;color:var(--k,var(--navy));border:1px solid currentColor;padding:1px 7px;background:#fff}
+.lsec .chips{margin:0 0 14px}
+.args{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}.args .box{margin:10px 0}
+table.cyc td:first-child{white-space:nowrap}
+@media (max-width:860px){.args{grid-template-columns:1fr}}
 .ent{margin:0 0 26px}.ent>h3{color:#fff;background:var(--k);padding:10px 14px;margin:0}
 .ent table{margin-top:0}
 .acts{padding-left:22px;max-width:80ch}.acts li{margin:0 0 .6em;padding-left:4px}

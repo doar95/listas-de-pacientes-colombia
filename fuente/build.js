@@ -12,7 +12,7 @@ const TITLE='Listas para actuar a tiempo: pacientes, médicos y prestadores';
 /* ---------- NAV ---------- */
 const navGroups=[
  ['Inicio',[['brief','Brief']]],
- ['Contexto y diagnóstico',[['sistema','Sistema y funciones'],['cac','Cuenta de Alto Costo'],['carga','Carga de enfermedad'],['territorios','Territorios'],['datos','Datos e interoperabilidad']]],
+ ['Contexto y diagnóstico',[['sistema','Sistema y funciones'],['tablero','Tablero del plan de choque'],['cac','Cuenta de Alto Costo'],['carga','Carga de enfermedad'],['territorios','Territorios'],['datos','Datos e interoperabilidad']]],
  ...GRUPOS.map(g=>[g[1],L.filter(x=>x.g===g[0]).map(x=>['l-'+x.id,SHORT[x.id]]),g[2]]),
  ['Supersalud, normas y fuentes',[['supersalud','Supersalud'],['juridica','Base jurídica'],['dofa','DOFA'],['mundo','Otros países'],['evidencia','Evidencia'],['ruta','Ruta'],['avisos','Fuentes y avisos']]]
 ];
@@ -75,7 +75,7 @@ const cycNorm={Identificar:'Ley 1438 de 2011, art. 112; Ley 1751 de 2015, art. 1
 const cycTable='<div class="tw"><table class="cyc"><thead><tr><th>Paso</th><th>Quién</th><th>Norma</th><th>Producto</th></tr></thead><tbody>'+steps.map(([t,k,r,f,q,pr])=>'<tr><td style="border-left:6px solid '+k+'"><b>'+t+'</b></td><td>'+r+'</td><td>'+cycNorm[t]+'</td><td>'+pr+'</td></tr>').join('')+'</tbody></table></div>';
 const existe=[
 ['Pirámide de riesgo del plan de choque','Ordena a los pacientes con pendientes en tres niveles, con la Cuenta de Alto Costo y las sociedades científicas; el propio Ministerio la describe como un modelo en construcción [[pdcpiramide]].','La escribe en códigos, la aplica en cada corte y la extiende a quien nunca figuró como pendiente.'],
-['Mesa Técnica de Control del Ministerio, la Supersalud y la ADRES','Hace seguimiento al plan de choque; el avance se reporta en unidades de medicamento [[pdcavance]].','Cuenta el cierre en pacientes por nivel y lo verifica contra RIPS y la historia clínica.'],
+['Mesa Técnica de Control y tablero público del plan de choque','La mesa del Ministerio, la Supersalud y la ADRES hace seguimiento [[pdcavance]]; el tablero semanal muestra personas, registros y unidades por tecnología, EPS y ubicación [[tablero]].','Agrega el nivel de riesgo como filtro, el cierre verificado contra RIPS y la historia clínica, y las patologías de continuidad que hoy no tienen categoría propia.'],
 ['Circular de la Supersalud para menores en riesgo vital','Exige a las EPS una base de menores en cohortes priorizadas, con seguimiento mensual, anexo de 19 campos y acceso directo de la Supersalud [[cenna]].','Usa el mismo formato para adultos y para las demás listas; no hace falta un reporte nuevo.'],
 ['Cuenta de Alto Costo','Cohortes nominales auditadas desde 2007; participa en el plan de choque [[caccv]].','Las brechas vuelven a la EPS en cada corte, con nombre propio.'],
 ['Analítica de hospitalizaciones evitables de la ADRES','Identificó 748.212 hospitalizaciones evitables en 2025 [[adres]].','Lista nominal y control después del egreso.'],
@@ -107,7 +107,7 @@ ${existeTable}
 ${index}
 <h2>Por qué ahora</h2>
 <div class="figs">
-<div class="fig k-r"><b>1.849.649</b><span>personas únicas registradas en el tablero del plan de choque al 20 de octubre de 2026</span>${cite('[[infobae27]]')}</div>
+<div class="fig k-r"><b>27,77%</b><span>de las 1.849.649 personas del tablero del plan de choque tenía su pendiente cerrado al 27 de octubre de 2026; en procedimientos, el cierre de registros era de 24,78%</span>${cite('[[tablero]]')}</div>
 <div class="fig"><b>7 millones</b><span>de personas con hipertensión, diabetes o enfermedad renal crónica en la Cuenta de Alto Costo</span>${cite('[[caccv]]')}</div>
 <div class="fig k-b"><b>6,9 millones</b><span>de personas con historia clínica interoperable al 4 de agosto de 2026</span>${cite('[[ihce]]')}</div>
 </div>
@@ -159,6 +159,41 @@ ${ent('Aseguradores, prestadores y profesionales','#B37800',[
 ['Gestores farmacéuticos','Entrega de medicamentos pendientes (Resolución 1604 de 2013) y resumen digital de dispensación (Resolución 1799 de 2026).','Cierra las listas de continuidad vital.'],
 ['Médicos y sociedades científicas','Autonomía profesional con autorregulación (Ley 1751 de 2015, art. 17); ética médica (Ley 23 de 1981).','Proponen indicadores y umbrales; la conducta clínica es siempre del médico tratante.']])}
 <div class="box note read"><h3>La lista no crea obligaciones nuevas</h3><p>Para la EPS, la lista dice con precisión dónde está incumpliendo una obligación que ya tiene. Para la secretaría, es un insumo de su función de vigilancia. Para el médico, es información sobre su práctica que hoy no recibe.</p></div>
+</div></section>`;
+
+/* ---------- TABLERO ---------- */
+const topMed=[['Valsartán','l-hta','Hipertensión'],['Esomeprazol','l-poli','Polifarmacia'],['Levotiroxina','l-pdc','Plan de choque, nivel 3'],['Simeticona con trimebutina','l-poli','Polifarmacia'],['Acetaminofén','l-poli','Polifarmacia'],['Ácido fólico, calcio y colecalciferol','l-gest','Gestantes'],['Atorvastatina','l-iam','Después del infarto'],['Omeprazol','l-poli','Polifarmacia'],['Colecalciferol','l-poli','Polifarmacia'],['Ácido poliacrílico','l-poli','Polifarmacia']];
+const topProc=[['Creatinina en suero','l-renal0','Estudio renal'],['Triglicéridos','l-hta','Riesgo cardiovascular'],['Colesterol total','l-hta','Riesgo cardiovascular'],['Colesterol de alta densidad','l-hta','Riesgo cardiovascular'],['Hemograma IV','l-dm','Control crónico'],['Glucosa en suero','l-dm','Diabetes'],['Uroanálisis','l-renal0','Estudio renal'],['Hormona estimulante del tiroides ultrasensible','l-pdc','Plan de choque, nivel 3'],['Hemoglobina glicosilada automatizada','l-dm','Diabetes'],['Microalbuminuria automatizada en orina parcial','l-renal0','Estudio renal']];
+const topT=(rows,h)=>'<div class="tw"><table><thead><tr><th>'+h+'</th><th>Lista que lo cubre</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>'+r[0]+'</td><td><a href="#'+r[1]+'" data-go="'+r[1]+'">'+r[2]+'</a></td></tr>').join('')+'</tbody></table></div>';
+const patol=[['Hipertensión arterial','120.734'],['Salud mental','56.356'],['Cáncer','43.881'],['Enfermedad huérfana','22.115'],['Diabetes','18.287'],['Gestación','9.513'],['VIH','7.959'],['EPOC','7.056'],['Asma','5.933'],['Trasplante','4.039'],['Hipertensión pulmonar','435'],['Hemofilia','262']];
+const tableroSec=`<section id="tablero" role="tabpanel"><div class="wrap">
+<h2>Tablero del plan de choque</h2>
+<p class="read">El Ministerio publica cada semana el tablero Monitoreo al Plan de Choque, con filtros por tipo de tecnología, EPS, ubicación y corte, y páginas de resumen general, medicamentos, procedimientos, detalle de tecnologías y patologías. Las cifras de esta pestaña son del corte del 27 de octubre de 2026 ${cite('[[tablero]]')}.</p>
+<div class="tw"><table><thead><tr><th>Indicador</th><th>Total</th><th>Medicamentos</th><th>Procedimientos</th></tr></thead><tbody>
+<tr><td>Personas</td><td class="n">1.849.649</td><td class="n">602.156</td><td class="n">1.325.610</td></tr>
+<tr><td>Personas con cierre de pendiente</td><td class="n">513.607 (27,77%)</td><td class="n">286.924</td><td class="n">268.751</td></tr>
+<tr><td>Registros</td><td class="n">4.505.909</td><td class="n">1.043.301</td><td class="n">3.462.608</td></tr>
+<tr><td>Registros con cierre de pendiente</td><td class="n">1.375.821 (30,53%)</td><td class="n">517.878 (49,64%)</td><td class="n">857.943 (24,78%)</td></tr>
+<tr><td>Unidades</td><td></td><td class="n">14.419.546 dispensadas de 29.830.054 prescritas</td><td class="n">1.162.269 realizados; 3.548.753 pendientes</td></tr>
+</tbody></table></div>
+<p class="small">Una persona puede tener pendientes de medicamentos y de procedimientos, por eso las columnas no suman el total.</p>
+<h3>Evolución entre cortes</h3><div class="tw"><table><thead><tr><th>Indicador</th><th>Corte del 13 de octubre</th><th>Corte del 27 de octubre</th></tr></thead><tbody><tr><td>Cierre de registros de medicamentos</td><td class="n">41,52%</td><td class="n">49,64%</td></tr><tr><td>Personas con cierre en medicamentos</td><td class="n">236.640</td><td class="n">286.924</td></tr><tr><td>Unidades de medicamento dispensadas</td><td class="n">12.514.638</td><td class="n">14.419.546</td></tr><tr><td>Cierre de registros de procedimientos</td><td class="n">13,33%</td><td class="n">24,78%</td></tr><tr><td>Personas con cierre en procedimientos</td><td class="n">157.148</td><td class="n">268.751</td></tr></tbody></table></div><p class="small">El tablero publica tres cortes: 13, 20 y 27 de octubre de 2026. Fuente: ${cite('[[tablero]]')}</p>
+<div class="two"><div><h3>Medicamentos con más unidades pendientes</h3>${topT(topMed,'Medicamento, en orden')}</div><div><h3>Procedimientos con más registros pendientes</h3>${topT(topProc,'Procedimiento, en orden')}</div></div>
+<h3>Patologías seleccionadas con registros gestionados</h3>
+<div class="tw"><table><thead><tr><th>Patología</th><th>Registros gestionados</th></tr></thead><tbody>${patol.map(r=>'<tr><td>'+r[0]+'</td><td class="n">'+r[1]+'</td></tr>').join('')}</tbody></table></div>
+<div class="box navy read"><h3>Lectura</h3><ul class="clean">
+<li>El cuello de botella está en los procedimientos: hay más del doble de personas esperando procedimientos que medicamentos, y su cierre va a la mitad del ritmo.</li>
+<li>Los procedimientos más pendientes son el control de laboratorio del paciente crónico: creatinina, lípidos, glucosa, hemoglobina glicosilada y microalbuminuria. Es el mismo contenido de las listas de estudio renal, hipertensión y diabetes, que lo resuelven dentro de la ruta de riesgo cardiovascular.</li>
+<li>Entre los medicamentos más pendientes conviven tratamientos esenciales, como valsartán, levotiroxina y atorvastatina, con otros de menor valor clínico, como protectores gástricos y simeticona con trimebutina. Ordenar por riesgo y no por volumen pone primero lo esencial.</li>
+<li>La pirámide incluye enfermedad renal e insuficiencia cardiaca, que no tienen categoría propia en la gráfica de patologías; tampoco la tienen epilepsia, insuficiencia suprarrenal, hipoparatiroidismo ni lupus.</li>
+</ul></div>
+<div class="box" style="border-color:var(--green)"><h3>Lo que el ciclo de listas le agrega al tablero</h3><ul class="clean">
+<li>El nivel de la pirámide como filtro y como indicador de cierre.</li>
+<li>El cierre verificado contra RIPS y la historia clínica, junto al reportado por la EPS.</li>
+<li>Las patologías de continuidad vital como categorías propias.</li>
+<li>Una vista por prestador de procedimientos pendientes.</li>
+<li>Una tabla descargable por EPS, municipio, nivel y tecnología en el portal de datos abiertos.</li>
+</ul></div>
 </div></section>`;
 
 /* ---------- CAC ---------- */
@@ -258,7 +293,7 @@ const datos=`<section id="datos" role="tabpanel"><div class="wrap">
 <tr><td>SIVIGILA</td><td>Eventos de notificación obligatoria.</td><td>INS</td><td>Operando.</td></tr>
 <tr><td>Registro nominal de vacunación</td><td>Dosis aplicadas por persona.</td><td>Ministerio, Programa Ampliado de Inmunizaciones</td><td>Operando.</td></tr>
 <tr><td>MIPRES</td><td>Prescripción electrónica con identificación del prescriptor.</td><td>Ministerio</td><td>Operando.</td></tr>
-<tr><td>Tablero del plan de choque</td><td>Personas únicas, casos resueltos y pendientes por EPS, departamento y tipo de atención.</td><td>Ministerio</td><td>Semanal desde octubre de 2026 ${cite('[[infobae27]]')}.</td></tr>
+<tr><td>Tablero del plan de choque</td><td>Personas únicas, casos resueltos y pendientes por EPS, departamento y tipo de atención.</td><td>Ministerio</td><td>Semanal, público en plandechoque.sispro.gov.co; corte consultado: 27 de octubre de 2026 ${cite('[[tablero]]')}.</td></tr>
 <tr><td>Quejas de la Supersalud</td><td>Barreras de acceso por persona y servicio.</td><td>Supersalud</td><td>Cerca de 1,2 millones entre enero y julio de 2026 ${cite('[[infobae22]]')}.</td></tr>
 <tr><td>Base de afiliados</td><td>EPS, régimen y municipio de cada persona.</td><td>ADRES</td><td>52,6 millones de afiliados en agosto de 2026 ${cite('[[aseg]]')}.</td></tr>
 <tr><td>Registro de prestadores y de talento humano</td><td>Identificación de IPS, sedes y profesionales.</td><td>Ministerio</td><td>Operando.</td></tr>
@@ -516,6 +551,7 @@ const html=`<!doctype html>
 <div class="layout">${nav}<main>
 ${brief}
 ${sistema}
+${tableroSec}
 ${cac}
 ${carga}
 ${territorios}

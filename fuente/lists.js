@@ -56,11 +56,11 @@ module.exports={
    "t": "Plan de choque: la pirámide de riesgo en códigos y con cierre verificado",
    "valor": "Toma la pirámide de riesgo que el plan de choque ya usa, la escribe en códigos y mide el cierre en pacientes verificados por nivel, no en unidades.",
    "cifra": [
-    "1.849.649",
-    "personas únicas registradas en el tablero del plan de choque al 20 de octubre de 2026",
-    "infobae27"
+    "27,77%",
+    "de las 1.849.649 personas del tablero tenían todos sus pendientes cerrados al 27 de octubre de 2026",
+    "tablero"
    ],
-   "problema": "El plan de choque ya ordena a los pacientes con pendientes en una pirámide de tres niveles construida con la Cuenta de Alto Costo y las sociedades científicas: en el primero, trasplante, enfermedades huérfanas, cáncer, diabetes insulinodependiente y VIH; en el segundo, asma, insuficiencia cardiaca, enfermedad renal, salud mental, gestantes y EPOC; en el tercero, hipertensión pulmonar, diabetes, dislipidemia e hipotiroidismo, entre otras [[pdcpiramide]]. Con corte al 2 de octubre el avance se reportaba en unidades de medicamento, 31,2%, y una Mesa Técnica de Control del Ministerio, la Supersalud y la ADRES hace el seguimiento [[pdcavance]]. El tablero registra 1.849.649 personas únicas [[infobae27]]. Lo que esta lista agrega es la pirámide escrita en códigos, el cierre contado en pacientes por nivel y verificado contra RIPS y la historia clínica, y su continuidad después de la fase temporal.",
+   "problema": "El plan de choque ya ordena a los pacientes con pendientes en una pirámide de tres niveles construida con la Cuenta de Alto Costo y las sociedades científicas: en el primero, trasplante, enfermedades huérfanas, cáncer, diabetes insulinodependiente y VIH; en el segundo, asma, insuficiencia cardiaca, enfermedad renal, salud mental, gestantes y EPOC; en el tercero, hipertensión pulmonar, diabetes, dislipidemia e hipotiroidismo, entre otras [[pdcpiramide]]. Una Mesa Técnica de Control del Ministerio, la Supersalud y la ADRES hace el seguimiento [[pdcavance]]. El tablero público, con corte al 27 de octubre de 2026, registra 1.849.649 personas: 513.607 con su pendiente cerrado y 1.336.042 con pendiente. El cierre de registros es de 49,64% en medicamentos y de 24,78% en procedimientos, y sus filtros son tecnología, EPS, ubicación y corte, no el nivel de la pirámide [[tablero]]. Lo que esta lista agrega es la pirámide escrita en códigos, el nivel de riesgo como filtro del tablero, el cierre contado por nivel y verificado contra RIPS y la historia clínica, y su continuidad después de la fase temporal.",
    "clinica": "En cáncer, cada cuatro semanas de retraso en el tratamiento aumenta la mortalidad [[hanna]]. En enfermedad renal avanzada, trasplante, VIH y gestación, la interrupción produce eventos graves en días o semanas. Ordenar por riesgo no cambia cuántas personas se atienden, cambia quién va primero.",
    "factores": [
     "Nivel 1: trasplante, enfermedad huérfana, cáncer, diabetes insulinodependiente, VIH",
@@ -773,7 +773,7 @@ module.exports={
     "personas en terapia de reemplazo renal en 2025",
     "cacerc"
    ],
-   "problema": "La Cuenta de Alto Costo reporta más de 7 millones de personas con hipertensión, diabetes o enfermedad renal crónica [[caccv]] y, en su informe renal 2025, más de 4 millones de registros sin el estudio completo de función renal [[cacerc]]. El IHME estima 6,2 millones de personas con enfermedad renal crónica en Colombia en 2023 [[ihme]]: la mayoría no lo sabe.",
+   "problema": "La Cuenta de Alto Costo reporta más de 7 millones de personas con hipertensión, diabetes o enfermedad renal crónica [[caccv]] y, en su informe renal 2025, más de 4 millones de registros sin el estudio completo de función renal [[cacerc]]. El IHME estima 6,2 millones de personas con enfermedad renal crónica en Colombia en 2023 [[ihme]]: la mayoría no lo sabe. En el tablero del plan de choque, la creatinina es el procedimiento con más registros pendientes y la microalbuminuria está entre los diez primeros; la hemoglobina glicosilada y el perfil de lípidos también [[tablero]]. Lo que hoy figura como pendiente de la crisis es, en buena parte, el control rutinario del paciente crónico.",
    "clinica": "La creatinina y la albuminuria permiten clasificar la enfermedad renal; con ese dato se inician tratamientos que frenan la progresión, como los inhibidores de SGLT2, cuyo efecto protector se observa con y sin diabetes [[sglt2]]. El tamizaje en personas con diabetes e hipertensión es costo efectivo [[yeo]].",
    "factores": [
     "Diabetes",
@@ -861,7 +861,7 @@ module.exports={
     "AVAD por 100.000 habitantes atribuibles a presión arterial sistólica elevada en Colombia en 2023, tasa estandarizada",
     "ihme"
    ],
-   "problema": "La presión arterial elevada es uno de los dos primeros factores de riesgo de pérdida de salud en Colombia según el IHME [[ihme]]. La cardiopatía isquémica, primera causa de muerte, y la enfermedad cerebrovascular comparten ese factor. El boletín cardiovascular de la Cuenta de Alto Costo reporta que solo cerca de 23% de los hipertensos diagnosticados está controlado [[caccv]].",
+   "problema": "La presión arterial elevada es uno de los dos primeros factores de riesgo de pérdida de salud en Colombia según el IHME [[ihme]]. La cardiopatía isquémica, primera causa de muerte, y la enfermedad cerebrovascular comparten ese factor. El boletín cardiovascular de la Cuenta de Alto Costo reporta que solo cerca de 23% de los hipertensos diagnosticados está controlado [[caccv]]. El valsartán es el medicamento con más unidades pendientes en el tablero del plan de choque, y la hipertensión es la patología con más registros gestionados, 120.734 [[tablero]].",
    "clinica": "Bajar la presión reduce infartos, accidentes cerebrovasculares, insuficiencia cardiaca y enfermedad renal. La baja adherencia a medicamentos cardiovasculares es frecuente y se asocia con una fracción relevante de los eventos [[chowdhury]].",
    "factores": [
     "Dos controles consecutivos con 140 sobre 90 o más",
@@ -956,7 +956,7 @@ module.exports={
     "personas con diabetes en Colombia en 2023 según el IHME",
     "ihme"
    ],
-   "problema": "El IHME estima 3,4 millones de personas con diabetes en Colombia en 2023 y la glucosa plasmática elevada está entre los primeros factores de riesgo de carga [[ihme]]. La diabetes alimenta la enfermedad renal, la amputación y el infarto.",
+   "problema": "El IHME estima 3,4 millones de personas con diabetes en Colombia en 2023 y la glucosa plasmática elevada está entre los primeros factores de riesgo de carga [[ihme]]. La diabetes alimenta la enfermedad renal, la amputación y el infarto. La hemoglobina glicosilada y la glucosa están entre los diez procedimientos con más registros pendientes en el tablero del plan de choque [[tablero]].",
    "clinica": "Las estrategias de mejoramiento de calidad, como la gestión de casos, la intensificación por protocolo y la retroalimentación al equipo, reducen la hemoglobina glicosilada [[konnyu]].",
    "factores": [
     "Dos hemoglobinas glicosiladas consecutivas de 7% o más",
@@ -2263,13 +2263,14 @@ module.exports={
    "g": "valor",
    "t": "Mayores con polifarmacia sin revisión de medicamentos",
    "valor": "Revisar la fórmula de una persona mayor con muchos medicamentos evita caídas, interacciones y hospitalizaciones, y ahorra.",
-   "problema": "Con la dispensación nominal en RIPS y en el resumen digital de dispensación [[res1799]], el sistema puede contar cuántos principios activos distintos recibe cada persona mayor. La polifarmacia es un factor de riesgo de hospitalización evitable.",
+   "problema": "Con la dispensación nominal en RIPS y en el resumen digital de dispensación [[res1799]], el sistema puede contar cuántos principios activos distintos recibe cada persona mayor. La polifarmacia es un factor de riesgo de hospitalización evitable. Entre los diez medicamentos con más unidades pendientes en el tablero del plan de choque están esomeprazol, omeprazol, simeticona con trimebutina, acetaminofén y colecalciferol, junto a valsartán, levotiroxina y atorvastatina [[tablero]]. Ordenar por volumen mezcla lo esencial con lo de menor valor clínico; la revisión de medicamentos ayuda a separarlos.",
    "clinica": "Las intervenciones de desprescripción en personas mayores reducen el número de medicamentos y los potencialmente inapropiados, con señales de beneficio en otros desenlaces [[zhou]].",
    "factores": [
     "Diez o más principios activos distintos en 90 días",
     "Benzodiacepinas en mayores de 65 años",
     "Combinaciones de alto riesgo, como anticoagulante con antiinflamatorio",
-    "Caída o fractura en 12 meses"
+    "Caída o fractura en 12 meses",
+    "Inhibidores de bomba de protones de uso prolongado sin indicación registrada"
    ],
    "cie": "W19 caídas; S72 fractura de fémur; Y57 efectos adversos de medicamentos.",
    "cups": "890249 consulta de primera vez por geriatría; 890301 control por medicina general.",
@@ -2481,7 +2482,7 @@ module.exports={
    "g": "medicos",
    "t": "Prestadores con pendientes y demoras fuera de estándar",
    "valor": "Las demoras se concentran en pocos prestadores. Mostrarlo a la EPS y a la secretaría permite redistribuir la demanda.",
-   "problema": "El tablero del plan de choque y los indicadores de oportunidad que la Cuenta de Alto Costo calcula por cohorte muestran dónde se acumulan pendientes [[infobae27]] [[cacmama]]. La lista ordena a los prestadores por pendientes de prioridad alta y por días de espera, ajustados por volumen.",
+   "problema": "El tablero del plan de choque muestra que el cierre va en 49,64% de los registros de medicamentos y en 24,78% de los de procedimientos, con corte al 27 de octubre de 2026, y permite ver el avance por EPS y por territorio [[tablero]]. Los indicadores de oportunidad que la Cuenta de Alto Costo calcula por cohorte muestran dónde se acumulan las esperas [[cacmama]]. La lista ordena a los prestadores por pendientes de prioridad alta y por días de espera, ajustados por volumen.",
    "clinica": "Las listas de pacientes son la mitad del ciclo: si el prestador no tiene capacidad, el pendiente no se cierra. Identificar los cuellos de botella permite redirigir pacientes a otra red.",
    "factores": [
     "Pendientes de prioridad alta por cada 1.000 usuarios",
@@ -2533,7 +2534,12 @@ module.exports={
    "ev": [],
    "dano": "semanas",
    "dato": "parcial",
-   "vuelta": 3
+   "vuelta": 3,
+   "cifra": [
+    "24,78%",
+    "de los registros de procedimientos pendientes del plan de choque estaba cerrado al 27 de octubre de 2026, frente a 49,64% en medicamentos",
+    "tablero"
+   ]
   },
   {
    "id": "dato",

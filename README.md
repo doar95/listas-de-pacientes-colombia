@@ -1,4 +1,4 @@
-# Listas de pacientes para Colombia
+# Listas para actuar a tiempo: pacientes, médicos y prestadores
 
 Brief técnico independiente para tomadores de decisión del Ministerio de Salud y Protección Social. Propone un ciclo mensual de listas nominales de pacientes (identificar, priorizar, enviar, actuar, verificar y evaluar) que se puede ejecutar con las normas, los datos y los equipos que ya existen.
 

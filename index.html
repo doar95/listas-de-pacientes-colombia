@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Listas de pacientes para Colombia</title>
+<meta name="description" content="Brief técnico: un ciclo continuo de listas nominales de pacientes que Colombia ya puede ejecutar con normas, datos y equipos existentes.">
+<meta property="og:title" content="Listas de pacientes para Colombia">
+<meta property="og:description" content="Saber a quién atender primero, todos los meses, con lo que el sistema ya tiene.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#004884; --blue:#3366CC; --green:#069169; --red:#A80521; --yellow:#FFAB00; --deep:#0B457F;
+  --ink:#1f2933; --text:#4B4B4B; --line:#BABABA; --soft:#F2F2F2; --bg:#FFFFFF;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.6 "Work Sans",system-ui,sans-serif}
+h1,h2,h3,h4{font-family:Montserrat,system-ui,sans-serif;color:var(--navy);line-height:1.2;margin:0 0 .5em}
+h1{font-size:clamp(1.7rem,4.2vw,2.6rem);font-weight:800;color:#fff}
+h2{font-size:clamp(1.35rem,2.8vw,1.8rem);font-weight:700}
+h3{font-size:1.12rem;font-weight:700}
+h4{font-size:1rem;font-weight:700;color:var(--ink)}
+p{margin:0 0 1em}
+a{color:var(--blue)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.read{max-width:72ch}
+header.top{background:var(--navy);color:#fff;padding:28px 0 22px}
+header.top p{color:#dfe9f5;margin:.4em 0 0;max-width:70ch}
+header.top .by{font-size:.9rem;color:#c9d9ec;margin-top:14px}
+nav.tabs{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:2px;overflow-x:auto;scrollbar-width:thin;padding:0 12px}
+nav.tabs button{flex:0 0 auto;background:none;border:0;border-bottom:4px solid transparent;padding:13px 12px 9px;font:600 .92rem "Work Sans",sans-serif;color:var(--text);cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--navy);border-bottom-color:var(--navy)}
+nav.tabs button:hover{color:var(--navy)}
+main section{display:none;padding:34px 0 60px}
+main section.on{display:block}
+.f{font-size:.75rem;font-weight:600;text-decoration:none;color:var(--blue);white-space:nowrap;margin-left:3px}
+.f:hover{text-decoration:underline}
+.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:36px;align-items:center}
+.lead{font-size:1.18rem;line-height:1.55;color:var(--ink)}
+.wheel svg{width:100%;max-width:360px;display:block;margin:0 auto}
+.wheel text.wl{fill:#fff;font:700 12.5px Montserrat,sans-serif}
+.wheel text.wl.d{fill:#1f2933}
+.wheel .c1{font:800 19px Montserrat,sans-serif;fill:var(--navy)}
+.wheel .c2{font:500 12px "Work Sans",sans-serif;fill:var(--text)}
+.figs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0 30px}
+.fig{border:1px solid var(--line);border-top:0;padding:14px 16px 12px;position:relative;background:#fff}
+.fig::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:var(--k,var(--navy))}
+.fig b{display:block;font:800 1.65rem Montserrat,sans-serif;color:var(--k,var(--navy));margin:6px 0 2px}
+.fig span{font-size:.92rem}
+.k-r{--k:var(--red)}.k-g{--k:var(--green)}.k-b{--k:var(--blue)}.k-y{--k:#B37800}.k-d{--k:var(--deep)}
+.decide{counter-reset:d;list-style:none;padding:0;margin:0}
+.decide li{counter-increment:d;position:relative;padding:10px 0 10px 46px;border-bottom:1px solid var(--soft)}
+.decide li::before{content:counter(d);position:absolute;left:0;top:10px;width:32px;height:32px;background:var(--navy);color:#fff;font:700 15px/32px Montserrat,sans-serif;text-align:center}
+.box{border:1px solid var(--line);padding:18px 20px;margin:22px 0;background:#fff}
+.box.note{background:var(--soft);border-color:var(--soft)}
+.box.navy{border-color:var(--navy)}
+.box.red{border-color:var(--red)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.step{display:grid;grid-template-columns:150px 1fr;border:1px solid var(--line)}
+.step .h{background:var(--k,var(--navy));color:#fff;padding:14px;font:700 1rem Montserrat,sans-serif}
+.step .h small{display:block;font:500 .82rem "Work Sans",sans-serif;opacity:.9;margin-top:4px}
+.step .h.d{color:#1f2933}
+.step .b{padding:12px 16px}
+.step .b p:last-child{margin:0}
+.card{border:1px solid var(--line);padding:0;margin:0 0 18px;background:#fff}
+.card>h3{margin:0;padding:12px 16px;color:#fff;background:var(--k,var(--navy));font-size:1.04rem}
+.card dl{margin:0;padding:6px 16px 12px;display:grid;grid-template-columns:150px 1fr;gap:6px 14px}
+.card dt{font-weight:600;color:var(--ink)}
+.card dd{margin:0}
+.tag{display:inline-block;font-size:.78rem;font-weight:600;padding:2px 8px;margin:0 6px 6px 0;border:1px solid currentColor}
+table{border-collapse:collapse;width:100%;font-size:.93rem;margin:10px 0 22px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--navy);color:#fff;font-weight:600}
+tbody tr:nth-child(even) td{background:#fafafa}
+.tw{overflow-x:auto}
+.ladder{display:grid;gap:5px;justify-items:center;margin:10px 0 18px}
+.ladder div{color:#fff;text-align:center;padding:9px 10px;font:600 .92rem "Work Sans",sans-serif}
+.ladder small{display:block;font-weight:400;opacity:.92}
+.dofa{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line)}
+.dofa>div{padding:16px 18px;border:1px solid var(--line)}
+.dofa h3{margin-bottom:.4em}
+.dofa ul{margin:0;padding-left:18px}
+.dofa li{margin:0 0 .5em}
+ul.clean{padding-left:18px}
+ul.clean li{margin:0 0 .55em}
+.algo{border-left:5px solid var(--k,var(--navy));padding:6px 0 6px 18px;margin:0 0 26px}
+.algo ol{margin:.3em 0 0;padding-left:20px}
+.algo li{margin:0 0 .45em}
+code{font-family:inherit;font-weight:600;color:var(--ink);background:var(--soft);padding:0 4px}
+footer{background:var(--soft);padding:26px 0;font-size:.88rem}
+.refs li{margin:0 0 .5em}
+.small{font-size:.88rem}
+.cy{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);margin:10px 0 24px}
+.cy div{padding:14px 16px;border-right:1px solid var(--line)}
+.cy div:last-child{border-right:0}
+.cy b{display:block;font:700 1rem Montserrat,sans-serif;color:var(--navy);margin-bottom:4px}
+@media (min-width:861px){nav.tabs .wrap{flex-wrap:wrap;overflow:visible} nav.tabs button{padding:11px 9px 8px;font-size:.88rem}}
+@media (max-width:860px){
+  .hero,.two,.three,.dofa,.cy{grid-template-columns:1fr}
+  .figs{grid-template-columns:1fr 1fr}
+  .step{grid-template-columns:1fr}
+  .card dl{grid-template-columns:1fr}
+  .card dt{margin-top:6px}
+  .cy div{border-right:0;border-bottom:1px solid var(--line)}
+}
+@media (max-width:520px){.figs{grid-template-columns:1fr} body{font-size:15.5px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{nav.tabs{display:none} main section{display:block!important;page-break-before:always} header.top{background:#fff;color:#000} header.top h1{color:var(--navy)} header.top p{color:#333}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <h1>Listas de pacientes: saber a quién atender primero, todos los meses</h1>
+    <p>Un ciclo de política continuo que Colombia ya puede ejecutar con las normas, los datos y los equipos que tiene hoy, sin ley nueva, sin planta nueva y sin presupuesto adicional.</p>
+    <p class="by">Brief técnico para tomadores de decisión del Ministerio de Salud y Protección Social. Información con corte al 1 de noviembre de 2026. Análisis y redacción: Claude, modelo de inteligencia artificial de Anthropic. Curaduría: David Aguilar, economista colombiano residente en el exterior. Ver <a href="#avisos" style="color:#fff" data-go="avisos">avisos y alcance</a>.</p>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Secciones del brief">
+  <div class="wrap" role="tablist">
+    <button role="tab" data-t="brief" aria-selected="true">Brief</button>
+    <button role="tab" data-t="ciclo">El ciclo</button>
+    <button role="tab" data-t="listas">Listas</button>
+    <button role="tab" data-t="algoritmos">Algoritmos</button>
+    <button role="tab" data-t="funciones">Funciones</button>
+    <button role="tab" data-t="juridica">Base jurídica</button>
+    <button role="tab" data-t="datos">Datos</button>
+    <button role="tab" data-t="supersalud">Supersalud</button>
+    <button role="tab" data-t="territorios">Territorios</button>
+    <button role="tab" data-t="carga">Carga de enfermedad</button>
+    <button role="tab" data-t="dofa">DOFA</button>
+    <button role="tab" data-t="mundo">Otros países</button>
+    <button role="tab" data-t="evidencia">Evidencia</button>
+    <button role="tab" data-t="ruta">Ruta</button>
+    <button role="tab" data-t="avisos">Fuentes y avisos</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ===================== BRIEF ===================== -->
+<section id="brief" class="on" role="tabpanel">
+ <div class="wrap">
+  <div class="hero">
+   <div>
+    <p class="lead">El sistema de salud ya sabe, persona por persona, quién tiene hipertensión sin estudio renal, quién dejó de recibir un medicamento del que depende su vida y quién vuelve una y otra vez al hospital por algo que la atención primaria pudo evitar. Ese conocimiento está repartido entre SISPRO, la Cuenta de Alto Costo, los RIPS, la historia clínica interoperable, el SIVIGILA y el tablero del plan de choque.</p>
+    <p class="lead">La propuesta es convertirlo en un ciclo mensual: identificar, priorizar, enviar la lista a quien debe actuar, verificar que se actuó, evaluar y volver a empezar. Cada paso se apoya en una función que hoy ya tiene una dependencia pública.</p>
+   </div>
+   <div class="wheel" aria-label="Ciclo de seis pasos: identificar, priorizar, enviar, actuar, verificar, evaluar">
+    <svg viewBox="0 0 320 320" role="img">
+     <title>Ciclo mensual de listas de pacientes</title>
+     <path d="M162.9 10.0 A150 150 0 0 1 288.4 82.5 L238.8 112.5 A92 92 0 0 0 161.8 68.0Z" fill="#004884"/><text x="221" y="62" text-anchor="middle" class="wl">Identificar</text>
+     <path d="M291.3 87.5 A150 150 0 0 1 291.3 232.5 L240.5 204.5 A92 92 0 0 0 240.5 115.5Z" fill="#3366CC"/><text x="266" y="164" text-anchor="middle" class="wl" transform="rotate(90 266 160)">Priorizar</text>
+     <path d="M288.4 237.5 A150 150 0 0 1 162.9 310.0 L161.8 252.0 A92 92 0 0 0 238.8 207.5Z" fill="#069169"/><text x="221" y="266" text-anchor="middle" class="wl">Enviar</text>
+     <path d="M157.1 310.0 A150 150 0 0 1 31.6 237.5 L81.2 207.5 A92 92 0 0 0 158.2 252.0Z" fill="#FFAB00"/><text x="99" y="266" text-anchor="middle" class="wl d">Actuar</text>
+     <path d="M28.7 232.5 A150 150 0 0 1 28.7 87.5 L79.5 115.5 A92 92 0 0 0 79.5 204.5Z" fill="#A80521"/><text x="54" y="164" text-anchor="middle" class="wl" transform="rotate(-90 54 160)">Verificar</text>
+     <path d="M31.6 82.5 A150 150 0 0 1 157.1 10.0 L158.2 68.0 A92 92 0 0 0 81.2 112.5Z" fill="#0B457F"/><text x="99" y="62" text-anchor="middle" class="wl">Evaluar</text>
+     <text x="160" y="156" text-anchor="middle" class="c1">Cada mes</text>
+     <text x="160" y="176" text-anchor="middle" class="c2">misma lista, mejor dato</text>
+    </svg>
+   </div>
+  </div>
+
+  <h2 style="margin-top:30px">Por qué ahora</h2>
+  <div class="figs">
+   <div class="fig k-r"><b>1.849.649</b><span>personas únicas registradas en el tablero del plan de choque al 20 de octubre de 2026, de las cuales cerca de 1,3 millones tenían atenciones pendientes</span><a class="f" href="https://www.infobae.com/colombia/2026/10/27/ministerio-de-salud-activo-tablero-para-vigilar-la-crisis-de-salud-y-prepara-el-calculo-de-la-upc-de-2027-estas-son-las-cifras-clave/">fuente</a></div>
+   <div class="fig"><b>7.074.181</b><span>personas con hipertensión, diabetes tipo 2 o enfermedad renal crónica; solo 23% de los hipertensos que conocen su diagnóstico tiene la presión controlada</span><a class="f" href="https://consultorsalud.com/riesgo-cardiovascular-colombia-millones-hta-d/">fuente</a></div>
+   <div class="fig k-y"><b>4 millones</b><span>de registros de hipertensión o diabetes sin el estudio completo para confirmar o descartar enfermedad renal crónica en 2025</span><a class="f" href="https://consultorsalud.com/?p=344637">fuente</a></div>
+   <div class="fig k-g"><b>748.212</b><span>hospitalizaciones por condiciones sensibles a la atención primaria en 2025, el 19,5% de todas las hospitalizaciones</span><a class="f" href="https://consultorsalud.com/wp-content/uploads/2026/07/Hospitalizaciones_evitables_por_condiciones_sensibles_a_la_Atencion_Primaria.pdf">fuente</a></div>
+   <div class="fig k-b"><b>6,9 millones</b><span>de personas con historia clínica interoperable y 21,4 millones de resúmenes digitales de atención recibidos al 4 de agosto de 2026</span><a class="f" href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/OT/informe-especial-ihce.pdf">fuente</a></div>
+   <div class="fig k-d"><b>46.398</b><span>muertes por cardiopatía isquémica en 2023, primera causa de muerte del país; la enfermedad renal crónica causó 7.760</span><a class="f" href="https://vizhub.healthdata.org/gbd-results/">fuente IHME</a></div>
+  </div>
+
+  <h2>Seis decisiones que ya se pueden tomar</h2>
+  <ol class="decide read">
+   <li><b>Adoptar el ciclo mensual de listas</b> como herramienta de gestión del riesgo del aseguramiento, liderada por el Viceministerio de Protección Social con el Viceministerio de Salud Pública y Atención Primaria, y verificada por la Superintendencia Nacional de Salud.</li>
+   <li><b>Empezar con tres listas</b> que se arman con datos que el Ministerio ya recibe: personas del plan de choque con atención pendiente y riesgo vital, personas con hipertensión o diabetes sin estudio renal, y personas con hospitalizaciones evitables repetidas.</li>
+   <li><b>Producirlas en SISPRO</b> con la Dirección Estratégica de Tecnología de la Información y enviarlas, cifradas y por los canales de reporte existentes, a cada EPS, a cada secretaría departamental y distrital y, cuando aplique, a la IPS primaria.</li>
+   <li><b>Medir con el lenguaje del tablero</b>: personas únicas, casos resueltos y atenciones pendientes por EPS, departamento y fecha de corte. La lista y el tablero se vuelven una sola herramienta.</li>
+   <li><b>Formalizar con lo mínimo necesario</b>: una circular externa del Ministerio que oriente el uso de las listas dentro de obligaciones vigentes, una circular conjunta con la Supersalud para la verificación y una resolución solo si se crean variables nuevas de reporte.</li>
+   <li><b>Evaluar cada trimestre</b> y ajustar criterios con las sociedades científicas y el IETS. Las EPS intervenidas, que hoy agrupan cerca de 21 millones de afiliados, pueden ejecutar las listas desde el primer ciclo.</li>
+  </ol>
+
+  <div class="box navy read">
+   <h3>Lo que esto no es</h3>
+   <p>No es un sistema nuevo ni una plataforma por contratar: usa SISPRO, los RIPS, la historia clínica interoperable, la Cuenta de Alto Costo y el SIVIGILA. No traslada funciones entre entidades: cada paso se apoya en una función que ya existe. No sustituye el criterio del médico tratante: la lista dice a quién mirar primero, el médico decide qué hacer. No es un instrumento para negar servicios.</p>
+  </div>
+
+  <h2>Primeros noventa días</h2>
+  <div class="cy">
+   <div><b>Días 1 a 30</b>Mesa técnica interna entre viceministerios, Dirección de Epidemiología y Demografía y Dirección de Tecnología. Primera corrida de las tres listas sobre datos existentes. Mesas con sociedades científicas para fijar umbrales iniciales.</div>
+   <div><b>Días 31 a 60</b>Proyecto de circular publicado para comentarios. Envío piloto de listas a las EPS intervenidas y a cinco secretarías departamentales con distintos perfiles del ASIS. Validación rápida del IETS.</div>
+   <div><b>Días 61 a 90</b>Circular expedida y circular conjunta con la Supersalud. Primer informe de casos resueltos por lista, EPS y departamento en el tablero. Ajuste de criterios y segundo ciclo.</div>
+  </div>
+  <p class="small read">Las cifras de este brief provienen de fuentes públicas enlazadas junto a cada dato. La carga de enfermedad proviene del Estudio de Carga Global de Enfermedad 2023 del IHME. El autor humano está vinculado a un conglomerado de salud con operación en Colombia; las ideas son personales y no representan a esa entidad. Detalles en <a href="#avisos" data-go="avisos">Fuentes y avisos</a>.</p>
+ </div>
+</section>
+
+<!-- ===================== CICLO ===================== -->
+<section id="ciclo" role="tabpanel">
+ <div class="wrap">
+  <h2>El ciclo, paso a paso</h2>
+  <p class="read">El ciclo corre cada mes con un corte fijo, igual que el tablero del plan de choque. Cada paso tiene una dependencia que lo lidera según sus funciones vigentes, una fuente de datos y un producto verificable.</p>
+  <ol class="steps">
+   <li class="step"><div class="h">1. Identificar<small>Epidemiología y Demografía, Tecnología de la Información</small></div><div class="b"><p>Se aplican criterios clínicos escritos en códigos (CIE 10 para diagnósticos, CUPS para procedimientos, ATC para medicamentos) sobre RIPS, resúmenes digitales de atención, bases de la Cuenta de Alto Costo, SIVIGILA y el tablero del plan de choque. Los criterios los proponen las sociedades científicas y los valida el IETS.</p><p><b>Producto:</b> universo de personas que cumplen el criterio, con su EPS, régimen y municipio.</p></div></li>
+   <li class="step" style="--k:var(--blue)"><div class="h">2. Priorizar<small>Viceministerio de Protección Social</small></div><div class="b"><p>Cada persona recibe un nivel de prioridad: alto cuando hay riesgo vital o un evento grave reciente, estándar en los demás casos. La prioridad define el plazo de acción.</p><p><b>Producto:</b> lista nominal ordenada, una por EPS y una por departamento.</p></div></li>
+   <li class="step" style="--k:var(--green)"><div class="h">3. Enviar<small>Tecnología de la Información</small></div><div class="b"><p>La EPS recibe solo a sus afiliados; la secretaría departamental o distrital recibe su territorio para seguimiento y para la población que atiende directamente; la IPS primaria recibe a sus usuarios cuando la EPS lo dispone. El envío usa canales cifrados ya habilitados para reportes del sistema.</p><p><b>Producto:</b> constancia de entrega por destinatario.</p></div></li>
+   <li class="step" style="--k:var(--yellow)"><div class="h d">4. Actuar<small>EPS, IPS, gestores farmacéuticos</small></div><div class="b"><p>La EPS contacta a la persona, gestiona la entrega o la cita y reporta el cierre persona por persona. El médico tratante decide la conducta clínica.</p><p><b>Producto:</b> archivo de cierre por persona con fecha, código del servicio entregado y estado.</p></div></li>
+   <li class="step" style="--k:var(--red)"><div class="h">5. Verificar<small>Supersalud, Cuenta de Alto Costo</small></div><div class="b"><p>El cierre reportado se cruza con RIPS, factura electrónica y resúmenes digitales de dispensación. Las inconsistencias vuelven a la EPS y, si persisten, pasan a la escalera de supervisión de la Supersalud.</p><p><b>Producto:</b> tasa de cierre verificado y tasa de inconsistencia por EPS.</p></div></li>
+   <li class="step" style="--k:var(--deep)"><div class="h">6. Evaluar y ajustar<small>Ambos viceministerios, IETS</small></div><div class="b"><p>Cada trimestre se revisa qué listas reducen eventos evitables, qué criterios generan ruido y qué EPS o territorios necesitan apoyo. Se publican resultados agregados por EPS y departamento.</p><p><b>Producto:</b> informe trimestral y criterios ajustados para el siguiente ciclo.</p></div></li>
+  </ol>
+  <div class="box note read">
+   <h3>El ciclo mejora el dato</h3>
+   <p>Cada lista que vuelve con inconsistencias muestra dónde está fallando el registro. La Cuenta de Alto Costo encontró 580.517 inconsistencias documentales en su auditoría de enfermedad renal 2025, la mayoría por falta de soporte clínico del diagnóstico <a class="f" href="https://consultorsalud.com/?p=344637">fuente</a>. Devolver esas inconsistencias a quien las genera, mes a mes, es la forma más barata de mejorar la calidad de la información.</p>
+  </div>
+ </div>
+</section>
+
+<!-- ===================== LISTAS ===================== -->
+<section id="listas" role="tabpanel">
+ <div class="wrap">
+  <h2>Catálogo de listas</h2>
+  <p class="read">Doce listas construibles con datos que el sistema ya recibe. Los códigos son el punto de partida técnico para la primera corrida; los umbrales clínicos los ajustan las sociedades científicas y los valida el IETS en el primer ciclo.</p>
+  <p><span class="tag" style="color:var(--red)">riesgo vital</span><span class="tag" style="color:var(--navy)">enfermedad crónica</span><span class="tag" style="color:var(--green)">atención primaria y salud pública</span><span class="tag" style="color:#B37800">calidad del dato</span></p>
+
+  <div class="card" style="--k:var(--red)"><h3>Personas del plan de choque con atención pendiente y riesgo vital</h3><dl>
+   <dt>Criterio</dt><dd>Persona con atención pendiente en el tablero y diagnóstico de cáncer (CIE 10 C00 a D09), VIH (B20 a B24), enfermedad renal en estadio 4 o 5 (N18.4, N18.5), trasplante (Z94), gestación (capítulo O) o enfermedad huérfana del listado vigente.</dd>
+   <dt>Datos</dt><dd>Tablero del plan de choque, RIPS, Cuenta de Alto Costo, <a href="https://www.minsalud.gov.co/Normatividad_Nuevo/Resolucion%20No%202625%20de%202025.pdf">Resolución 2625 de 2025</a>.</dd>
+   <dt>La recibe</dt><dd>EPS de afiliación y secretaría departamental.</dd>
+   <dt>Acción</dt><dd>Cierre del pendiente en orden de prioridad, no de antigüedad.</dd>
+   <dt>Se cierra</dt><dd>Dispensación o procedimiento registrado en RIPS o en el resumen digital de atención.</dd>
+  </dl></div>
+
+  <div class="card" style="--k:var(--red)"><h3>Interrupción de tratamientos de los que depende la vida</h3><dl>
+   <dt>Criterio</dt><dd>Diagnóstico y medicamento trazador sin cobertura después de la última dispensación: epilepsia (G40, G41; ATC N03A) más de 30 días; insuficiencia suprarrenal (E27.1, E27.4, E23.0; ATC H02AB09, H02AA02) más de 7 días; lupus (M32; ATC P01BA02) más de 30 días; hipoparatiroidismo posquirúrgico (E89.2; ATC A11CC04) más de 7 días.</dd>
+   <dt>Datos</dt><dd>Resumen digital de dispensación (<a href="https://consultorsalud.com/wp-content/uploads/2026/08/Resolucion-1799-de-2026.pdf">Resolución 1799 de 2026</a>), RIPS de medicamentos, quejas.</dd>
+   <dt>La recibe</dt><dd>EPS y gestor farmacéutico.</dd>
+   <dt>Acción</dt><dd>Contacto en 72 horas para nivel alto, entrega o alternativa definida por el médico tratante y control con el especialista.</dd>
+   <dt>Se cierra</dt><dd>Dispensación registrada y ninguna urgencia por la condición en 90 días.</dd>
+  </dl></div>
+
+  <div class="card"><h3>Hipertensión o diabetes sin estudio de enfermedad renal</h3><dl>
+   <dt>Criterio</dt><dd>Diagnóstico I10 a I15 o E10 a E14 sin creatinina sérica (CUPS 903895) y sin microalbuminuria (CUPS 903027) en los últimos 12 meses.</dd>
+   <dt>Datos</dt><dd>Cuenta de Alto Costo, RIPS.</dd>
+   <dt>La recibe</dt><dd>EPS e IPS primaria.</dd>
+   <dt>Acción</dt><dd>Ordenar ambos exámenes en el siguiente control y clasificar el estadio renal.</dd>
+   <dt>Se cierra</dt><dd>Ambos exámenes registrados y estadio asignado en el siguiente corte de la Cuenta de Alto Costo.</dd>
+  </dl></div>
+
+  <div class="card"><h3>Hipertensión no controlada y diabetes con hemoglobina glicosilada alta</h3><dl>
+   <dt>Criterio</dt><dd>Última presión registrada igual o mayor a 140/90 en hipertensos, o hemoglobina glicosilada (CUPS 903426) igual o mayor a 7% en diabéticos, en dos controles consecutivos.</dd>
+   <dt>Datos</dt><dd>Cuenta de Alto Costo, historia clínica interoperable.</dd>
+   <dt>La recibe</dt><dd>EPS e IPS primaria.</dd>
+   <dt>Acción</dt><dd>Ajuste de tratamiento según guía, revisión de adherencia y control en 30 a 90 días.</dd>
+   <dt>Se cierra</dt><dd>Valor en meta en el siguiente control registrado.</dd>
+  </dl></div>
+
+  <div class="card"><h3>Enfermedad renal sin estadio o avanzada sin nefrología</h3><dl>
+   <dt>Criterio</dt><dd>Diagnóstico N18 sin estadio asignado, o N18.4 y N18.5 sin consulta de nefrología en 6 meses.</dd>
+   <dt>Datos</dt><dd>Cuenta de Alto Costo: 526.918 casos sin estadio en 2025 <a class="f" href="https://consultorsalud.com/?p=344637">fuente</a>.</dd>
+   <dt>La recibe</dt><dd>EPS.</dd>
+   <dt>Acción</dt><dd>Estadificación y remisión a nefrología; preparación oportuna para terapia de reemplazo renal cuando aplique.</dd>
+   <dt>Se cierra</dt><dd>Estadio registrado y consulta realizada.</dd>
+  </dl></div>
+
+  <div class="card" style="--k:var(--red)"><h3>Terapia de reemplazo renal sin continuidad</h3><dl>
+   <dt>Criterio</dt><dd>Persona en diálisis o con trasplante renal sin la continuidad requerida en el periodo.</dd>
+   <dt>Datos</dt><dd>Cuenta de Alto Costo: 2.103 personas en 2025 <a class="f" href="https://consultorsalud.com/?p=344637">fuente</a>.</dd>
+   <dt>La recibe</dt><dd>EPS y secretaría departamental.</dd>
+   <dt>Acción</dt><dd>Restablecer la terapia en 48 horas.</dd>
+   <dt>Se cierra</dt><dd>Sesiones registradas de forma continua en el mes siguiente.</dd>
+  </dl></div>
+
+  <div class="card" style="--k:var(--green)"><h3>Hospitalizaciones evitables repetidas</h3><dl>
+   <dt>Criterio</dt><dd>Dos o más hospitalizaciones en 12 meses por condiciones sensibles a la atención primaria (lista de 20 grupos usada por la ADRES: infecciones urinarias, enfermedad cerebrovascular, vías respiratorias bajas, insuficiencia cardiaca, infecciones de piel, entre otras).</dd>
+   <dt>Datos</dt><dd>RIPS y factura electrónica; la ADRES identificó 310 personas con cinco o más en 2025 <a class="f" href="https://consultorsalud.com/wp-content/uploads/2026/07/Hospitalizaciones_evitables_por_condiciones_sensibles_a_la_Atencion_Primaria.pdf">fuente</a>.</dd>
+   <dt>La recibe</dt><dd>EPS, IPS primaria y secretaría departamental.</dd>
+   <dt>Acción</dt><dd>Control ambulatorio entre 7 y 14 días después del egreso, conciliación de medicamentos y plan de cuidado.</dd>
+   <dt>Se cierra</dt><dd>Control registrado y ningún reingreso evitable en 90 días.</dd>
+  </dl></div>
+
+  <div class="card" style="--k:var(--green)"><h3>Gestantes sin control prenatal oportuno o con sífilis gestacional sin tratamiento</h3><dl>
+   <dt>Criterio</dt><dd>Gestación registrada (Z34, Z35, capítulo O) sin consulta prenatal antes de la semana 12; caso de sífilis gestacional (O98.1) sin tratamiento registrado.</dd>
+   <dt>Datos</dt><dd>RIPS, SIVIGILA, ruta materno perinatal de la <a href="https://normograma.supersalud.gov.co/compilacion/docs/resolucion_minsaludps_3280_2018.htm">Resolución 3280 de 2018</a>.</dd>
+   <dt>La recibe</dt><dd>EPS y secretaría municipal y departamental.</dd>
+   <dt>Acción</dt><dd>Captación, primer control y tratamiento de la gestante y su pareja.</dd>
+   <dt>Se cierra</dt><dd>Control y tratamiento registrados.</dd>
+  </dl></div>
+
+  <div class="card" style="--k:var(--green)"><h3>Menores de cinco años con desnutrición aguda sin seguimiento</h3><dl>
+   <dt>Criterio</dt><dd>Caso notificado al SIVIGILA (E40 a E46) sin control de seguimiento registrado en los plazos del lineamiento nacional.</dd>
+   <dt>Datos</dt><dd>SIVIGILA y RIPS.</dd>
+   <dt>La recibe</dt><dd>Secretaría municipal y departamental y EPS.</dd>
+   <dt>Acción</dt><dd>Visita, manejo según lineamiento y entrega de fórmula terapéutica.</dd>
+   <dt>Se cierra</dt><dd>Control registrado y recuperación nutricional documentada.</dd>
+  </dl></div>
+
+  <div class="card"><h3>VIH en tratamiento sin carga viral reciente</h3><dl>
+   <dt>Criterio</dt><dd>Persona en terapia antirretroviral (B20 a B24) sin carga viral registrada en 12 meses.</dd>
+   <dt>Datos</dt><dd>Cuenta de Alto Costo.</dd>
+   <dt>La recibe</dt><dd>EPS.</dd>
+   <dt>Acción</dt><dd>Toma de carga viral y ajuste de tratamiento si no hay supresión.</dd>
+   <dt>Se cierra</dt><dd>Carga viral registrada.</dd>
+  </dl></div>
+
+  <div class="card" style="--k:#B37800"><h3>Personas con quejas o tutelas repetidas por la misma atención</h3><dl>
+   <dt>Criterio</dt><dd>Dos o más quejas ante la Supersalud o acciones de tutela por el mismo servicio en 6 meses.</dd>
+   <dt>Datos</dt><dd>Sistema de quejas de la Supersalud.</dd>
+   <dt>La recibe</dt><dd>EPS y Delegada para la Protección al Usuario.</dd>
+   <dt>Acción</dt><dd>Gestión de caso con responsable nominal.</dd>
+   <dt>Se cierra</dt><dd>Servicio prestado y confirmado con la persona.</dd>
+  </dl></div>
+
+  <div class="card" style="--k:#B37800"><h3>Registros con diagnóstico sin soporte</h3><dl>
+   <dt>Criterio</dt><dd>Diagnóstico reportado a la Cuenta de Alto Costo sin soporte clínico, o persona reportada como fallecida con atenciones posteriores.</dd>
+   <dt>Datos</dt><dd>Auditoría de la Cuenta de Alto Costo, RIPS, registro de defunciones.</dd>
+   <dt>La recibe</dt><dd>EPS e IPS que reportan.</dd>
+   <dt>Acción</dt><dd>Corrección del registro en el siguiente corte.</dd>
+   <dt>Se cierra</dt><dd>Registro corregido o soportado.</dd>
+  </dl></div>
+  <p class="small read">Además de listas de personas, el ciclo produce listas de prescriptores con práctica atípica, que se entregan a las IPS para revisión entre pares. Ver la pestaña <a href="#supersalud" data-go="supersalud">Supersalud</a>.</p>
+ </div>
+</section>
+
+<!-- ===================== ALGORITMOS ===================== -->
+<section id="algoritmos" role="tabpanel">
+ <div class="wrap read">
+  <h2>Algoritmos</h2>
+  <p>Todos los algoritmos siguen el mismo molde de cinco pasos. Cambian los códigos, los plazos y quién recibe la lista.</p>
+  <div class="algo"><h3>Molde general</h3><ol>
+   <li><b>Cohorte.</b> Personas con el diagnóstico (CIE 10) en cualquier ámbito en los últimos 24 meses, o con dispensación del medicamento trazador (ATC). Se excluye lo ya cubierto por otra lista para no duplicar.</li>
+   <li><b>Señal.</b> Ausencia del servicio esperado (examen CUPS, dispensación, control) dentro del plazo, o presencia de un evento que no debió ocurrir (urgencia, hospitalización, queja).</li>
+   <li><b>Riesgo.</b> Nivel alto si hay evento grave en 12 meses, gestación, edad extrema o comorbilidad mayor; estándar en los demás casos.</li>
+   <li><b>Acción.</b> Plazo de contacto y de prestación según el nivel; la conducta clínica la decide el médico tratante.</li>
+   <li><b>Cierre.</b> Servicio registrado en RIPS o en el resumen digital de atención y ausencia del evento evitable en 90 días.</li>
+  </ol></div>
+
+  <div class="algo" style="--k:var(--red)"><h3>Interrupción de un tratamiento de riesgo vital</h3><ol>
+   <li>Tomar todas las dispensaciones de los últimos 12 meses del código ATC trazador.</li>
+   <li>Calcular, por persona, la fecha en que se agota la última dispensación según los días de suministro.</li>
+   <li>Marcar a quien supere el umbral de días sin cobertura de su condición.</li>
+   <li>Subir a nivel alto si tuvo urgencia u hospitalización por la condición en 12 meses, está en gestación o es menor de cinco años.</li>
+   <li>Enviar a la EPS y al gestor farmacéutico; cerrar con el resumen digital de dispensación.</li>
+  </ol><p class="small">Base clínica: la no adherencia a antiepilépticos se asocia con más de tres veces el riesgo de muerte <a class="f" href="https://ghdx.healthdata.org/record/nonadherence-antiepileptic-drugs-and-increased-mortality-findings-ransom-study">fuente</a>.</p></div>
+
+  <div class="algo" style="--k:var(--blue)"><h3>Nefroprotección</h3><ol>
+   <li>Cohorte de hipertensión (I10 a I15) y diabetes (E10 a E14) reportada a la Cuenta de Alto Costo.</li>
+   <li>Sin creatinina (CUPS 903895) o sin microalbuminuria (CUPS 903027) en 12 meses: lista de estudio incompleto.</li>
+   <li>Con estudio completo y tasa de filtración menor de 60 o albuminuria positiva: lista de enfermedad renal para estadificar y tratar.</li>
+   <li>Estadio 4 o 5 sin nefrología en 6 meses: nivel alto.</li>
+   <li>Cerrar cuando el estadio y el examen aparezcan en el siguiente corte; usar como guía los contenidos mínimos de un programa de nefroprotección publicados por la Cuenta de Alto Costo en julio de 2026 <a class="f" href="https://consultorsalud.com/riesgo-cardiovascular-colombia-millones-hta-d/">fuente</a>.</li>
+  </ol></div>
+
+  <div class="algo" style="--k:var(--green)"><h3>Hospitalización evitable</h3><ol>
+   <li>Egresos hospitalarios con diagnóstico principal en la lista de condiciones sensibles a la atención primaria.</li>
+   <li>Contar por persona los episodios de los últimos 12 meses.</li>
+   <li>Dos o más: lista nominal; cinco o más: nivel alto.</li>
+   <li>Calcular por EPS y municipio la razón entre hospitalizaciones observadas y esperadas para orientar a la secretaría.</li>
+   <li>Cerrar con control posegreso registrado y sin reingreso evitable en 90 días.</li>
+  </ol><p class="small">Listas de referencia: AHRQ en Estados Unidos, Australia, Nueva Zelanda, Canadá y la lista brasileña usada por la ADRES. Ver <a href="#evidencia" data-go="evidencia">Evidencia</a>.</p></div>
+
+  <div class="algo" style="--k:var(--deep)"><h3>Práctica clínica atípica</h3><ol>
+   <li>La sociedad científica elige indicadores de exceso y de defecto con evidencia clara; por ejemplo, pruebas de vitamina D sin indicación por cada 1.000 consultas, o infarto (I21) sin estatina (ATC C10AA) a los 90 días.</li>
+   <li>Comparar a cada profesional con pares de su especialidad, ámbito y complejidad, con ajuste por riesgo y un volumen mínimo de casos.</li>
+   <li>Señal solo si se sostiene en dos periodos consecutivos.</li>
+   <li>El profesional recibe su perfil frente a sus pares, sin consecuencias; si la señal persiste, la revisa el comité clínico de su IPS.</li>
+   <li>La Supersalud vigila que la IPS haga la revisión; nunca califica al médico.</li>
+  </ol></div>
+ </div>
+</section>
+
+<!-- ===================== FUNCIONES ===================== -->
+<section id="funciones" role="tabpanel">
+ <div class="wrap">
+  <h2>Quién puede hacer qué, según sus funciones</h2>
+  <p class="read">Ningún servidor público puede ejercer funciones distintas de las que le atribuyen la Constitución y la ley (artículos 6 y 121 de la <a href="http://www.secretariasenado.gov.co/senado/basedoc/constitucion_politica_1991.html">Constitución Política</a>). Por eso cada paso del ciclo se ancla en una función escrita. La estructura vigente del Ministerio es la del Decreto 120 de 2026; se cita además el Decreto 4107 de 2011, que rigió entre 2011 y enero de 2026 y muestra que estas funciones son de larga data.</p>
+
+  <div class="two">
+   <div class="card"><h3>Viceministerio de Protección Social</h3><dl>
+    <dt>A cargo</dt><dd>Dirección de Regulación de Operación del Aseguramiento; Dirección de Regulación de Beneficios, Costos y Tarifas; Dirección de Financiamiento Sectorial (Decreto 120 de 2026, art. 5) <a class="f" href="https://normativa.colpensiones.gov.co/colpensiones/compilacion/docs/decreto_0120_2026.htm">fuente</a>.</dd>
+    <dt>Funciones de larga data</dt><dd>Consolidar y evaluar los resultados del seguimiento y control del aseguramiento (Decreto 4107 de 2011, art. 28 num. 4); proponer medidas para evitar la selección de riesgo (art. 29 num. 8) <a class="f" href="https://normativa.colpensiones.gov.co/colpens/compilacion/docs/decreto_4107_2011.htm">fuente</a>.</dd>
+    <dt>Rol en el ciclo</dt><dd>Lidera la priorización, fija qué listas son de aseguramiento y usa los resultados en la regulación de beneficios y en el análisis de suficiencia de la UPC 2027.</dd>
+   </dl></div>
+   <div class="card" style="--k:var(--green)"><h3>Viceministerio de Salud Pública y Atención Primaria</h3><dl>
+    <dt>A cargo</dt><dd>Epidemiología y Demografía; Atención Primaria en Salud; Determinantes Sociales, Promoción y Prevención; Medicamentos y Tecnologías (Decreto 120 de 2026, art. 5).</dd>
+    <dt>Funciones</dt><dd>Coordinar y hacer seguimiento a las acciones de salud pública y atención primaria (art. 19 num. 6); evaluar con entidades territoriales y EPS las acciones de promoción y prevención (art. 20 num. 6) <a class="f" href="https://normativa.colpensiones.gov.co/colpensiones/compilacion/docs/decreto_0120_2026.htm">fuente</a>.</dd>
+    <dt>Rol en el ciclo</dt><dd>Identificación con la Dirección de Epidemiología, que desde 2011 dirige los estudios de situación de salud (Decreto 4107, art. 21 num. 1), y listas de salud pública: gestantes, desnutrición, eventos del SIVIGILA.</dd>
+   </dl></div>
+   <div class="card" style="--k:var(--blue)"><h3>Dirección Estratégica de Tecnología de la Información</h3><dl>
+    <dt>Funciones</dt><dd>Lineamientos de interoperabilidad de sistemas y plataformas (Decreto 120 de 2026, art. 9 num. 3) y de gobernanza y calidad de los datos (art. 9 num. 6). El Ministerio tiene a cargo la historia clínica electrónica interoperable (art. 2 num. 61 y 62) <a class="f" href="https://normativa.colpensiones.gov.co/colpensiones/compilacion/docs/decreto_0120_2026.htm">fuente</a>.</dd>
+    <dt>Antecedente</dt><dd>La Oficina de Tecnología administraba los sistemas de información de salud (Decreto 4107, art. 10 num. 3).</dd>
+    <dt>Rol en el ciclo</dt><dd>Corre los algoritmos en SISPRO y envía las listas.</dd>
+   </dl></div>
+   <div class="card" style="--k:var(--red)"><h3>Superintendencia Nacional de Salud</h3><dl>
+    <dt>Funciones</dt><dd>Instruir a vigilados y fijar la información que reportan (Decreto 1080 de 2021, art. 7 num. 2 y 15); alertas tempranas y validación de calidad del dato en la Subdirección de Analítica (art. 17 num. 7 y 8); IVC a la gestión del riesgo de las EPS (art. 22 num. 1) <a class="f" href="https://normativa.colpensiones.gov.co/colpens/compilacion/docs/decreto_1080_2021.htm">fuente</a>.</dd>
+    <dt>Rol en el ciclo</dt><dd>Verifica el cierre y aplica la escalera de supervisión. Ver <a href="#supersalud" data-go="supersalud">Supersalud</a>.</dd>
+   </dl></div>
+   <div class="card" style="--k:var(--deep)"><h3>ADRES, INS, IETS y Cuenta de Alto Costo</h3><dl>
+    <dt>ADRES</dt><dd>Administra los recursos y la base de afiliados del sistema (Ley 1753 de 2015, art. 66) y ya produce analítica de hospitalizaciones evitables <a class="f" href="https://consultorsalud.com/?p=339525">fuente</a>.</dd>
+    <dt>INS</dt><dd>Opera el SIVIGILA y la vigilancia en salud pública (Decreto 4109 de 2011; Decreto 3518 de 2006, hoy compilado en el Decreto 780 de 2016).</dd>
+    <dt>IETS</dt><dd>Evalúa tecnologías y evidencia (Ley 1438 de 2011, art. 92); valida los criterios de cada lista.</dd>
+    <dt>Cuenta de Alto Costo</dt><dd>Recibe y audita desde 2007 la información de enfermedades de alto costo (Decreto 2699 de 2007, compilado en el Decreto 780 de 2016).</dd>
+   </dl></div>
+   <div class="card" style="--k:var(--green)"><h3>Secretarías departamentales y distritales</h3><dl>
+    <dt>Funciones</dt><dd>Dirigir y vigilar el sistema en su territorio (Ley 715 de 2001, art. 43); elaborar el ASIS y el plan territorial de salud (Resolución 100 de 2024, que sustituyó la Resolución 1536 de 2015); supervisar la historia clínica interoperable en los prestadores de su jurisdicción (Resolución 1799 de 2026) <a class="f" href="https://consultorsalud.com/wp-content/uploads/2026/08/Resolucion-1799-de-2026.pdf">fuente</a>.</dd>
+    <dt>Rol en el ciclo</dt><dd>Recibe la lista de su territorio, la cruza con su ASIS y hace seguimiento a EPS e IPS como autoridad sanitaria.</dd>
+   </dl></div>
+  </div>
+  <div class="box note read"><h3>EPS e IPS</h3><p>La ley define el aseguramiento como la gestión del riesgo en salud, la administración del riesgo financiero y la articulación de servicios (Ley 1122 de 2007, art. 14), y obliga a las EPS a organizar el acceso y controlar la atención integral y oportuna de sus afiliados (Ley 100 de 1993, art. 178). La lista no crea una obligación nueva para la EPS: le dice con precisión dónde está incumpliendo una que ya tiene.</p></div>
+ </div>
+</section>
+
+<!-- ===================== JURIDICA ===================== -->
+<section id="juridica" role="tabpanel">
+ <div class="wrap">
+  <h2>Normas que ya permiten hacerlo</h2>
+  <div class="tw"><table>
+   <thead><tr><th>Norma</th><th>Qué permite</th></tr></thead>
+   <tbody>
+    <tr><td><a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_1751_2015.html">Ley 1751 de 2015</a>, estatutaria</td><td>Art. 19: todos los agentes deben suministrar la información que requiera el Ministerio para el manejo de la información en salud. Art. 6: continuidad de la atención. Art. 17: autonomía médica con autorregulación.</td></tr>
+    <tr><td><a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_1438_2011.html">Ley 1438 de 2011</a></td><td>Art. 112: el Ministerio articula y administra la información a través de SISPRO. Art. 114: obligación de EPS, prestadores y territorios de reportar información confiable y oportuna. Art. 92: IETS.</td></tr>
+    <tr><td><a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_1122_2007.html">Ley 1122 de 2007</a></td><td>Art. 14: el aseguramiento incluye la gestión del riesgo en salud. Arts. 35 a 40: sistema de inspección, vigilancia y control.</td></tr>
+    <tr><td><a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_0100_1993.html">Ley 100 de 1993</a></td><td>Art. 178: funciones de las EPS sobre acceso y control de la atención.</td></tr>
+    <tr><td><a href="https://normograma.supersalud.gov.co/compilacion/docs/ley_1966_2019.htm">Ley 1966 de 2019</a></td><td>Unificación de sistemas de información, factura electrónica y sistema integrado de IVC entre superintendencias.</td></tr>
+    <tr><td><a href="https://normograma.supersalud.gov.co/compilacion/docs/ley_1949_2019.htm">Ley 1949 de 2019</a></td><td>Incumplir instrucciones de la Supersalud es infracción; corregir antes del fallo atenúa la sanción.</td></tr>
+    <tr><td>Ley 2015 de 2020 y <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/OT/informe-especial-ihce.pdf">resoluciones 866 de 2021, 1888 de 2025 y 1799 de 2026</a></td><td>Historia clínica electrónica interoperable y resúmenes digitales de atención, incluida la dispensación de medicamentos.</td></tr>
+    <tr><td><a href="https://minsalud.gov.co/Normativa/Paginas/decreto-unico-minsalud-780-de-2016.aspx">Decreto 780 de 2016</a></td><td>Compila el sistema obligatorio de garantía de calidad, la vigilancia en salud pública, la Cuenta de Alto Costo y las condiciones de habilitación de EPS que exigen gestión del riesgo.</td></tr>
+    <tr><td><a href="https://normograma.supersalud.gov.co/compilacion/docs/resolucion_minsaludps_2275_2023.htm">Resolución 2275 de 2023</a></td><td>RIPS como soporte de la factura electrónica: dato nominal por atención.</td></tr>
+    <tr><td><a href="https://normograma.supersalud.gov.co/compilacion/docs/resolucion_minsaludps_3280_2018.htm">Resolución 3280 de 2018</a></td><td>Rutas integrales de atención: el estándar contra el que se mide la señal.</td></tr>
+    <tr><td><a href="http://www.secretariasenado.gov.co/senado/basedoc/ley_1581_2012.html">Ley 1581 de 2012</a></td><td>Art. 10 literal a: no se requiere autorización del titular cuando una entidad pública solicita datos en ejercicio de sus funciones legales. El envío se limita a la finalidad y al destinatario competente.</td></tr>
+   </tbody>
+  </table></div>
+
+  <h2>Qué instrumento usar</h2>
+  <div class="three">
+   <div class="box navy"><h3>Circular externa del Ministerio</h3><p>Orienta a EPS, IPS y secretarías sobre el uso de las listas dentro de obligaciones que ya tienen: gestión del riesgo, rutas integrales, continuidad. No crea obligaciones nuevas, por eso es el instrumento más rápido. Es el punto de partida.</p></div>
+   <div class="box" style="border-color:var(--green)"><h3>Circular conjunta Ministerio y Supersalud</h3><p>Une el lineamiento técnico con la verificación. Las circulares conjuntas son una práctica corriente del Ministerio, por ejemplo la <a href="https://www.minsalud.gov.co/Normatividad_Nuevo/Circular%20Conjunta%20No%20022%20de%202026.pdf">Circular Conjunta 022 de 2026</a>.</p></div>
+   <div class="box red"><h3>Resolución del Ministerio</h3><p>Solo si se crean variables nuevas de reporte o un anexo técnico obligatorio para todos los actores (Ley 1751, art. 19; Ley 1438, art. 114). Exige publicación del proyecto para comentarios (Ley 1437 de 2011, art. 8 num. 8).</p></div>
+  </div>
+  <div class="box note read"><h3>Lo que no se necesita</h3><p>No se necesita ley, porque las funciones existen. No se necesita decreto, porque no se modifica la estructura. No se necesita planta, porque el trabajo recae en dependencias que ya existen y en la capacidad instalada de SISPRO y de las secretarías.</p></div>
+ </div>
+</section>
+
+<!-- ===================== DATOS ===================== -->
+<section id="datos" role="tabpanel">
+ <div class="wrap">
+  <h2>Los datos ya están</h2>
+  <div class="tw"><table>
+   <thead><tr><th>Fuente</th><th>Qué aporta a las listas</th><th>Estado</th></tr></thead>
+   <tbody>
+    <tr><td>SISPRO</td><td>Plataforma donde se integran las fuentes y se corren los algoritmos (Ley 1438, art. 112).</td><td>Operando.</td></tr>
+    <tr><td>RIPS con factura electrónica</td><td>Cada atención con persona, diagnóstico CIE 10, procedimiento CUPS y fecha.</td><td>Obligatorio desde la Resolución 2275 de 2023.</td></tr>
+    <tr><td>Historia clínica interoperable</td><td>Resúmenes digitales de atención y, desde 2026, de dispensación.</td><td>6,9 millones de personas, 1.430 prestadores y 4.491 sedes al 4 de agosto de 2026 <a class="f" href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/OT/informe-especial-ihce.pdf">fuente</a>; los gestores farmacéuticos tienen hasta marzo de 2027 para la dispensación <a class="f" href="https://consultorsalud.com/wp-content/uploads/2026/08/Resolucion-1799-de-2026.pdf">fuente</a>.</td></tr>
+    <tr><td>Cuenta de Alto Costo</td><td>Cohortes nominales de enfermedad renal, hipertensión, diabetes, VIH, cáncer, hemofilia, artritis reumatoide y hepatitis C con variables clínicas.</td><td>Operando desde 2007, con auditoría propia.</td></tr>
+    <tr><td>SIVIGILA</td><td>Eventos de notificación obligatoria: sífilis gestacional, desnutrición aguda, mortalidad materna.</td><td>Operado por el INS.</td></tr>
+    <tr><td>Tablero del plan de choque</td><td>Personas únicas, casos resueltos y atenciones pendientes por EPS, departamento y tipo de atención.</td><td>Semanal desde octubre de 2026 <a class="f" href="https://www.infobae.com/colombia/2026/10/27/ministerio-de-salud-activo-tablero-para-vigilar-la-crisis-de-salud-y-prepara-el-calculo-de-la-upc-de-2027-estas-son-las-cifras-clave/">fuente</a>.</td></tr>
+    <tr><td>Quejas de la Supersalud</td><td>Barreras de acceso por persona y servicio.</td><td>Cerca de 1,2 millones de quejas entre enero y julio de 2026, 92% por barreras <a class="f" href="https://www.infobae.com/colombia/2026/09/22/abelardo-de-la-espriella-anuncia-plan-de-choque-en-salud-para-destrabar-la-atencion-de-1069196-pacientes/">fuente</a>.</td></tr>
+    <tr><td>Base de afiliados de la ADRES</td><td>EPS, régimen y municipio de cada persona.</td><td>52,6 millones de afiliados en agosto de 2026 <a class="f" href="https://doar95.github.io/aseguramiento-salud-colombia/">fuente</a>.</td></tr>
+   </tbody>
+  </table></div>
+  <div class="box note read"><h3>La calidad del dato es parte del ciclo</h3>
+   <ul class="clean">
+    <li>526.918 casos de enfermedad renal sin estadio asignado en 2025 <a class="f" href="https://consultorsalud.com/?p=344637">fuente</a>.</li>
+    <li>580.517 inconsistencias documentales en la auditoría de la Cuenta de Alto Costo, 92,2% por falta de soporte del diagnóstico <a class="f" href="https://consultorsalud.com/?p=344637">fuente</a>.</li>
+    <li>89% de los ASIS territoriales de 2024 requirieron ajustes por incumplir la estructura básica <a class="f" href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VS/ED/PSP/actualizacion-asis-participativo-territorial-2025.pdf">fuente</a>.</li>
+   </ul>
+   <p>Una lista que vuelve con errores es un insumo para corregir el registro. Por eso el ciclo incluye una lista dedicada a la calidad del dato.</p>
+  </div>
+ </div>
+</section>
+
+<!-- ===================== SUPERSALUD ===================== -->
+<section id="supersalud" role="tabpanel">
+ <div class="wrap">
+  <h2>La Supersalud en el ciclo</h2>
+  <p class="read">El Ministerio identifica, prioriza y envía. La Supersalud verifica que las EPS e IPS actúen, sin calificar la práctica individual del médico. Hay un punto práctico: en las EPS intervenidas, que agrupan cerca de 21 millones de afiliados <a class="f" href="https://www.infobae.com/colombia/2026/10/27/ministerio-de-salud-activo-tablero-para-vigilar-la-crisis-de-salud-y-prepara-el-calculo-de-la-upc-de-2027-estas-son-las-cifras-clave/">fuente</a>, la administración la designa la propia Superintendencia, de modo que las listas pueden ejecutarse desde el primer ciclo.</p>
+  <div class="two">
+   <div>
+    <h3>Dependencias y funciones</h3>
+    <ul class="clean">
+     <li><b>Despacho:</b> instruye y fija la información a reportar (Decreto 1080 de 2021, art. 7 num. 2 y 15); órdenes de inmediato cumplimiento (num. 3).</li>
+     <li><b>Subdirección de Analítica:</b> alertas tempranas y calidad del dato (art. 17 num. 7 y 8); modelos de analítica avanzada (num. 6).</li>
+     <li><b>Delegada de Aseguramiento:</b> IVC a la gestión del riesgo (art. 22 num. 1); correctivos (num. 4); planes de mejoramiento (art. 23 num. 19).</li>
+     <li><b>Delegada de Prestadores:</b> calidad de la atención y autocontrol de las IPS (art. 25 num. 6 y 17).</li>
+     <li><b>Delegada de Protección al Usuario:</b> priorización y alertas sobre quejas (art. 19 num. 5).</li>
+    </ul>
+    <p class="small">Fuente: <a href="https://normativa.colpensiones.gov.co/colpens/compilacion/docs/decreto_1080_2021.htm">Decreto 1080 de 2021</a>.</p>
+    <h3>Cómo se reporta y se verifica</h3>
+    <p>La EPS devuelve un archivo por persona con fecha de contacto, código del servicio entregado (CUM o CUPS), fecha de atención y estado de cierre. La Supersalud cruza ese archivo con RIPS, factura electrónica y quejas, y llama a una muestra de pacientes para confirmar el recibo.</p>
+   </div>
+   <div>
+    <h3>Escalera de supervisión</h3>
+    <div class="ladder">
+     <div style="background:var(--red);width:52%">Medidas especiales<small>art. 22 num. 22</small></div>
+     <div style="background:var(--red);width:62%">Investigación y multas<small>Ley 1949 de 2019</small></div>
+     <div style="background:var(--yellow);color:#1f2933;width:72%">Orden de inmediato cumplimiento<small>art. 7 num. 3</small></div>
+     <div style="background:var(--blue);width:82%">Plan de mejoramiento<small>art. 23 num. 19</small></div>
+     <div style="background:var(--navy);width:92%">Instrucción y requerimiento<small>art. 7 num. 2</small></div>
+     <div style="background:var(--green);width:100%">Lista, retroalimentación y comparación entre pares<small>art. 17</small></div>
+    </div>
+    <p>La base se usa casi siempre y la cima casi nunca. Corregir antes del fallo atenúa la sanción (Ley 1438, art. 134 num. 3, modificado por la <a href="https://normograma.supersalud.gov.co/compilacion/docs/ley_1949_2019.htm">Ley 1949 de 2019</a>), así que a la EPS le conviene cerrar la lista. En un sistema con EPS de patrimonio negativo, cerca de 16 billones de pesos en las intervenidas, la multa poco disuade y descapitaliza a quien debe atender; la corrección, en cambio, llega al paciente.</p>
+   </div>
+  </div>
+  <div class="box navy read"><h3>Prescriptores con práctica atípica</h3><p>La Subdirección de Analítica compara a cada prescriptor con sus pares y entrega la señal, confidencial, a la IPS. El médico recibe primero su perfil, sin consecuencias, como en los ensayos de Inglaterra y Estados Unidos que redujeron la prescripción innecesaria <a class="f" href="https://pubmed.ncbi.nlm.nih.gov/26898856/">fuente</a>. Si la señal persiste, la revisa el comité clínico de la IPS. La Supersalud vigila que la revisión ocurra y que la señal nunca se use para negar servicios; la ética médica la juzgan los tribunales de la Ley 23 de 1981.</p></div>
+ </div>
+</section>
+
+<!-- ===================== TERRITORIOS ===================== -->
+<section id="territorios" role="tabpanel">
+ <div class="wrap">
+  <h2>Territorios: los 33 ASIS como punto de partida</h2>
+  <p class="read">Cada departamento y Bogotá tiene un Análisis de Situación de Salud publicado en el repositorio del Ministerio. La lista nacional llega al territorio y se lee contra su ASIS: el mismo criterio pesa distinto en Vaupés que en Antioquia. Las diferencias son grandes: la tasa de hospitalizaciones evitables fue de 248,5 por 10.000 habitantes en Huila y de 20,6 en Guainía en 2025 <a class="f" href="https://consultorsalud.com/?p=339525">fuente</a>, y la Amazonía y la Orinoquía tienen los peores resultados de control de presión, colesterol y peso <a class="f" href="https://consultorsalud.com/riesgo-cardiovascular-colombia-millones-hta-d/">fuente</a>.</p>
+  <div class="tw"><table id="asis">
+   <thead><tr><th>Territorio</th><th>ASIS más reciente</th><th>Archivo</th></tr></thead>
+   <tbody></tbody>
+  </table></div>
+  <p class="small read">Fuente: Repositorio Institucional Digital del Ministerio de Salud y Protección Social, consultado el 1 de noviembre de 2026. Para Caldas, Córdoba y Norte de Santander el ASIS más reciente publicado es el de 2024; para los demás, el de 2025. Los archivos son comprimidos pesados con el documento y sus anexos. El catálogo está también en el repositorio de este brief en formato CSV. Marco: <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VS/ED/PSP/actualizacion-asis-participativo-territorial-2025.pdf">Resolución 100 de 2024 y lineamientos de actualización</a>.</p>
+ </div>
+</section>
+
+<!-- ===================== CARGA ===================== -->
+<section id="carga" role="tabpanel">
+ <div class="wrap">
+  <h2>Carga de enfermedad: qué listas importan más</h2>
+  <p class="read">El Estudio de Carga Global de Enfermedad 2023 del IHME permite elegir las listas por su peso en la pérdida de salud. Todas las cifras de esta pestaña provienen del GBD 2023 para Colombia, consultadas en octubre y noviembre de 2026, y pueden reproducirse en <a href="https://vizhub.healthdata.org/gbd-results/">GBD Results</a> y <a href="https://vizhub.healthdata.org/gbd-compare/">GBD Compare</a>.</p>
+  <div class="two">
+   <div>
+    <h3>Primeras causas de muerte, 2023</h3>
+    <div class="tw"><table>
+     <thead><tr><th>Causa</th><th>Muertes</th><th>Lista relacionada</th></tr></thead>
+     <tbody>
+      <tr><td>Cardiopatía isquémica</td><td>46.398</td><td>Hipertensión no controlada; infarto sin estatina</td></tr>
+      <tr><td>EPOC</td><td>17.472</td><td>Hospitalización evitable</td></tr>
+      <tr><td>Enfermedad cerebrovascular</td><td>16.748</td><td>Hipertensión no controlada; hospitalización evitable</td></tr>
+      <tr><td>Violencia interpersonal</td><td>15.959</td><td>Fuera del alcance de listas clínicas</td></tr>
+      <tr><td>Alzheimer y otras demencias</td><td>11.676</td><td>Intervalo amplio, de 3.095 a 29.930</td></tr>
+      <tr><td>Infecciones respiratorias bajas</td><td>9.852</td><td>Hospitalización evitable</td></tr>
+      <tr><td>Accidentes de tránsito</td><td>8.896</td><td>Fuera del alcance de listas clínicas</td></tr>
+      <tr><td>Diabetes</td><td>8.694</td><td>Hemoglobina glicosilada alta; estudio renal</td></tr>
+      <tr><td>Enfermedad renal crónica</td><td>7.760</td><td>Nefroprotección; terapia de reemplazo</td></tr>
+     </tbody>
+    </table></div>
+    <p class="small">Fuente: IHME, GBD 2023, Colombia, todas las edades, ambos sexos.</p>
+   </div>
+   <div>
+    <h3>Factores de riesgo, tasa estandarizada de AVAD atribuibles por 100.000, 2023</h3>
+    <div class="tw"><table>
+     <thead><tr><th>Factor</th><th>Tasa</th></tr></thead>
+     <tbody>
+      <tr><td>Índice de masa corporal elevado</td><td>1.545,4</td></tr>
+      <tr><td>Presión arterial sistólica elevada</td><td>1.532,5</td></tr>
+      <tr><td>Desnutrición materna e infantil</td><td>1.470,6</td></tr>
+      <tr><td>Glucosa plasmática elevada</td><td>1.357,7</td></tr>
+      <tr><td>Riesgos dietarios</td><td>1.341,1</td></tr>
+      <tr><td>Contaminación del aire</td><td>894,0</td></tr>
+      <tr><td>Disfunción renal</td><td>870,8</td></tr>
+      <tr><td>Tabaco</td><td>755,1</td></tr>
+     </tbody>
+    </table></div>
+    <p class="small">Fuente: IHME, GBD 2023. Los intervalos de los cuatro primeros se superponen, así que su orden no está resuelto. Las cargas atribuibles no se suman entre factores.</p>
+   </div>
+  </div>
+  <div class="box navy read"><h3>Lectura para la política</h3>
+   <ul class="clean">
+    <li>Tres de los cuatro primeros factores de riesgo son metabólicos y se controlan en atención primaria con medicamentos de bajo costo y seguimiento. Son exactamente lo que miden las listas de hipertensión, diabetes y nefroprotección.</li>
+    <li>La tasa estandarizada de AVAD por diabetes no muestra un cambio claro entre 1990 y 2023, mientras la de cardiopatía isquémica cayó 51,4%. La diabetes es el frente donde una lista bien ejecutada tiene más por ganar.</li>
+    <li>La desnutrición materna e infantil incluye bajo peso al nacer y prematuridad; la lista de gestantes sin control prenatal oportuno apunta a ese factor.</li>
+    <li>El índice de acceso y calidad de la atención fue 62,3 sobre 100 en 2023, de 36,8 en 1990. Mide la mortalidad que una atención oportuna evita: es el indicador de largo plazo que el ciclo de listas debe mover.</li>
+   </ul>
+  </div>
+ </div>
+</section>
+
+<!-- ===================== DOFA ===================== -->
+<section id="dofa" role="tabpanel">
+ <div class="wrap">
+  <h2>DOFA del ciclo de listas</h2>
+  <div class="dofa">
+   <div><h3 style="color:var(--green)">Fortalezas</h3><ul>
+    <li>Funciones legales vigentes en cada paso; no hay vacío de competencia.</li>
+    <li>Fuentes nominales maduras: RIPS con factura, Cuenta de Alto Costo desde 2007, SIVIGILA.</li>
+    <li>Historia clínica interoperable con 6,9 millones de personas y dispensación en camino.</li>
+    <li>Un tablero semanal ya instalado que habla el lenguaje de personas únicas y casos resueltos.</li>
+   </ul></div>
+   <div><h3 style="color:var(--blue)">Oportunidades</h3><ul>
+    <li>EPS intervenidas con cerca de 21 millones de afiliados donde la ejecución es directa.</li>
+    <li>El análisis de suficiencia de la UPC 2027 necesita información de gestión del riesgo por EPS.</li>
+    <li>Sociedades científicas con listas propias de recomendaciones de no hacer, como Decisiones Acertadas.</li>
+    <li>Secretarías departamentales con ASIS actualizados que pueden usar las listas para su plan territorial.</li>
+   </ul></div>
+   <div><h3 style="color:#B37800">Debilidades</h3><ul>
+    <li>Calidad desigual del registro: 526.918 casos renales sin estadio y miles de diagnósticos sin soporte.</li>
+    <li>Rezago entre la atención y su reporte en RIPS, que retrasa el cierre verificado.</li>
+    <li>Capacidad analítica muy distinta entre territorios.</li>
+    <li>EPS con patrimonio negativo y deudas, que reducen su capacidad de respuesta.</li>
+   </ul></div>
+   <div><h3 style="color:var(--red)">Amenazas</h3><ul>
+    <li>Que la lista se use para negar servicios o fijar cuotas a médicos. Se mitiga con garantías explícitas en la circular.</li>
+    <li>Rechazo de gremios médicos si se percibe como control administrativo de la práctica. Se mitiga con sociedades científicas desde el primer ciclo.</li>
+    <li>Fatiga de reportes en IPS pequeñas. Se mitiga usando datos ya reportados y no pidiendo formatos nuevos.</li>
+    <li>Riesgos de privacidad. Se mitigan con envío cifrado, destinatario competente y finalidad limitada.</li>
+   </ul></div>
+  </div>
+ </div>
+</section>
+
+<!-- ===================== MUNDO ===================== -->
+<section id="mundo" role="tabpanel">
+ <div class="wrap">
+  <h2>Lo mismo, en otros sistemas de salud</h2>
+  <p class="read">Ningún país de los revisados tiene el modelo de aseguramiento colombiano, pero todos usan alguna versión del ciclo: identificar personas, devolver la información a quien atiende y medir si se actuó.</p>
+  <div class="two">
+   <div class="card"><h3>Canadá: informes a cada médico</h3><dl><dt>Qué hace</dt><dd>Ontario Health e ICES entregan a médicos y equipos de atención primaria informes de su práctica comparada con sus pares, y listas de pacientes con tamizajes pendientes.</dd><dt>Enlace</dt><dd><a href="https://ontariohealth.ca/system/reporting/mypractice/primary-care">MyPractice Primary Care</a>; <a href="https://www.cihi.ca/en/indicators/ambulatory-care-sensitive-conditions">CIHI, condiciones sensibles a la atención ambulatoria</a>.</dd></dl></div>
+   <div class="card" style="--k:var(--green)"><h3>India: tamizaje poblacional con registro nominal</h3><dl><dt>Qué hace</dt><dd>El portal nacional de enfermedades no transmisibles registró más de 389 millones de personas tamizadas para hipertensión, 51,3 millones diagnosticadas y 47,4 millones en tratamiento, con seguimiento por trabajadores comunitarios.</dd><dt>Enlace</dt><dd><a href="https://www.thip.media/news/govts-ncd-screening-drive-diagnoses-over-5-cr-adults-with-hypertension-3-cr-with-diabetes/124062/">Resultados del programa</a>.</dd></dl></div>
+   <div class="card" style="--k:var(--deep)"><h3>Emiratos Árabes Unidos: riesgo individual desde el intercambio de información</h3><dl><dt>Qué hace</dt><dd>Malaffi, la plataforma de intercambio de Abu Dabi con más de 7 millones de pacientes, calcula el riesgo de cada persona para diabetes, insuficiencia cardiaca, enfermedad renal e hipertensión y lo pone a disposición del médico.</dd><dt>Enlace</dt><dd><a href="https://www.doh.gov.ae/en/news/Department-of-Health-and-Malaffi-use-AI-to-predict-patients-future-risk-of-disease-in-Abu-Dhabi">Departamento de Salud de Abu Dabi</a>.</dd></dl></div>
+   <div class="card" style="--k:var(--red)"><h3>España: estratificación de toda la población</h3><dl><dt>Qué hace</dt><dd>El Sistema Nacional de Salud estratifica a la población por Grupos de Morbilidad Ajustados para identificar pacientes crónicos complejos y orientar su atención.</dd><dt>Enlace</dt><dd><a href="https://vsf-iwsold-pro-01.mscbs.gob.es/areas/calidadAsistencial/estrategias/abordajeCronicidad/docs/informeEstratificacionGMASNS_2014-2016.pdf">Informe del Ministerio de Sanidad</a>.</dd></dl></div>
+   <div class="card" style="--k:var(--blue)"><h3>Estados Unidos: registros y adherencia</h3><dl><dt>Qué hace</dt><dd>Kaiser Permanente del Norte de California pasó de 43,6% a 80,4% de hipertensos controlados entre 2001 y 2009 con un registro nominal, metas compartidas y seguimiento. Medicare mide la adherencia con la proporción de días cubiertos.</dd><dt>Enlace</dt><dd><a href="https://divisionofresearch.kaiserpermanente.org/publications/improved-blood-pressure-control-associated-with-a-large-scale-hypertension-program">Jaffe y colaboradores, JAMA 2013</a>; <a href="https://www.pqaalliance.org/assets/docs/PQA_PDC-CMP-PH_Rationale.pdf">medida de días cubiertos</a>.</dd></dl></div>
+   <div class="card"><h3>Alemania: programas de manejo de enfermedad</h3><dl><dt>Qué hace</dt><dd>Los programas de manejo de enfermedades crónicas inscriben pacientes con diabetes, asma, EPOC y enfermedad coronaria con documentación estandarizada y retroalimentación al médico; el control de economicidad usa asesoría antes de consecuencias.</dd><dt>Enlace</dt><dd><a href="https://www.kbv.de/praxis/patientenversorgung/dmp">Asociación Federal de Médicos</a>; <a href="https://www.gesetze-im-internet.de/sgb_5/__106.html">Código Social V, §106</a>.</dd></dl></div>
+   <div class="card" style="--k:var(--green)"><h3>Países Bajos: grupos de cuidado con pago agrupado</h3><dl><dt>Qué hace</dt><dd>Los grupos de atención primaria reciben un pago único por el cuidado integral de la diabetes y responden por un registro de pacientes y sus indicadores.</dd><dt>Enlace</dt><dd><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3225242/">Evaluación del pago agrupado para diabetes</a>.</dd></dl></div>
+  </div>
+ </div>
+</section>
+
+<!-- ===================== EVIDENCIA ===================== -->
+<section id="evidencia" role="tabpanel">
+ <div class="wrap read">
+  <h2>Evidencia</h2>
+  <h3>Listas y registros mejoran resultados</h3>
+  <ul class="clean refs">
+   <li>Registro nominal de hipertensos con metas y seguimiento: control de 43,6% a 80,4% en ocho años. <a href="https://divisionofresearch.kaiserpermanente.org/publications/improved-blood-pressure-control-associated-with-a-large-scale-hypertension-program">Jaffe MG y col. JAMA 2013</a>.</li>
+   <li>La no adherencia a antiepilépticos se asocia con más de tres veces el riesgo de muerte. <a href="https://ghdx.healthdata.org/record/nonadherence-antiepileptic-drugs-and-increased-mortality-findings-ransom-study">Estudio RANSOM</a>.</li>
+   <li>Suspender la hidroxicloroquina en lupus multiplica por 2,5 el riesgo de reactivación. <a href="https://pubmed.ncbi.nlm.nih.gov/?term=randomized+study+of+the+effect+of+withdrawing+hydroxychloroquine+sulfate+in+systemic+lupus+erythematosus">Canadian Hydroxychloroquine Study Group, NEJM 1991</a>.</li>
+   <li>La crisis suprarrenal ocurre en pacientes educados cerca de 8 veces por cada 100 pacientes al año. <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Hahner+high+incidence+of+adrenal+crisis+in+educated+patients+with+chronic+adrenal+insufficiency">Hahner S y col.</a></li>
+   <li>Pago agrupado y registro en diabetes en Países Bajos. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3225242/">Evaluación del RIVM</a>.</li>
+  </ul>
+  <h3>Retroalimentación a prescriptores</h3>
+  <ul class="clean refs">
+   <li>Cartas con comparación social a médicos generales de alta prescripción de antibióticos en Inglaterra redujeron la prescripción en un ensayo nacional. <a href="https://pubmed.ncbi.nlm.nih.gov/26898856/">Hallsworth M y col. Lancet 2016</a>.</li>
+   <li>Cartas de comparación con pares a prescriptores de quetiapina en Medicare redujeron la prescripción sin daño a los pacientes. <a href="https://oes.gsa.gov/projects/quetiapine-prescribing">Sacarny A y col. JAMA Psychiatry 2018</a>.</li>
+   <li>Metodología de prescriptores atípicos de CMS. <a href="https://www.cms.gov/files/document/opioid-benzodiazepine-prescribing-patterns.pdf">CMS</a>.</li>
+  </ul>
+  <h3>Hospitalizaciones evitables</h3>
+  <ul class="clean refs">
+   <li><a href="https://consultorsalud.com/wp-content/uploads/2026/07/Hospitalizaciones_evitables_por_condiciones_sensibles_a_la_Atencion_Primaria.pdf">ADRES 2026, Colombia</a>; <a href="https://publications.iadb.org/publications/spanish/document/Serie-sobre-hospitalizaciones-evitables-y-fortalecimiento-de-la-atención-primaria-en-salud-El-caso-de-Colombia.pdf">BID 2012, el caso de Colombia</a>.</li>
+   <li><a href="https://qualityindicators.ahrq.gov/measures/pqi_resources">AHRQ, indicadores de calidad preventiva</a>; <a href="https://www.healthstats.nsw.gov.au/page/potentially-preventable-hospitalisation-codes">códigos de Nueva Gales del Sur</a>; <a href="https://www.hqsc.govt.nz/assets/Our-data/Publications-resources/ASH-methodology-child.pdf">Nueva Zelanda</a>.</li>
+  </ul>
+  <h3>Regulación e incentivos</h3>
+  <ul class="clean refs">
+   <li>Regulación responsiva: persuadir primero y escalar ante el incumplimiento. <a href="https://scholar.google.com/scholar?q=Ayres+Braithwaite+Responsive+Regulation+Transcending+the+Deregulation+Debate">Ayres y Braithwaite</a>.</li>
+   <li>Principios de inspección basada en riesgo. <a href="https://doi.org/10.1787/9789264208117-en">OCDE 2014</a>.</li>
+   <li>Marco de valor: <a href="https://doi.org/10.1001/jama.2021.25181">quíntuple meta, JAMA 2022</a>.</li>
+  </ul>
+ </div>
+</section>
+
+<!-- ===================== RUTA ===================== -->
+<section id="ruta" role="tabpanel">
+ <div class="wrap">
+  <h2>Ruta de implementación</h2>
+  <ol class="steps">
+   <li class="step"><div class="h">Mes 1<small>Decidir y correr</small></div><div class="b"><p>Mesa interna entre viceministerios, Epidemiología y Demografía, Tecnología y Supersalud. Primera corrida de tres listas sobre datos existentes. Convocatoria a sociedades científicas de cardiología, nefrología, endocrinología, medicina interna, neurología, reumatología y medicina familiar.</p></div></li>
+   <li class="step" style="--k:var(--blue)"><div class="h">Mes 2<small>Pilotear y publicar</small></div><div class="b"><p>Envío piloto a las EPS intervenidas y a cinco secretarías departamentales. Validación rápida de criterios por el IETS. Proyecto de circular publicado para comentarios.</p></div></li>
+   <li class="step" style="--k:var(--green)"><div class="h">Mes 3<small>Formalizar</small></div><div class="b"><p>Circular externa del Ministerio y circular conjunta con la Supersalud. Indicadores de las listas incorporados al tablero.</p></div></li>
+   <li class="step" style="--k:var(--yellow)"><div class="h d">Meses 4 a 6<small>Ampliar</small></div><div class="b"><p>Todas las EPS y las 33 secretarías. Se agregan las listas de gestantes, desnutrición, VIH y calidad del dato. Primer informe trimestral publicado.</p></div></li>
+   <li class="step" style="--k:var(--deep)"><div class="h">Meses 7 a 12<small>Consolidar</small></div><div class="b"><p>Listas de práctica atípica con retroalimentación a prescriptores. Uso de resultados en el análisis de suficiencia de la UPC y en la regulación de beneficios. Evaluación anual con el IETS.</p></div></li>
+  </ol>
+  <div class="box note read"><h3>Con qué recursos</h3><p>SISPRO y la Dirección Estratégica de Tecnología de la Información para el procesamiento; la Dirección de Epidemiología y Demografía para los criterios; las secretarías departamentales y distritales con sus equipos de salud pública; la Subdirección de Analítica de la Supersalud para la verificación; la Cuenta de Alto Costo y el INS con sus bases. No se contrata plataforma ni se amplía planta.</p></div>
+ </div>
+</section>
+
+<!-- ===================== AVISOS ===================== -->
+<section id="avisos" role="tabpanel">
+ <div class="wrap read">
+  <h2>Fuentes, método y avisos</h2>
+  <h3>Autoría</h3>
+  <p>Análisis y redacción: Claude, modelo de inteligencia artificial de Anthropic, que consultó fuentes públicas y la base del Estudio de Carga Global de Enfermedad 2023 del IHME. Curaduría y responsabilidad editorial: David Aguilar, economista colombiano residente en el exterior.</p>
+  <h3>Declaración de vínculo</h3>
+  <p>David Aguilar está vinculado laboralmente a un conglomerado de salud con operación en Colombia. Las ideas de este documento son personales, se comparten en el espíritu democrático de aportar al debate público y no representan la posición de esa entidad ni la comprometen.</p>
+  <h3>Alcance</h3>
+  <ul class="clean">
+   <li>Es un documento de propuesta, no una publicación oficial de ninguna entidad del Estado.</li>
+   <li>Los códigos CIE 10, CUPS y ATC y los umbrales de cada lista son la propuesta técnica para la primera corrida; su ajuste corresponde a las sociedades científicas y al IETS dentro del propio ciclo.</li>
+   <li>Las listas orientan a quién atender primero; la conducta clínica es del médico tratante.</li>
+   <li>Las estimaciones del GBD son modeladas, no observaciones, y pueden diferir de las estadísticas vitales oficiales. Su uso está sujeto al acuerdo de uso no comercial del IHME.</li>
+   <li>Las cifras de afiliación provienen de <a href="https://doar95.github.io/aseguramiento-salud-colombia/">un repositorio abierto de aseguramiento en salud</a> construido con datos de SISPRO, ADRES y MinSalud; no reemplaza las cifras oficiales y cuenta afiliados por municipio de afiliación, que no siempre es el de residencia.</li>
+   <li>Las cifras de prensa citan a sus fuentes oficiales; donde existe el documento oficial se enlaza directamente.</li>
+  </ul>
+  <h3>Fuentes principales</h3>
+  <ol class="refs small">
+   <li>Ministerio de Salud y Protección Social. Tablero del plan de choque, reportado por <a href="https://www.infobae.com/colombia/2026/10/27/ministerio-de-salud-activo-tablero-para-vigilar-la-crisis-de-salud-y-prepara-el-calculo-de-la-upc-de-2027-estas-son-las-cifras-clave/">Infobae, 27 de octubre de 2026</a>, y <a href="https://www.infobae.com/colombia/2026/10/16/mas-de-270-mil-pacientes-han-recibido-medicamentos-y-se-han-realizado-cerca-de-170-mil-procedimientos-segun-reporte-del-plan-de-choque-en-salud-vamos-por-buen-camino/">16 de octubre de 2026</a>.</li>
+   <li>Presidencia de la República. <a href="https://www.presidencia.gov.co/prensa/Paginas/Presidente-De-La-Espriella-anuncio-primera-fase-del-Plan-de-Choque-en-Salud-260921.aspx">Primera fase del plan de choque en salud</a>.</li>
+   <li>Cuenta de Alto Costo. Situación de la enfermedad renal crónica 2025 y boletín de riesgo cardiovascular 2026, reseñados en <a href="https://consultorsalud.com/?p=344637">ConsultorSalud</a> y <a href="https://consultorsalud.com/riesgo-cardiovascular-colombia-millones-hta-d/">ConsultorSalud</a>.</li>
+   <li>ADRES. <a href="https://consultorsalud.com/wp-content/uploads/2026/07/Hospitalizaciones_evitables_por_condiciones_sensibles_a_la_Atencion_Primaria.pdf">Hospitalizaciones evitables por condiciones sensibles a la atención primaria, 2025</a>.</li>
+   <li>Ministerio de Salud. <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/OT/informe-especial-ihce.pdf">Informe especial de interoperabilidad de la historia clínica electrónica</a>, agosto de 2026.</li>
+   <li>Institute for Health Metrics and Evaluation. Global Burden of Disease Study 2023. <a href="https://vizhub.healthdata.org/gbd-results/">GBD Results</a>.</li>
+   <li>Decreto 120 de 2026, Decreto 4107 de 2011 y Decreto 1080 de 2021 en las compilaciones enlazadas en la pestaña Funciones.</li>
+   <li>Repositorio Institucional Digital del Ministerio de Salud: ASIS departamentales y distritales 2024 y 2025.</li>
+  </ol>
+  <p class="small">Código y datos de este brief: <a href="https://github.com/doar95/listas-de-pacientes-colombia">repositorio del brief en GitHub</a>.</p>
+ </div>
+</section>
+
+</main>
+
+<footer><div class="wrap small">Brief técnico independiente. Corte de información: 1 de noviembre de 2026. Análisis y redacción: Claude (Anthropic). Curaduría: David Aguilar, economista. No es una publicación oficial.</div></footer>
+
+<script>
+const ASIS=[["Amazonas","amazonas",2025],["Antioquia","antioquia",2025],["Arauca","arauca",2025],["Atlántico","atlantico",2025],["Bogotá, D.C.","bogota",2025],["Bolívar","bolivar",2025],["Boyacá","boyaca",2025],["Caldas","caldas",2024],["Caquetá","caqueta",2025],["Casanare","casanare",2025],["Cauca","cauca",2025],["Cesar","cesar",2025],["Chocó","choco",2025],["Córdoba","cordoba",2024],["Cundinamarca","cundinamarca",2025],["Guainía","guainia",2025],["Guaviare","guaviare",2025],["Huila","huila",2025],["La Guajira","la-guajira",2025],["Magdalena","magdalena",2025],["Meta","meta",2025],["Nariño","narino",2025],["Norte de Santander","norte-santander",2024],["Putumayo","putumayo",2025],["Quindío","quindio",2025],["Risaralda","risaralda",2025],["San Andrés, Providencia y Santa Catalina","san-andres",2025],["Santander","santander",2025],["Sucre","sucre",2025],["Tolima","tolima",2025],["Valle del Cauca","valle-del-cauca",2025],["Vaupés","vaupes",2025],["Vichada","vichada",2025]];
+const tb=document.querySelector('#asis tbody');
+ASIS.forEach(([n,s,y])=>{const u='https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VS/ED/PSP/asis-'+s+'-'+y+'.zip';tb.insertAdjacentHTML('beforeend','<tr><td>'+n+'</td><td>'+y+'</td><td><a href="'+u+'">Descargar ASIS '+y+'</a></td></tr>')});
+const btns=[...document.querySelectorAll('nav.tabs button')];
+function show(id,push){if(!document.getElementById(id))id='brief';document.querySelectorAll('main section').forEach(s=>s.classList.toggle('on',s.id===id));btns.forEach(b=>b.setAttribute('aria-selected',b.dataset.t===id));if(push)history.replaceState(null,'','#'+id);window.scrollTo({top:0});}
+btns.forEach(b=>b.addEventListener('click',()=>show(b.dataset.t,true)));
+document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();show(a.dataset.go,true)}));
+show(location.hash.slice(1)||'brief',false);
+window.addEventListener('hashchange',()=>show(location.hash.slice(1)||'brief',false));
+window.addEventListener('load',()=>requestAnimationFrame(()=>window.scrollTo(0,0)));
+</script>
+</body>
+</html>

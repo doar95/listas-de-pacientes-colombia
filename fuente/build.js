@@ -17,7 +17,8 @@ const navGroups=[
  ['Supersalud, normas y fuentes',[['supersalud','Supersalud'],['juridica','Base jurídica'],['dofa','DOFA'],['mundo','Otros países'],['evidencia','Evidencia'],['ruta','Ruta'],['avisos','Fuentes y avisos']]]
 ];
 const navGroup=([h,items,k],idx)=>(k&&idx===2?'<p class="nsup">Listas</p>':'')+(!k&&idx===navGroups.length-1?'<p class="nsup">Instrumentos</p>':'')+'<p class="ng'+(k?' ngl" style="--k:'+k:'')+'">'+h+'</p>'+items.map(([id,t])=>'<button role="tab" data-t="'+id+'"'+(k?' class="lb" style="--k:'+k+'"':'')+'>'+t+'</button>').join('');
-const nav='<nav class="tabs" aria-label="Secciones del brief"><button class="menu" aria-expanded="false" aria-controls="navlist">Secciones del brief</button><div class="wrap" id="navlist" role="tablist">'+navGroups.map(navGroup).join('')+'</div></nav>';
+const navRaw='<nav class="tabs" aria-label="Secciones del brief"><button class="menu" aria-expanded="false" aria-controls="navlist"><svg class="mi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2.4" fill="none"/></svg><span class="mtx"><b>Menú del brief</b><span id="mcur">Brief</span></span><span class="mch" id="mch">Ver las 47 secciones</span></button><div class="wrap" id="navlist" role="tablist">'+navGroups.map(navGroup).join('')+'</div></nav>';
+const nav=navRaw.replace('data-t="brief">Brief</button>','data-t="brief">Brief</button><a class="navpres" href="presentacion.html">Presentación de 60 segundos</a>');
 
 /* ---------- BRIEF ---------- */
 const wheel=`<div class="wheel" aria-label="Ciclo de seis pasos: identificar, priorizar, enviar, actuar, verificar, evaluar">
@@ -89,6 +90,16 @@ const brief=`<section id="brief" class="on" role="tabpanel"><div class="wrap">
 <p class="lead">El sistema ya sabe, persona por persona, quién dejó de recibir un medicamento del que depende su vida, quién tiene diabetes sin estudio renal, qué gestante no ha tenido su primer control y qué médico prescribe muy distinto a sus pares.</p>
 <p class="lead">La propuesta: convertir ese conocimiento en listas con responsable. Cada EPS y cada secretaría recibe a sus personas pendientes, cada IPS recibe la comparación de sus profesionales y la Supersalud verifica el cierre. Con las normas, los datos y los equipos que ya existen.</p>
 </div>${wheel}</div>
+<nav class="quick" aria-label="Accesos rápidos"><p>Explore el brief</p><div>
+<a href="#idx" data-scroll="idx" class="qk">Las ${L.length} listas</a>
+<a href="#sistema" data-go="sistema">Sistema y funciones</a>
+<a href="#tablero" data-go="tablero">Tablero del plan de choque</a>
+<a href="#cac" data-go="cac">Cuenta de Alto Costo</a>
+<a href="#territorios" data-go="territorios">Territorios</a>
+<a href="#supersalud" data-go="supersalud">Supersalud</a>
+<a href="presentacion.html" class="qp">Presentación de 60 segundos</a>
+<button type="button" class="qm">Todas las secciones</button>
+</div></nav>
 <h2>Qué cambia</h2>
 <div class="cy">
 <div><b>Para las personas</b>La atención llega antes de la urgencia: el medicamento antes de la crisis, el examen antes de la diálisis, el control antes del parto.</div>
@@ -102,7 +113,7 @@ ${cycTable}
 <p class="small">Detalle de funciones por dependencia en <a href="#sistema" data-go="sistema">Sistema y funciones</a>.</p>
 <h2>Lo que ya existe y lo que el ciclo agrega</h2>
 ${existeTable}
-<h2 style="margin-top:34px">Las ${L.length} listas</h2>
+<h2 id="idx" style="margin-top:34px;scroll-margin-top:70px">Las ${L.length} listas</h2>
 <div class="box note read"><h3>Cómo leer el orden</h3><p>Las listas se agrupan por tipo de problema; el orden no es un ranking de importancia. La prioridad clínica entre pacientes la fija la pirámide oficial del plan de choque. Cada tarjeta muestra tres datos para decidir el arranque: en cuánto tiempo llega el daño si no se actúa, si la fuente nominal ya está lista y en qué vuelta se sugiere empezar. La primera vuelta se elige por factibilidad: dato listo y criterio sin discusión clínica. Las listas de médicos van en la tercera vuelta porque necesitan indicadores validados por las sociedades científicas, no porque importen menos.</p></div>
 ${index}
 <h2>Por qué ahora</h2>
@@ -467,6 +478,28 @@ ul.ev{padding-left:18px}ul.ev li{margin:0 0 .6em}
 .gh{margin:26px 0 2px;color:var(--k);border-bottom:3px solid var(--k);padding-bottom:4px}
 .gd{margin:4px 0 0;font-size:.92rem}
 td.n{text-align:right;white-space:nowrap}
+.hcta{margin:14px 0 4px}
+.cta{display:inline-block;background:var(--yellow);color:#1f2933;font:700 .95rem Montserrat,sans-serif;text-decoration:none;padding:9px 16px}
+.cta:hover{background:#ffc53d}
+nav.tabs .navpres{display:block;margin:4px 18px 0;padding:8px 10px;background:var(--yellow);color:#1f2933;font:700 .85rem Montserrat,sans-serif;text-decoration:none}
+.quick{display:none}
+nav.tabs button.menu .mi{width:22px;height:22px;flex:none}
+nav.tabs button.menu .mtx{display:flex;flex-direction:column;line-height:1.2;flex:1;text-align:left}
+nav.tabs button.menu .mtx b{font:700 .95rem Montserrat,sans-serif}
+nav.tabs button.menu .mtx span{font-size:.82rem;opacity:.85}
+nav.tabs button.menu .mch{flex:none;background:var(--yellow);color:#1f2933;font:700 .8rem Montserrat,sans-serif;padding:6px 10px}
+@media (max-width:860px){
+ nav.tabs button.menu,nav.tabs button.menu:hover{display:flex!important;align-items:center;gap:12px;padding:10px 14px}
+ nav.tabs .navpres{margin:6px 16px 4px}
+ nav.tabs .wrap button.lb{padding-left:32px}
+ .quick{display:block;margin:22px 0 6px;padding:14px;background:var(--soft);border-left:5px solid var(--navy)}
+ .quick p{margin:0 0 8px;font:700 .95rem Montserrat,sans-serif;color:var(--navy)}
+ .quick div{display:flex;flex-wrap:wrap;gap:8px}
+ .quick a,.quick button{font:600 .9rem "Work Sans",sans-serif;text-decoration:none;color:var(--navy);background:#fff;border:1px solid var(--navy);padding:7px 11px;cursor:pointer}
+ .quick a.qk{background:var(--navy);color:#fff}
+ .quick a.qp{background:var(--yellow);border-color:var(--yellow);color:#1f2933}
+ .quick button.qm{background:#fff;border-style:dashed}
+}
 nav.tabs .nsup{font:800 .82rem Montserrat,sans-serif;color:var(--navy);margin:20px 18px 2px;padding-top:12px;border-top:1px solid var(--line)}
 nav.tabs .ngl{margin:10px 0 2px;padding:6px 14px;color:var(--k);background:color-mix(in srgb,var(--k) 13%,#fff);border-left:5px solid var(--k)}
 nav.tabs button.lb{position:relative;padding-left:32px;font-weight:500}
@@ -522,11 +555,17 @@ document.querySelectorAll('main section').forEach(sec=>{const used=new Set();
 document.getElementById('allrefs').innerHTML=REFS.map(r=>'<li><span class="nn">['+r.n+']</span> '+r.apa+' <a href="'+r.url+'">Disponible en línea</a></li>').join('');
 document.addEventListener('click',e=>{const a=e.target.closest('a[data-note]');if(!a)return;e.preventDefault();const t=document.getElementById(a.dataset.note);if(t){t.scrollIntoView({block:'center'});t.classList.add('hl');setTimeout(()=>t.classList.remove('hl'),1600);}});
 const nav=document.querySelector('nav.tabs'),menu=nav.querySelector('.menu');
-menu.addEventListener('click',()=>{const o=nav.classList.toggle('open');menu.setAttribute('aria-expanded',o);});
+menu.addEventListener('click',()=>{const o=nav.classList.toggle('open');menu.setAttribute('aria-expanded',o);document.getElementById('mch').textContent=o?'Cerrar':'Ver las '+btns.length+' secciones';});
 const btns=[...document.querySelectorAll('nav.tabs button[data-t]')];
-function show(id,push){if(!document.getElementById(id)||!document.getElementById(id).matches('main section'))id='brief';document.querySelectorAll('main section').forEach(s=>s.classList.toggle('on',s.id===id));btns.forEach(b=>b.setAttribute('aria-selected',b.dataset.t===id));const cur=btns.find(b=>b.dataset.t===id);menu.textContent='Secciones: '+(cur?cur.textContent:'Brief');nav.classList.remove('open');menu.setAttribute('aria-expanded','false');if(push)history.replaceState(null,'','#'+id);window.scrollTo({top:0});}
+function show(id,push){if(!document.getElementById(id)||!document.getElementById(id).matches('main section'))id='brief';document.querySelectorAll('main section').forEach(s=>s.classList.toggle('on',s.id===id));btns.forEach(b=>b.setAttribute('aria-selected',b.dataset.t===id));const cur=btns.find(b=>b.dataset.t===id);document.getElementById('mcur').textContent=cur?cur.textContent:'Brief';nav.classList.remove('open');menu.setAttribute('aria-expanded','false');if(push)history.replaceState(null,'','#'+id);window.scrollTo({top:0});}
 btns.forEach(b=>b.addEventListener('click',()=>show(b.dataset.t,true)));
+document.getElementById('mch').textContent='Ver las '+btns.length+' secciones';
+const ord=btns.map(b=>b.dataset.t);
+document.querySelectorAll('main section').forEach(sec=>{if(sec.querySelector('.pn'))return;const i=ord.indexOf(sec.id);if(i<0)return;const pv=btns[i-1],nx=btns[i+1];
+ sec.querySelector('.wrap').insertAdjacentHTML('beforeend','<p class="pn">'+(pv?'<a href="#'+pv.dataset.t+'" data-go="'+pv.dataset.t+'">Sección anterior: '+pv.textContent+'</a>':'<span></span>')+(nx?'<a href="#'+nx.dataset.t+'" data-go="'+nx.dataset.t+'">Sección siguiente: '+nx.textContent+'</a>':'')+'</p>');});
 document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();show(a.dataset.go,true);}));
+document.querySelectorAll('[data-scroll]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.getElementById(a.dataset.scroll);if(t)t.scrollIntoView({behavior:'smooth'});}));
+document.querySelectorAll('.qm').forEach(b=>b.addEventListener('click',()=>{nav.classList.add('open');menu.setAttribute('aria-expanded','true');document.getElementById('mch').textContent='Cerrar';nav.scrollIntoView({block:'start'});menu.focus();}));
 show(location.hash.slice(1)||'brief',false);
 window.addEventListener('hashchange',()=>show(location.hash.slice(1)||'brief',false));`;
 
@@ -546,6 +585,7 @@ const html=`<!doctype html>
 <header class="top"><div class="wrap">
 <h1>${TITLE}</h1>
 <p>Un ciclo de política continuo que convierte lo que el sistema ya sabe en listas con dueño, con las normas, los datos y los equipos que Colombia tiene hoy, sin ley nueva, sin planta nueva y sin presupuesto adicional.</p>
+<p class="hcta"><a class="cta" href="presentacion.html">Ver la presentación de 60 segundos</a></p>
 <p class="by">Brief técnico para tomadores de decisión del Ministerio de Salud y Protección Social. Información con corte al 1 de noviembre de 2026. Análisis y redacción: Claude, modelo de inteligencia artificial de Anthropic. Curaduría: David Aguilar, economista colombiano residente en el exterior. Ver <a href="#avisos" style="color:#fff" data-go="avisos">avisos y alcance</a>.</p>
 </div></header>
 <div class="layout">${nav}<main>

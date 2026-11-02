@@ -53,14 +53,14 @@ module.exports={
   {
    "id": "pdc",
    "g": "vital",
-   "t": "Plan de choque: la pirámide de riesgo en códigos y con cierre verificado",
-   "valor": "Toma la pirámide de riesgo que el plan de choque ya usa, la escribe en códigos y mide el cierre en pacientes verificados por nivel, no en unidades.",
+   "t": "Plan de choque: la pirámide de riesgo en cada corte, con cierre verificado",
+   "valor": "Parte de la pirámide de riesgo del plan de choque, la lleva a cada corte y le suma la verificación del cierre por nivel, contado en pacientes.",
    "cifra": [
     "27,77%",
     "de las 1.849.649 personas del tablero tenían todos sus pendientes cerrados al 27 de octubre de 2026",
     "tablero"
    ],
-   "problema": "El plan de choque ya ordena a los pacientes con pendientes en una pirámide de tres niveles construida con la Cuenta de Alto Costo y las sociedades científicas: en el primero, trasplante, enfermedades huérfanas, cáncer, diabetes insulinodependiente y VIH; en el segundo, asma, insuficiencia cardiaca, enfermedad renal, salud mental, gestantes y EPOC; en el tercero, hipertensión pulmonar, diabetes, dislipidemia e hipotiroidismo, entre otras [[pdcpiramide]]. Una Mesa Técnica de Control del Ministerio, la Supersalud y la ADRES hace el seguimiento [[pdcavance]]. El tablero público, con corte al 27 de octubre de 2026, registra 1.849.649 personas: 513.607 con su pendiente cerrado y 1.336.042 con pendiente. El cierre de registros es de 49,64% en medicamentos y de 24,78% en procedimientos, y sus filtros son tecnología, EPS, ubicación y corte, no el nivel de la pirámide [[tablero]]. Lo que esta lista agrega es la pirámide escrita en códigos, el nivel de riesgo como filtro del tablero, el cierre contado por nivel y verificado contra RIPS y la historia clínica, y su continuidad después de la fase temporal.",
+   "problema": "El plan de choque ya ordena a los pacientes con pendientes en una pirámide de tres niveles construida con la Cuenta de Alto Costo y las sociedades científicas: en el primero, trasplante, enfermedades huérfanas, cáncer, diabetes insulinodependiente y VIH; en el segundo, asma, insuficiencia cardiaca, enfermedad renal, salud mental, gestantes y EPOC; en el tercero, hipertensión pulmonar, diabetes, dislipidemia e hipotiroidismo, entre otras [[pdcpiramide]]. Una Mesa Técnica de Control del Ministerio, la Supersalud y la ADRES hace el seguimiento [[pdcavance]]. El tablero público, con corte al 27 de octubre de 2026, registra 1.849.649 personas: 513.607 con su pendiente cerrado y 1.336.042 con pendiente. El cierre de registros es de 49,64% en medicamentos y de 24,78% en procedimientos [[tablero]]. Esta lista complementa ese trabajo: usa la pirámide tal como la define el Ministerio, le suma una vista del cierre por nivel verificada contra RIPS y la historia clínica, y le da continuidad como parte del ciclo regular.",
    "clinica": "En cáncer, cada cuatro semanas de retraso en el tratamiento aumenta la mortalidad [[hanna]]. En enfermedad renal avanzada, trasplante, VIH y gestación, la interrupción produce eventos graves en días o semanas. Ordenar por riesgo no cambia cuántas personas se atienden, cambia quién va primero.",
    "factores": [
     "Nivel 1: trasplante, enfermedad huérfana, cáncer, diabetes insulinodependiente, VIH",
@@ -68,7 +68,7 @@ module.exports={
     "Nivel 3: hipertensión pulmonar, diabetes, dislipidemia, hipotiroidismo y otras",
     "Dentro de cada nivel, primero quien tuvo urgencia u hospitalización en 90 días"
    ],
-   "cie": "Nivel 1: Z94 trasplante; listado de enfermedades huérfanas; C00 a D09 cáncer; E10 diabetes insulinodependiente; B20 a B24 VIH. Nivel 2: J45 asma; I50 insuficiencia cardiaca; N18 enfermedad renal; F20 a F39 trastornos mentales graves; Z34, Z35 y capítulo O gestación; J44 EPOC. Nivel 3: I27.0 hipertensión pulmonar primaria; E11 diabetes; E78 dislipidemia; E03 hipotiroidismo.",
+   "cie": "Correspondencia de referencia con la pirámide oficial, para validar con el Ministerio y las sociedades científicas. Nivel 1: Z94 trasplante; listado de enfermedades huérfanas; C00 a D09 cáncer; E10 diabetes insulinodependiente; B20 a B24 VIH. Nivel 2: J45 asma; I50 insuficiencia cardiaca; N18 enfermedad renal; F20 a F39 trastornos mentales graves; Z34, Z35 y capítulo O gestación; J44 EPOC. Nivel 3: I27.0 hipertensión pulmonar primaria; E11 diabetes; E78 dislipidemia; E03 hipotiroidismo.",
    "cups": "Los del procedimiento pendiente según el tablero; para cierre se toman de RIPS.",
    "atc": "L01 y L02 antineoplásicos y hormonales; J05AR y J05AJ antirretrovirales; L04AD inhibidores de calcineurina; A10A insulinas; R03 medicamentos para enfermedad obstructiva de la vía aérea.",
    "fuentes": "Tablero del plan de choque, Cuenta de Alto Costo, RIPS, listado de enfermedades huérfanas de la Resolución 2625 de 2025 [[r2625]].",
@@ -91,7 +91,7 @@ module.exports={
     [
      "Ministerio de Salud",
      "Viceministerio de Protección Social con la Dirección de Regulación de Operación del Aseguramiento",
-     "Mantiene la pirámide y la escribe en códigos con las sociedades científicas",
+     "Mantiene la pirámide y su regla de clasificación con las sociedades científicas",
      "Ley 1122 de 2007, art. 14; Decreto 120 de 2026, art. 5"
     ],
     [
@@ -126,7 +126,7 @@ module.exports={
     ]
    ],
    "cierre": "Servicio registrado en RIPS o en el resumen digital de atención.",
-   "indicador": "Pacientes de nivel 1 con pendiente cerrado y verificado, por EPS y departamento, contados en pacientes y no en unidades.",
+   "indicador": "Pacientes de nivel 1 con pendiente cerrado y verificado, por EPS y departamento, contados en pacientes.",
    "mundo": "Inglaterra exige diagnóstico o descarte de cáncer en 28 días desde la remisión y tratamiento en 62 días [[nhscwt]]; Dinamarca organizó rutas rápidas de cáncer con plazos para cada paso [[probst]]. En ambos casos la cola se ordena por sospecha clínica.",
    "ev": [
     [

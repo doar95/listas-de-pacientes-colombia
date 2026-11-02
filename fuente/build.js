@@ -75,14 +75,14 @@ const stepsHtml='<ol class="steps">'+steps.map(([t,k,r,f,q,p])=>`<li class="step
 const cycNorm={Identificar:'Ley 1438 de 2011, art. 112; Ley 1751 de 2015, art. 19; Decreto 120 de 2026, art. 5',Priorizar:'Ley 1122 de 2007, art. 14; Decreto 120 de 2026, art. 5; Decreto 4107 de 2011, art. 28',Enviar:'Decreto 120 de 2026, art. 9; Ley 1581 de 2012, art. 10',Actuar:'Ley 100 de 1993, art. 178; Ley 1122 de 2007, art. 14; Ley 715 de 2001, art. 43',Verificar:'Decreto 1080 de 2021, arts. 7, 17 y 22; Ley 1949 de 2019','Evaluar y ajustar':'Decreto 120 de 2026, arts. 19 y 20; Ley 1438 de 2011, art. 92'};
 const cycTable='<div class="tw"><table class="cyc"><thead><tr><th>Paso</th><th>Quién</th><th>Norma</th><th>Producto</th></tr></thead><tbody>'+steps.map(([t,k,r,f,q,pr])=>'<tr><td style="border-left:6px solid '+k+'"><b>'+t+'</b></td><td>'+r+'</td><td>'+cycNorm[t]+'</td><td>'+pr+'</td></tr>').join('')+'</tbody></table></div>';
 const existe=[
-['Pirámide de riesgo del plan de choque','Ordena a los pacientes con pendientes en tres niveles, con la Cuenta de Alto Costo y las sociedades científicas; el propio Ministerio la describe como un modelo en construcción [[pdcpiramide]].','La escribe en códigos, la aplica en cada corte y la extiende a quien nunca figuró como pendiente.'],
-['Mesa Técnica de Control y tablero público del plan de choque','La mesa del Ministerio, la Supersalud y la ADRES hace seguimiento [[pdcavance]]; el tablero semanal muestra personas, registros y unidades por tecnología, EPS y ubicación [[tablero]].','Agrega el nivel de riesgo como filtro, el cierre verificado contra RIPS y la historia clínica, y las patologías de continuidad que hoy no tienen categoría propia.'],
+['Pirámide de riesgo del plan de choque','Ordena a los pacientes con pendientes en tres niveles de riesgo, construidos con la Cuenta de Alto Costo y las sociedades científicas [[pdcpiramide]].','La adopta como la prioridad clínica de todas las listas, la lleva a cada corte y la extiende a personas que todavía no tienen una orden.'],
+['Mesa Técnica de Control y tablero público del plan de choque','La mesa del Ministerio, la Supersalud y la ADRES hace seguimiento [[pdcavance]]; el tablero semanal muestra personas, registros y unidades por tecnología, EPS y ubicación [[tablero]].','Suma una vista del avance por nivel de riesgo, una verificación cruzada del cierre con RIPS y la historia clínica, y categorías para las condiciones de continuidad vital.'],
 ['Circular de la Supersalud para menores en riesgo vital','Exige a las EPS una base de menores en cohortes priorizadas, con seguimiento mensual, anexo de 19 campos y acceso directo de la Supersalud [[cenna]].','Usa el mismo formato para adultos y para las demás listas; no hace falta un reporte nuevo.'],
 ['Cuenta de Alto Costo','Cohortes nominales auditadas desde 2007; participa en el plan de choque [[caccv]].','Las brechas vuelven a la EPS en cada corte, con nombre propio.'],
 ['Analítica de hospitalizaciones evitables de la ADRES','Identificó 748.212 hospitalizaciones evitables en 2025 [[adres]].','Lista nominal y control después del egreso.'],
 ['Acuerdo de la ADRES y el Invima','Cruza prescripción, suministro y gasto por producto [[adresinvima]].','Comparación entre pares por prescriptor, confidencial y revisada en la IPS.'],
 ['Supervisión de la Supersalud','46 indicadores de seguimiento a EPS en 2026 y un reto declarado de supervisión con analítica y alertas tempranas [[rcsuper]].','Las listas son esas alertas, a nivel de persona.']];
-const existeTable='<div class="tw"><table><thead><tr><th>Lo que ya existe</th><th>Qué hace hoy</th><th>Qué agrega el ciclo</th></tr></thead><tbody>'+existe.map(r=>'<tr><td><b>'+r[0]+'</b></td><td>'+cite(r[1])+'</td><td>'+r[2]+'</td></tr>').join('')+'</tbody></table></div>';
+const existeTable='<div class="tw"><table><thead><tr><th>Lo que ya existe</th><th>Qué hace hoy</th><th>Cómo lo complementa el ciclo</th></tr></thead><tbody>'+existe.map(r=>'<tr><td><b>'+r[0]+'</b></td><td>'+cite(r[1])+'</td><td>'+r[2]+'</td></tr>').join('')+'</tbody></table></div>';
 const chips=x=>'<div class="chips"><span>Daño en '+x.dano+'</span><span>Fuente nominal '+x.dato+'</span><span>Vuelta '+x.vuelta+'</span></div>';
 const index=GRUPOS.map(g=>{const ls=L.filter(x=>x.g===g[0]);return `<h3 class="gh" style="--k:${g[2]}">${g[1]}</h3><p class="gd">${g[3]}</p><div class="lgrid">`+ls.map(x=>`<a class="lc" style="--k:${g[2]}" href="#l-${x.id}" data-go="l-${x.id}"><b>${x.t}</b><span>${x.valor}</span>${chips(x)}<i>Abrir la lista</i></a>`).join('')+'</div>';}).join('');
 const brief=`<section id="brief" class="on" role="tabpanel"><div class="wrap">
@@ -111,7 +111,8 @@ ${sysmap}
 <h2>El ciclo</h2>
 ${cycTable}
 <p class="small">Detalle de funciones por dependencia en <a href="#sistema" data-go="sistema">Sistema y funciones</a>.</p>
-<h2>Lo que ya existe y lo que el ciclo agrega</h2>
+<h2>Lo que ya existe y cómo lo complementa el ciclo</h2>
+<p class="read">El ciclo de listas se construye sobre lo que el sistema ya puso en marcha. Parte de la pirámide de riesgo, del tablero y de la mesa técnica del plan de choque, y de las bases nominales que existen, y les suma continuidad, verificación y nuevas listas.</p>
 ${existeTable}
 <h2 id="idx" style="margin-top:34px;scroll-margin-top:70px">Las ${L.length} listas</h2>
 <div class="box note read"><h3>Cómo leer el orden</h3><p>Las listas se agrupan por tipo de problema; el orden no es un ranking de importancia. La prioridad clínica entre pacientes la fija la pirámide oficial del plan de choque. Cada tarjeta muestra tres datos para decidir el arranque: en cuánto tiempo llega el daño si no se actúa, si la fuente nominal ya está lista y en qué vuelta se sugiere empezar. La primera vuelta se elige por factibilidad: dato listo y criterio sin discusión clínica. Las listas de médicos van en la tercera vuelta porque necesitan indicadores validados por las sociedades científicas, no porque importen menos.</p></div>
@@ -195,12 +196,12 @@ const tableroSec=`<section id="tablero" role="tabpanel"><div class="wrap">
 <div class="box navy read"><h3>Lectura</h3><ul class="clean">
 <li>El cuello de botella está en los procedimientos: hay más del doble de personas esperando procedimientos que medicamentos, y su cierre va a la mitad del ritmo.</li>
 <li>Los procedimientos más pendientes son el control de laboratorio del paciente crónico: creatinina, lípidos, glucosa, hemoglobina glicosilada y microalbuminuria. Es el mismo contenido de las listas de estudio renal, hipertensión y diabetes, que lo resuelven dentro de la ruta de riesgo cardiovascular.</li>
-<li>Entre los medicamentos más pendientes conviven tratamientos esenciales, como valsartán, levotiroxina y atorvastatina, con otros de menor valor clínico, como protectores gástricos y simeticona con trimebutina. Ordenar por riesgo y no por volumen pone primero lo esencial.</li>
-<li>La pirámide incluye enfermedad renal e insuficiencia cardiaca, que no tienen categoría propia en la gráfica de patologías; tampoco la tienen epilepsia, insuficiencia suprarrenal, hipoparatiroidismo ni lupus.</li>
+<li>Entre los medicamentos más pendientes conviven tratamientos esenciales, como valsartán, levotiroxina y atorvastatina, con otros de menor valor clínico, como protectores gástricos y simeticona con trimebutina. La priorización por riesgo de la pirámide pone primero lo esencial, y las listas de polifarmacia y prescriptores ayudan a revisar la pertinencia del resto.</li>
+<li>A las doce patologías del tablero, las listas suman categorías para enfermedad renal, insuficiencia cardiaca y condiciones de continuidad vital como epilepsia, insuficiencia suprarrenal, hipoparatiroidismo y lupus.</li>
 </ul></div>
-<div class="box" style="border-color:var(--green)"><h3>Lo que el ciclo de listas le agrega al tablero</h3><ul class="clean">
-<li>El nivel de la pirámide como filtro y como indicador de cierre.</li>
-<li>El cierre verificado contra RIPS y la historia clínica, junto al reportado por la EPS.</li>
+<div class="box" style="border-color:var(--green)"><h3>Lo que el ciclo de listas le suma al tablero</h3><ul class="clean">
+<li>Una vista del avance por nivel de la pirámide.</li>
+<li>Una verificación cruzada del cierre con RIPS y la historia clínica, que complementa el reporte de las EPS.</li>
 <li>Las patologías de continuidad vital como categorías propias.</li>
 <li>Una vista por prestador de procedimientos pendientes.</li>
 <li>Una tabla descargable por EPS, municipio, nivel y tecnología en el portal de datos abiertos.</li>

@@ -101,7 +101,7 @@ const DEP=${JSON.stringify(D)};
 const GR=${JSON.stringify(G)};
 const STEPS=[
  ['Identificar','#004884','Dirección de Epidemiología y Demografía con la Dirección de Tecnología de la Información, sobre RIPS, historia clínica, Cuenta de Alto Costo, SIVIGILA y el tablero.','Ley 1438 de 2011, art. 112; Ley 1751 de 2015, art. 19'],
- ['Priorizar','#3366CC','Viceministerio de Protección Social, con la pirámide de riesgo del plan de choque escrita en códigos.','Ley 1122 de 2007, art. 14; Decreto 120 de 2026, art. 5'],
+ ['Priorizar','#3366CC','Viceministerio de Protección Social, con la pirámide de riesgo del plan de choque como prioridad clínica.','Ley 1122 de 2007, art. 14; Decreto 120 de 2026, art. 5'],
  ['Enviar','#069169','Cada EPS recibe a sus afiliados, cada secretaría su territorio y cada IPS la comparación de sus profesionales.','Decreto 120 de 2026, art. 9; Ley 1581 de 2012, art. 10'],
  ['Actuar','#FFAB00','EPS, IPS, gestores farmacéuticos y secretarías contactan, entregan y reportan el cierre. El médico tratante decide.','Ley 100 de 1993, art. 178; Ley 715 de 2001, art. 43'],
  ['Verificar','#A80521','Supersalud: Subdirección de Analítica y delegadas, con apoyo de la Cuenta de Alto Costo.','Decreto 1080 de 2021, arts. 7, 17 y 22; Ley 1949 de 2019'],

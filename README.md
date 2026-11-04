@@ -1,12 +1,13 @@
 # Listas para actuar a tiempo: plataforma interinstitucional de seguimiento y control
 
-Brief técnico independiente para tomadores de decisión del Ministerio de Salud y Protección Social. Propone un ciclo mensual de listas nominales de pacientes (identificar, priorizar, enviar, actuar, verificar y evaluar) que se puede ejecutar con las normas, los datos y los equipos que ya existen.
+Propuesta técnica independiente para el Ministerio de Salud y Protección Social, la Superintendencia Nacional de Salud, la ADRES y las secretarías de salud. Propone una plataforma interinstitucional que une las fuentes existentes alrededor del caso del paciente, con un ciclo de ocho pasos (identificar, priorizar, enviar, actuar, seguir, verificar, controlar y evaluar) y 33 listas de pacientes, médicos y prestadores, con las normas y las capacidades que ya existen.
 
 Sitio: https://doar95.github.io/listas-de-pacientes-colombia/
 
 ## Contenido
 
 - `index.html`: el brief completo, con pestañas.
+- `presentacion.html`: presentación animada de 60 segundos.
 - `data/asis_territorios.csv`: catálogo de los Análisis de Situación de Salud (ASIS) más recientes de los 32 departamentos y Bogotá en el Repositorio Institucional Digital del Ministerio de Salud, verificado el 1 de noviembre de 2026.
 
 ## Autoría y avisos

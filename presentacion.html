@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Listas para actuar a tiempo</title>
-<meta name="description" content="Presentación animada de 60 segundos del brief Listas para actuar a tiempo: pacientes, médicos y prestadores.">
+<meta name="description" content="Presentación animada de 60 segundos de Listas para actuar a tiempo, plataforma interinstitucional de seguimiento y control.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -48,8 +48,8 @@ p{margin:0 0 10px;color:var(--soft);font-size:clamp(.95rem,1.6vw,1.12rem)}
 <div id="stage"></div>
 <div class="ov" aria-live="polite">
  <section class="sc" data-a="0" data-b="7.5">
-  <p class="k">Brief técnico para el sistema de salud de Colombia</p>
-  <h1>Listas para actuar a tiempo: pacientes, médicos y prestadores</h1>
+  <p class="k">Propuesta técnica para el sistema de salud de Colombia</p>
+  <h1>Listas para actuar a tiempo</h1><p style="font:700 clamp(1.05rem,2.2vw,1.4rem) Montserrat,sans-serif;color:#fff;margin:0 0 12px">Plataforma interinstitucional de seguimiento y control</p>
   <p>El sistema ya sabe, persona por persona, a quién atender primero. La propuesta es convertir ese conocimiento en listas con responsable.</p>
  </section>
  <section class="sc" data-a="7.5" data-b="16">
@@ -61,7 +61,7 @@ p{margin:0 0 10px;color:var(--soft);font-size:clamp(.95rem,1.6vw,1.12rem)}
  </section>
  <section class="sc" data-a="16" data-b="30">
   <p class="k">El sistema</p>
-  <h2>Un ciclo con responsable y norma en cada paso</h2>
+  <h2>Ocho pasos, cada uno con responsable y norma</h2>
   <div class="step" id="stepbox"><b id="st">Identificar</b><span id="sw"></span><small id="sn"></small></div>
  </section>
  <section class="sc" data-a="30" data-b="46">
@@ -81,7 +81,7 @@ p{margin:0 0 10px;color:var(--soft);font-size:clamp(.95rem,1.6vw,1.12rem)}
   <p>El brief completo, con las fuentes de cada cifra, está en el enlace Abrir el brief.</p>
  </section>
 </div>
-<div class="foot">Análisis y redacción: Claude (Anthropic). Curaduría: David Aguilar, economista. Altura y color de cada departamento: pobreza multidimensional 2025 del DANE, de azul a amarillo a mayor pobreza.</div>
+<div class="foot">Análisis y redacción: Claude (Anthropic). Curaduría: David Aguilar, economista, y Nancy Yomayusa, consultora independiente. Altura y color de cada departamento: pobreza multidimensional 2025 del DANE, de azul a amarillo a mayor pobreza.</div>
 <div class="ctl" role="group" aria-label="Controles de la presentación">
  <button id="play" aria-label="Pausar">Pausa</button>
  <button id="rep" class="sec">Repetir</button>
@@ -98,8 +98,10 @@ const STEPS=[
  ['Priorizar','#3366CC','Viceministerio de Protección Social, con la pirámide de riesgo del plan de choque como prioridad clínica.','Ley 1122 de 2007, art. 14; Decreto 120 de 2026, art. 5'],
  ['Enviar','#069169','Cada EPS recibe a sus afiliados, cada secretaría su territorio y cada IPS la comparación de sus profesionales.','Decreto 120 de 2026, art. 9; Ley 1581 de 2012, art. 10'],
  ['Actuar','#FFAB00','EPS, IPS, gestores farmacéuticos y secretarías contactan, entregan y reportan el cierre. El médico tratante decide.','Ley 100 de 1993, art. 178; Ley 715 de 2001, art. 43'],
- ['Verificar','#A80521','Supersalud: Subdirección de Analítica y delegadas, con apoyo de la Cuenta de Alto Costo.','Decreto 1080 de 2021, arts. 7, 17 y 22; Ley 1949 de 2019'],
- ['Evaluar','#5E8FC9','Ambos viceministerios con el IETS ajustan criterios para la siguiente vuelta.','Decreto 120 de 2026, arts. 19 y 20; Ley 1438 de 2011, art. 92']];
+ ['Seguir','#0F8C9C','Supersalud: el sistema de alertas tempranas sigue cada caso abierto según el tiempo que falta para el daño.','Decreto 1080 de 2021, arts. 16, 17 y 19'],
+ ['Verificar','#A80521','Supersalud y Cuenta de Alto Costo triangulan el cierre: RIPS y resumen digital, confirmación del paciente y auditoría por muestreo.','Decreto 1080 de 2021, arts. 7 y 17'],
+ ['Controlar','#7B52B8','Delegadas de la Supersalud: escalera de supervisión, de la retroalimentación al plan de mejoramiento.','Decreto 1080 de 2021, arts. 22 y 23; Ley 1949 de 2019'],
+ ['Evaluar','#5E8FC9','Ambos viceministerios con el IETS y el Observatorio Nacional de Salud miden desenlaces y ajustan criterios.','Decreto 120 de 2026, arts. 19 y 20; Ley 1438 de 2011, art. 92']];
 const DUR=60;let OFF=0,ZM=1.15;
 /* ---------- escena ---------- */
 const stage=document.getElementById('stage');
@@ -146,7 +148,7 @@ const arcsGroups=GR.map((g,gi)=>DEP.filter(d=>d!==bog).filter((d,i)=>i%GR.length
 const hub=new THREE.Mesh(new THREE.CylinderGeometry(.32,.32,.8,32),new THREE.MeshStandardMaterial({color:0xFFAB00,emissive:0x664400}));hub.rotation.x=Math.PI/2;map.add(hub);
 /* anillo del ciclo */
 const ring=new THREE.Group();scene.add(ring);const segs=[];
-STEPS.forEach((s,i)=>{const a0=Math.PI/2-i*Math.PI/3-0.03,a1=a0-Math.PI/3+0.06;const sh=new THREE.Shape();const R=5.2,r=3.6,N=24;
+STEPS.forEach((s,i)=>{const SW=2*Math.PI/STEPS.length;const a0=Math.PI/2-i*SW-0.03,a1=a0-SW+0.06;const sh=new THREE.Shape();const R=5.2,r=3.6,N=24;
  for(let k=0;k<=N;k++){const a=a0+(a1-a0)*k/N;if(k===0)sh.moveTo(Math.cos(a)*R,Math.sin(a)*R);else sh.lineTo(Math.cos(a)*R,Math.sin(a)*R);}
  for(let k=N;k>=0;k--){const a=a0+(a1-a0)*k/N;sh.lineTo(Math.cos(a)*r,Math.sin(a)*r);}
  const g=new THREE.ExtrudeGeometry(sh,{depth:.6,bevelEnabled:true,bevelSize:.06,bevelThickness:.06,bevelSegments:2});
@@ -189,7 +191,7 @@ function render(t){
  /* anillo */
  const ringIn=cl(t,16,18),ringOut=1-cl(t,29,30.5);const rs=ease(ringIn)*ringOut;
  ring.position.set(1.5,9.5+(1-rs)*4,-2);ring.scale.setScalar(Math.max(.001,rs*.82));ring.rotation.z=-t*.08;
- const si=t>=17&&t<29?Math.min(5,Math.floor((t-17)/2)):-1;
+ const si=t>=17&&t<29?Math.min(STEPS.length-1,Math.floor((t-17)/1.5)):-1;
  segs.forEach((m,i)=>{const on=i===si;m.position.z=on?.9:0;m.material.emissiveIntensity=on?.55:.12;
   const mid=m.userData.mid,R=4.4;const [x,y,vis]=screen(m,new THREE.Vector3(Math.cos(mid)*R,Math.sin(mid)*R,1));lbls[i].style.left=x+'px';lbls[i].style.top=y+'px';lbls[i].classList.toggle('on',rs>.6&&vis);});
  if(si!==lastStep){lastStep=si;if(si>=0){const s=STEPS[si];document.getElementById('st').textContent=s[0];document.getElementById('sw').textContent=s[2];document.getElementById('sn').textContent=s[3];document.getElementById('stepbox').style.setProperty('--sk',s[1]);}}

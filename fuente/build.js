@@ -7,29 +7,27 @@ let css=fs.readFileSync(path.join(D,'base.css'),'utf8').replace('<style>','').re
 const cite=s=>String(s).replace(/\[\[(\w+)\]\]/g,(m,id)=>{if(!RIX[id])throw new Error('ref '+id);return '<a class="f" href="'+RIX[id].url+'"></a>';});
 const SHORT={pdc:'Plan de choque con riesgo vital',epi:'Epilepsia',sup:'Insuficiencia suprarrenal',hipo:'Hipoparatiroidismo',lup:'Lupus',trr:'Diálisis y trasplante',vih:'VIH',tb:'Tuberculosis',hem:'Hemofilia',renal0:'Estudio renal pendiente',hta:'Hipertensión no controlada',dm:'Diabetes no controlada',erc:'Enfermedad renal avanzada',iam:'Después del infarto',ic:'Insuficiencia cardiaca',epoc:'EPOC',mama:'Cáncer de mama',cervix:'Cuello uterino',crc:'Colon y recto',onco:'Inicio de tratamiento',ar:'Artritis reumatoide',vhc:'Hepatitis C',gest:'Gestantes',sif:'Sífilis gestacional',desn:'Desnutrición aguda',vac:'Vacunación',sui:'Intento de suicidio',hosp:'Hospitalizaciones evitables',poli:'Polifarmacia',quej:'Quejas repetidas',presc:'Prescriptores atípicos',ips:'Prestadores con demoras',dato:'Calidad del dato'};
 const G={};GRUPOS.forEach(g=>G[g[0]]=g);
-const TITLE='Listas para actuar a tiempo: pacientes, médicos y prestadores';
+const TITLE='Listas para actuar a tiempo: plataforma interinstitucional de seguimiento y control';
 
 /* ---------- NAV ---------- */
 const navGroups=[
  ['Inicio',[['brief','Brief']]],
+ ['Plataforma interinstitucional',[['plataforma','Plataforma integrada'],['vacios','Vacíos entre plataformas'],['gobernanza','Gobernanza']]],
  ['Contexto y diagnóstico',[['sistema','Sistema y funciones'],['tablero','Tablero del plan de choque'],['cac','Cuenta de Alto Costo'],['carga','Carga de enfermedad'],['territorios','Territorios'],['datos','Datos e interoperabilidad']]],
  ...GRUPOS.map(g=>[g[1],L.filter(x=>x.g===g[0]).map(x=>['l-'+x.id,SHORT[x.id]]),g[2]]),
  ['Supersalud, normas y fuentes',[['supersalud','Supersalud'],['juridica','Base jurídica'],['dofa','DOFA'],['mundo','Otros países'],['evidencia','Evidencia'],['ruta','Ruta'],['avisos','Fuentes y avisos']]]
 ];
-const navGroup=([h,items,k],idx)=>(k&&idx===2?'<p class="nsup">Listas</p>':'')+(!k&&idx===navGroups.length-1?'<p class="nsup">Instrumentos</p>':'')+'<p class="ng'+(k?' ngl" style="--k:'+k:'')+'">'+h+'</p>'+items.map(([id,t])=>'<button role="tab" data-t="'+id+'"'+(k?' class="lb" style="--k:'+k+'"':'')+'>'+t+'</button>').join('');
+const firstK=navGroups.findIndex(g=>g[2]);
+const navGroup=([h,items,k],idx)=>(k&&idx===firstK?'<p class="nsup">Listas</p>':'')+(!k&&idx===navGroups.length-1?'<p class="nsup">Instrumentos</p>':'')+'<p class="ng'+(k?' ngl" style="--k:'+k:'')+'">'+h+'</p>'+items.map(([id,t])=>'<button role="tab" data-t="'+id+'"'+(k?' class="lb" style="--k:'+k+'"':'')+'>'+t+'</button>').join('');
 const navRaw='<nav class="tabs" aria-label="Secciones del brief"><button class="menu" aria-expanded="false" aria-controls="navlist"><svg class="mi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2.4" fill="none"/></svg><span class="mtx"><b>Menú del brief</b><span id="mcur">Brief</span></span><span class="mch" id="mch">Ver las 47 secciones</span></button><div class="wrap" id="navlist" role="tablist">'+navGroups.map(navGroup).join('')+'</div></nav>';
 const nav=navRaw.replace('data-t="brief">Brief</button>','data-t="brief">Brief</button><a class="navpres" href="presentacion.html">Presentación de 60 segundos</a>');
 
 /* ---------- BRIEF ---------- */
-const wheel=`<div class="wheel" aria-label="Ciclo de seis pasos: identificar, priorizar, enviar, actuar, verificar, evaluar">
-<svg viewBox="0 0 320 320" role="img"><title>Ciclo de listas</title>
-<path d="M162.9 10.0 A150 150 0 0 1 288.4 82.5 L238.8 112.5 A92 92 0 0 0 161.8 68.0Z" fill="#004884"/><text x="221" y="62" text-anchor="middle" class="wl">Identificar</text>
-<path d="M291.3 87.5 A150 150 0 0 1 291.3 232.5 L240.5 204.5 A92 92 0 0 0 240.5 115.5Z" fill="#3366CC"/><text x="266" y="164" text-anchor="middle" class="wl" transform="rotate(90 266 160)">Priorizar</text>
-<path d="M288.4 237.5 A150 150 0 0 1 162.9 310.0 L161.8 252.0 A92 92 0 0 0 238.8 207.5Z" fill="#069169"/><text x="221" y="266" text-anchor="middle" class="wl">Enviar</text>
-<path d="M157.1 310.0 A150 150 0 0 1 31.6 237.5 L81.2 207.5 A92 92 0 0 0 158.2 252.0Z" fill="#FFAB00"/><text x="99" y="266" text-anchor="middle" class="wl d">Actuar</text>
-<path d="M28.7 232.5 A150 150 0 0 1 28.7 87.5 L79.5 115.5 A92 92 0 0 0 79.5 204.5Z" fill="#A80521"/><text x="54" y="164" text-anchor="middle" class="wl" transform="rotate(-90 54 160)">Verificar</text>
-<path d="M31.6 82.5 A150 150 0 0 1 157.1 10.0 L158.2 68.0 A92 92 0 0 0 81.2 112.5Z" fill="#0B457F"/><text x="99" y="62" text-anchor="middle" class="wl">Evaluar</text>
-<text x="160" y="156" text-anchor="middle" class="c1">Cada corte</text><text x="160" y="176" text-anchor="middle" class="c2">misma lista, mejor dato</text></svg></div>`;
+const WSEG=[['Identificar','#004884'],['Priorizar','#3366CC'],['Enviar','#069169'],['Actuar','#FFAB00'],['Seguir','#0F7C8C'],['Verificar','#A80521'],['Controlar','#7B52B8'],['Evaluar','#0B457F']];
+const wheel=(()=>{const R=150,r0=92,cx=160,cy=160,n=WSEG.length,g=0.035;let o='<div class="wheel" aria-label="Ciclo de ocho pasos: '+WSEG.map(w=>w[0].toLowerCase()).join(', ')+'"><svg viewBox="0 0 320 320" role="img"><title>Ciclo de la plataforma</title>';
+WSEG.forEach(([t,c],i)=>{const a0=-Math.PI/2+i*2*Math.PI/n+g,a1=-Math.PI/2+(i+1)*2*Math.PI/n-g;const P=(rr,a)=>(cx+rr*Math.cos(a)).toFixed(1)+' '+(cy+rr*Math.sin(a)).toFixed(1);
+o+='<path d="M'+P(R,a0)+' A'+R+' '+R+' 0 0 1 '+P(R,a1)+' L'+P(r0,a1)+' A'+r0+' '+r0+' 0 0 0 '+P(r0,a0)+'Z" fill="'+c+'"/>';const am=(a0+a1)/2,rm=(R+r0)/2;o+='<text x="'+(cx+rm*Math.cos(am)).toFixed(1)+'" y="'+(cy+rm*Math.sin(am)+4).toFixed(1)+'" text-anchor="middle" class="wl'+(c==='#FFAB00'?' d':'')+'" style="font-size:10.5px">'+t+'</text>';});
+return o+'<text x="160" y="156" text-anchor="middle" class="c1">Cada corte</text><text x="160" y="176" text-anchor="middle" class="c2">el mismo caso, mejor dato</text></svg></div>';})();
 
 const arrow='<svg class="ar" viewBox="0 0 40 24" aria-hidden="true"><path d="M0 12h32M24 4l9 8-9 8" fill="none" stroke="currentColor" stroke-width="3"/></svg>';
 const sysmap=`<div class="smap" role="img" aria-label="Mapa del sistema: los datos llegan a SISPRO, el Ministerio identifica, prioriza y envía listas a EPS, IPS, gestores farmacéuticos y secretarías; la Supersalud y la Cuenta de Alto Costo verifican; el IETS y las sociedades científicas validan criterios">
@@ -57,7 +55,7 @@ const sysmap=`<div class="smap" role="img" aria-label="Mapa del sistema: los dat
    <span>Secretarías departamentales, distritales y municipales<small>Ley 715 de 2001, arts. 43 y 44</small></span></div>
  </div>
  <div class="sm-back"><span>cierre persona por persona</span>${arrow}</div>
- <div class="sm-bot"><b>Verifican el cierre</b><span>Supersalud: Subdirección de Analítica, Delegada de Aseguramiento, Delegada de Prestadores y Delegada de Protección al Usuario</span><span>Cuenta de Alto Costo: auditoría de cohortes</span><small>Decreto 1080 de 2021, arts. 7, 17, 19, 22 y 25; Ley 1949 de 2019</small></div>
+ <div class="sm-bot"><b>Siguen, verifican y controlan</b><span>Supersalud: Subdirección de Analítica, Delegada de Aseguramiento, Delegada de Prestadores y Delegada de Protección al Usuario</span><span>Sistemas de la Supersalud: alertas tempranas, FÉNIX, GAUDI y gestión de PQRD</span><span>Cuenta de Alto Costo: auditoría de cohortes</span><small>Decreto 1080 de 2021, arts. 7, 16, 17, 19, 22 y 25; Ley 1949 de 2019; Resolución 5917 de 2017</small></div>
 </div>`;
 
 const steps=[
@@ -65,14 +63,16 @@ const steps=[
  ['Priorizar','var(--blue)','Viceministerio de Protección Social y Dirección de Regulación de Operación del Aseguramiento.','El aseguramiento incluye la gestión del riesgo en salud (Ley 1122 de 2007, art. 14). El Viceministerio de Protección Social tiene a cargo la regulación de la operación del aseguramiento (Decreto 120 de 2026, art. 5) y desde 2011 consolida y evalúa el seguimiento al aseguramiento (Decreto 4107 de 2011, art. 28, num. 4).','Cada registro recibe prioridad alta o estándar según el criterio clínico de la lista.','Lista ordenada por EPS y por departamento.'],
  ['Enviar','var(--green)','Dirección Estratégica de Tecnología de la Información.','Lineamientos de interoperabilidad y calidad de datos (Decreto 120 de 2026, art. 9, num. 3 y 6). La entrega de datos a una entidad que los requiere en ejercicio de sus funciones no exige autorización del titular (Ley 1581 de 2012, art. 10, lit. a), limitada a la finalidad y al destinatario competente.','Cada EPS recibe solo a sus afiliados; cada secretaría, su territorio; cada IPS, la comparación de sus profesionales.','Constancia de entrega por destinatario.'],
  ['Actuar','var(--yellow)','EPS, IPS, gestores farmacéuticos y secretarías.','Las EPS organizan el acceso y controlan la atención de sus afiliados (Ley 100 de 1993, art. 178) y gestionan el riesgo (Ley 1122 de 2007, art. 14; Decreto 682 de 2018). Las secretarías dirigen y vigilan el sistema en su territorio (Ley 715 de 2001, art. 43).','La EPS contacta, entrega o agenda y reporta el cierre. El médico tratante decide la conducta.','Archivo de cierre por persona con fecha y código del servicio.'],
- ['Verificar','var(--red)','Supersalud: Subdirección de Analítica y delegadas. Apoyo de la Cuenta de Alto Costo.','La Supersalud instruye y fija la información que reportan sus vigilados (Decreto 1080 de 2021, art. 7, num. 2 y 15), valida la calidad del dato (art. 17, num. 8) y vigila la gestión del riesgo de las EPS (art. 22, num. 1).','El cierre se cruza con RIPS, factura y resúmenes digitales; las inconsistencias vuelven a la EPS y, si persisten, suben en la escalera de supervisión.','Tasa de cierre verificado por EPS.'],
- ['Evaluar y ajustar','var(--deep)','Viceministerio de Protección Social y Viceministerio de Salud Pública y Atención Primaria, con el IETS.','El Viceministerio de Salud Pública coordina y hace seguimiento a las acciones de salud pública y atención primaria (Decreto 120 de 2026, art. 19, num. 6) y evalúa con EPS y territorios la promoción y prevención (art. 20, num. 6). El IETS evalúa la evidencia (Ley 1438 de 2011, art. 92).','Se revisa qué listas reducen eventos evitables, qué criterios generan ruido y qué EPS o territorios necesitan apoyo.','Resultados agregados publicados y criterios ajustados.']
+ ['Seguir','#0F7C8C','Supersalud: Subdirección de Analítica, con el sistema de alertas tempranas, y Delegada para la Protección al Usuario.','La Subdirección de Metodologías e Instrumentos de Supervisión diseña el sistema de alertas tempranas y la Subdirección de Analítica lo mantiene actualizado y produce modelos de analítica e inteligencia artificial (Decreto 1080 de 2021, art. 16, num. 6; art. 17, num. 6 y 7). La Delegada para la Protección al Usuario prioriza y alerta sobre las quejas (art. 19, num. 5).','Cada caso abierto se sigue con su fecha, su responsable y el tiempo que falta para el daño; la queja del paciente entra como señal.','Alertas por caso y por vigilado.'],
+ ['Verificar','var(--red)','Supersalud: Subdirección de Analítica y delegadas. Apoyo de la Cuenta de Alto Costo.','La Supersalud instruye y fija la información que reportan sus vigilados (Decreto 1080 de 2021, art. 7, num. 2 y 15) y valida la calidad, consistencia y homogeneidad de lo reportado (art. 17, num. 8).','El cierre se triangula: fuente administrativa, como RIPS, factura y resumen digital; confirmación del paciente; y auditoría por muestreo, en línea con las auditorías aleatorias que la Supersalud anunció para el plan de choque.','Tasa de cierre verificado por EPS.'],
+ ['Controlar','#7B52B8','Supersalud: Delegada para Entidades de Aseguramiento en Salud, Delegada para Prestadores y Despacho del Superintendente.','Inspección, vigilancia y control de la gestión del riesgo de las EPS (Decreto 1080 de 2021, art. 22, num. 1), planes de mejoramiento (art. 23, num. 19), órdenes de inmediato cumplimiento (art. 7, num. 3) y régimen sancionatorio (Ley 1949 de 2019). Para las entidades bajo medida especial, el reporte va por FÉNIX (Resolución 5917 de 2017).','La brecha que persiste sube por la escalera de supervisión, de la retroalimentación al plan de mejoramiento y, solo si es necesario, a la sanción.','Medidas aplicadas por vigilado y su resultado.'],
+ ['Evaluar y ajustar','var(--deep)','Viceministerio de Protección Social y Viceministerio de Salud Pública y Atención Primaria, con el IETS y el Observatorio Nacional de Salud.','El Viceministerio de Salud Pública coordina y hace seguimiento a las acciones de salud pública y atención primaria (Decreto 120 de 2026, art. 19, num. 6) y evalúa con EPS y territorios la promoción y prevención (art. 20, num. 6). El IETS evalúa la evidencia (Ley 1438 de 2011, art. 92) y el Observatorio Nacional de Salud hace seguimiento a la situación de salud (art. 8).','Una cohorte centinela mide desenlaces a 90 y 365 días: continuidad, recaída, hospitalización y muerte. Se revisa qué listas reducen eventos evitables y qué criterios generan ruido.','Resultados agregados publicados y criterios ajustados.']
 ];
 const stepsHtml='<ol class="steps">'+steps.map(([t,k,r,f,q,p])=>`<li class="step" style="--k:${k}"><div class="h${k.includes('yellow')?' d':''}">${t}</div><div class="b"><dl class="rg"><dt>Responsable</dt><dd>${r}</dd><dt>Fundamento</dt><dd>${f}</dd><dt>Qué se hace</dt><dd>${q}</dd><dt>Producto</dt><dd>${p}</dd></dl></div></li>`).join('')+'</ol>';
 
 
 
-const cycNorm={Identificar:'Ley 1438 de 2011, art. 112; Ley 1751 de 2015, art. 19; Decreto 120 de 2026, art. 5',Priorizar:'Ley 1122 de 2007, art. 14; Decreto 120 de 2026, art. 5; Decreto 4107 de 2011, art. 28',Enviar:'Decreto 120 de 2026, art. 9; Ley 1581 de 2012, art. 10',Actuar:'Ley 100 de 1993, art. 178; Ley 1122 de 2007, art. 14; Ley 715 de 2001, art. 43',Verificar:'Decreto 1080 de 2021, arts. 7, 17 y 22; Ley 1949 de 2019','Evaluar y ajustar':'Decreto 120 de 2026, arts. 19 y 20; Ley 1438 de 2011, art. 92'};
+const cycNorm={Identificar:'Ley 1438 de 2011, art. 112; Ley 1751 de 2015, art. 19; Decreto 120 de 2026, art. 5',Priorizar:'Ley 1122 de 2007, art. 14; Decreto 120 de 2026, art. 5; Decreto 4107 de 2011, art. 28',Enviar:'Decreto 120 de 2026, art. 9; Ley 1581 de 2012, art. 10',Actuar:'Ley 100 de 1993, art. 178; Ley 1122 de 2007, art. 14; Ley 715 de 2001, art. 43',Seguir:'Decreto 1080 de 2021, arts. 16, 17 y 19',Verificar:'Decreto 1080 de 2021, arts. 7 y 17',Controlar:'Decreto 1080 de 2021, arts. 7, 22 y 23; Ley 1949 de 2019; Resolución 5917 de 2017','Evaluar y ajustar':'Decreto 120 de 2026, arts. 19 y 20; Ley 1438 de 2011, arts. 8 y 92'};
 const cycTable='<div class="tw"><table class="cyc"><thead><tr><th>Paso</th><th>Quién</th><th>Norma</th><th>Producto</th></tr></thead><tbody>'+steps.map(([t,k,r,f,q,pr])=>'<tr><td style="border-left:6px solid '+k+'"><b>'+t+'</b></td><td>'+r+'</td><td>'+cycNorm[t]+'</td><td>'+pr+'</td></tr>').join('')+'</tbody></table></div>';
 const existe=[
 ['Pirámide de riesgo del plan de choque','Ordena a los pacientes con pendientes en tres niveles de riesgo, construidos con la Cuenta de Alto Costo y las sociedades científicas [[pdcpiramide]].','La adopta como la prioridad clínica de todas las listas, la lleva a cada corte y la extiende a personas que todavía no tienen una orden.'],
@@ -81,17 +81,19 @@ const existe=[
 ['Cuenta de Alto Costo','Cohortes nominales auditadas desde 2007; participa en el plan de choque [[caccv]].','Las brechas vuelven a la EPS en cada corte, con nombre propio.'],
 ['Analítica de hospitalizaciones evitables de la ADRES','Identificó 748.212 hospitalizaciones evitables en 2025 [[adres]].','Lista nominal y control después del egreso.'],
 ['Acuerdo de la ADRES y el Invima','Cruza prescripción, suministro y gasto por producto [[adresinvima]].','Comparación entre pares por prescriptor, confidencial y revisada en la IPS.'],
-['Supervisión de la Supersalud','46 indicadores de seguimiento a EPS en 2026 y un reto declarado de supervisión con analítica y alertas tempranas [[rcsuper]].','Las listas son esas alertas, a nivel de persona.']];
+['Supervisión de la Supersalud','46 indicadores de seguimiento a EPS en 2026 y un reto declarado de supervisión con analítica y alertas tempranas [[rcsuper]]; FÉNIX para las entidades bajo medida especial [[fenix]]; indicadores de alerta temprana de EPS e IPS [[circ09]]; GAUDI, que convierte hallazgos de auditoría en alertas [[gaudi]].','Las listas son esas alertas, a nivel de persona, y sus indicadores pueden proponerse como trazadores en FÉNIX y GAUDI.'],
+['Resolución 2445 de 2026','Obliga a las EPS a mantener actualizado el reporte de pendientes, crea una Mesa de Seguimiento al Reporte y exige facturas validadas por FEV RIPS en el SIIFA para la línea de crédito del plan de choque [[r2445]].','Usa el mismo reporte actualizado como fuente de las listas, sin pedir un formato nuevo.']];
 const existeTable='<div class="tw"><table><thead><tr><th>Lo que ya existe</th><th>Qué hace hoy</th><th>Cómo lo complementa el ciclo</th></tr></thead><tbody>'+existe.map(r=>'<tr><td><b>'+r[0]+'</b></td><td>'+cite(r[1])+'</td><td>'+r[2]+'</td></tr>').join('')+'</tbody></table></div>';
 const chips=x=>'<div class="chips"><span>Daño en '+x.dano+'</span><span>Fuente nominal '+x.dato+'</span><span>Vuelta '+x.vuelta+'</span></div>';
 const index=GRUPOS.map(g=>{const ls=L.filter(x=>x.g===g[0]);return `<h3 class="gh" style="--k:${g[2]}">${g[1]}</h3><p class="gd">${g[3]}</p><div class="lgrid">`+ls.map(x=>`<a class="lc" style="--k:${g[2]}" href="#l-${x.id}" data-go="l-${x.id}"><b>${x.t}</b><span>${x.valor}</span>${chips(x)}<i>Abrir la lista</i></a>`).join('')+'</div>';}).join('');
 const brief=`<section id="brief" class="on" role="tabpanel"><div class="wrap">
 <div class="hero"><div>
 <p class="lead">El sistema ya sabe, persona por persona, quién dejó de recibir un medicamento del que depende su vida, quién tiene diabetes sin estudio renal, qué gestante no ha tenido su primer control y qué médico prescribe muy distinto a sus pares.</p>
-<p class="lead">La propuesta: convertir ese conocimiento en listas con responsable. Cada EPS y cada secretaría recibe a sus personas pendientes, cada IPS recibe la comparación de sus profesionales y la Supersalud verifica el cierre. Con las normas, los datos y los equipos que ya existen.</p>
+<p class="lead">Ese conocimiento está repartido: el Ministerio ve el avance del plan, la ADRES ve los pagos, la Supersalud ve a sus vigilados, la Cuenta de Alto Costo ve sus cohortes y la persona no ve su propio caso. La propuesta es una plataforma interinstitucional que une esas piezas alrededor de una unidad común, el caso del paciente, y lo sigue hasta que recibe lo que necesita y le va mejor.</p>
 </div>${wheel}</div>
 <nav class="quick" aria-label="Accesos rápidos"><p>Explore el brief</p><div>
 <a href="#idx" data-scroll="idx" class="qk">Las ${L.length} listas</a>
+<a href="#plataforma" data-go="plataforma">Plataforma integrada</a>
 <a href="#sistema" data-go="sistema">Sistema y funciones</a>
 <a href="#tablero" data-go="tablero">Tablero del plan de choque</a>
 <a href="#cac" data-go="cac">Cuenta de Alto Costo</a>
@@ -100,6 +102,16 @@ const brief=`<section id="brief" class="on" role="tabpanel"><div class="wrap">
 <a href="presentacion.html" class="qp">Presentación de 60 segundos</a>
 <button type="button" class="qm">Todas las secciones</button>
 </div></nav>
+<h2>Cada entidad, en su función</h2>
+<div class="roles">
+<div style="--k:var(--navy)"><b>Ministerio de Salud</b>Identifica, prioriza y fija la política.</div>
+<div style="--k:var(--deep)"><b>ADRES</b>Aporta la afiliación, los pagos y su analítica.</div>
+<div style="--k:var(--red)"><b>Supersalud</b>Sigue, verifica, alerta y controla.</div>
+<div style="--k:var(--green)"><b>Secretarías de salud</b>Gestionan su territorio.</div>
+<div style="--k:#B37800"><b>EPS e IPS</b>Gestionan sus casos y su práctica.</div>
+<div style="--k:#0F7C8C"><b>Ciudadanía y organismos de control</b>Ven con transparencia el avance y el propio caso.</div>
+</div>
+<p class="small read">Ninguna entidad cede competencias: comparten la misma información, cada una desde su función. Detalle en <a href="#plataforma" data-go="plataforma">Plataforma integrada</a>.</p>
 <h2>Qué cambia</h2>
 <div class="cy">
 <div><b>Para las personas</b>La atención llega antes de la urgencia: el medicamento antes de la crisis, el examen antes de la diálisis, el control antes del parto.</div>
@@ -111,7 +123,7 @@ ${sysmap}
 <h2>El ciclo</h2>
 ${cycTable}
 <p class="small">Detalle de funciones por dependencia en <a href="#sistema" data-go="sistema">Sistema y funciones</a>.</p>
-<h2>Lo que ya existe y cómo lo complementa el ciclo</h2>
+<h2>Lo que ya existe y cómo lo complementa la plataforma</h2>
 <p class="read">El ciclo de listas se construye sobre lo que el sistema ya puso en marcha. Parte de la pirámide de riesgo, del tablero y de la mesa técnica del plan de choque, y de las bases nominales que existen, y les suma continuidad, verificación y nuevas listas.</p>
 ${existeTable}
 <h2 id="idx" style="margin-top:34px;scroll-margin-top:70px">Las ${L.length} listas</h2>
@@ -123,8 +135,8 @@ ${index}
 <div class="fig"><b>7 millones</b><span>de personas con hipertensión, diabetes o enfermedad renal crónica en la Cuenta de Alto Costo</span>${cite('[[caccv]]')}</div>
 <div class="fig k-b"><b>6,9 millones</b><span>de personas con historia clínica interoperable al 4 de agosto de 2026</span>${cite('[[ihce]]')}</div>
 </div>
-<div class="box red read"><h3>Lo que esto no es</h3><p>No es una plataforma nueva ni una planta nueva. No traslada funciones entre entidades. No sustituye al médico tratante: la lista dice a quién mirar primero y el médico decide qué hacer. La lista de prescriptores no califica a ningún médico desde el gobierno: se entrega en confidencialidad a su IPS para revisión entre pares. Ninguna lista es un instrumento para negar servicios.</p></div>
-<p class="small read">Cada cifra lleva su fuente debajo y una nota numerada con la referencia completa al final de la sección. El curador humano está vinculado a un conglomerado de salud con operación en Colombia; las ideas son personales y no representan a esa entidad. Detalles en <a href="#avisos" data-go="avisos">Fuentes y avisos</a>.</p>
+<div class="box red read"><h3>Lo que esto no es</h3><p>No reemplaza ninguna fuente ni ningún sistema de control: los une alrededor del caso del paciente. No traslada funciones entre entidades. No sustituye al médico tratante: la lista dice a quién mirar primero y el médico decide qué hacer. La lista de prescriptores no califica a ningún médico desde el gobierno: se entrega en confidencialidad a su IPS para revisión entre pares. Ninguna lista es un instrumento para negar servicios.</p></div>
+<p class="small read">Cada cifra lleva su fuente debajo y una nota numerada con la referencia completa al final de la sección. Uno de los curadores está vinculado a un conglomerado de salud con operación en Colombia; las ideas son personales y no representan a esa entidad. Detalles en <a href="#avisos" data-go="avisos">Fuentes y avisos</a>.</p>
 </div></section>`;
 
 /* ---------- SISTEMA ---------- */
@@ -206,6 +218,77 @@ const tableroSec=`<section id="tablero" role="tabpanel"><div class="wrap">
 <li>Una vista por prestador de procedimientos pendientes.</li>
 <li>Una tabla descargable por EPS, municipio, nivel y tecnología en el portal de datos abiertos.</li>
 </ul></div>
+</div></section>`;
+
+/* ---------- PLATAFORMA ---------- */
+const layers=[['Fuentes existentes','var(--deep)','SISPRO, RIPS con factura electrónica, MIPRES, historia clínica interoperable, tablero del plan de choque, base de afiliados de la ADRES, Cuenta de Alto Costo, SIVIGILA, registro de vacunación, REPS, RUAF y listado de desabastecimiento del INVIMA. Ninguna se reemplaza.'],
+['Integración','var(--blue)','Identificador de caso seudonimizado común, diccionario de datos compartido y reglas de calidad del dato.'],
+['Inteligencia','#0F7C8C','Algoritmos de las listas, puntaje de riesgo, detección de reportes atípicos y clasificación de quejas, siempre con revisión humana.'],
+['Seguimiento y control','var(--red)','Estados del caso, alertas por tiempo al daño, verificación del cierre y escalera de supervisión.'],
+['Usuarios por entidad','var(--green)','Ministerio, ADRES, Supersalud, secretarías, EPS, IPS, ciudadanía y organismos de control, cada uno con la vista que corresponde a su función.']];
+const modulos=[['Columna del caso','Registro único de casos con estados, fechas y responsables','Ministerio, en SISPRO','Todas'],
+['Integración y calidad del dato','Enlace de fuentes por identificador seudonimizado, diccionario común y reglas de calidad','Ministerio, con el gobierno de datos de la Supersalud','Todas'],
+['Motor de listas y priorización','Los algoritmos de las '+L.length+' listas, con prioridad por tiempo al daño y la pirámide de riesgo del plan de choque','Ministerio','Ministerio, EPS, secretarías'],
+['Verificación y detección de anomalías','Triangulación del cierre, muestreo de auditoría y patrones de reporte atípicos','Supersalud','Supersalud, ADRES, Ministerio'],
+['Alertas y escalera de control','Alertas por caso y por vigilado; escalones con disparador y plazo; alimenta el sistema de alertas tempranas, GAUDI y FÉNIX','Supersalud','Delegadas, EPS'],
+['Cadena de atención y gestión territorial','Ruta por actor y tramo, de la prescripción a la dispensación y la atención; vista por departamento y municipio','Ministerio y secretarías','Secretarías, Supersalud'],
+['Retroalimentación y bajo valor','Tableros privados para prescriptores e IPS, indicadores de bajo valor con aval clínico y una pirámide de intervención','Ministerio con el IETS y las sociedades científicas; Supersalud solo ante irregularidades','IPS, prescriptores, EPS'],
+['Impacto y aprendizaje','Cohorte centinela, desenlaces a 90 y 365 días, evaluación de impacto y registro de actuaciones','Mesa Técnica, con el Observatorio Nacional de Salud, el IETS o universidades','Todas'],
+['Transparencia y voz ciudadana','Tablero público con cifras reportadas y validadas, datos abiertos, consulta del propio caso y un botón de no recibí esto','Ministerio, con la gestión de PQRD de la Supersalud','Ciudadanía, medios, Procuraduría, Contraloría']];
+const plataforma=`<section id="plataforma" role="tabpanel"><div class="wrap">
+<h2>Plataforma integrada: una columna común para el sistema</h2>
+<p class="read">El sistema de salud tiene muchas plataformas y cada una hace bien su parte. La plataforma de listas no es un sistema más: es la columna que las une alrededor del caso de cada paciente, desde que se prescribe hasta que recibe lo que necesita y le va mejor. Agrega tres capas, integración, inteligencia y seguimiento y control, entre las fuentes que ya existen y las entidades que deciden.</p>
+<div class="layers">${layers.map(([a,k,b])=>'<div style="--k:'+k+'"><b>'+a+'</b><span>'+b+'</span></div>').join('')}</div>
+<p class="read">Cada entidad ya ve su parte; la plataforma les permite ver la misma historia del paciente, cada una desde su función.</p>
+<h3>Módulos</h3>
+<div class="tw"><table><thead><tr><th>Módulo</th><th>Qué hace</th><th>Lo opera</th><th>Lo usan</th></tr></thead><tbody>${modulos.map(m=>'<tr><td><b>'+m[0]+'</b></td><td>'+m[1]+'</td><td>'+m[2]+'</td><td>'+m[3]+'</td></tr>').join('')}</tbody></table></div>
+<p class="small">Cada módulo lo opera una entidad conforme a sus funciones legales y lo usan otras. Ninguna entidad cede competencias.</p>
+<h3>La inteligencia, en concreto</h3>
+<p class="read">Plataforma inteligente significa capacidades específicas, cada una con revisión humana:</p>
+<ul class="clean">
+<li>Anticipar qué paciente se descompensará primero si no recibe lo pendiente.</li>
+<li>Detectar reportes de cierre atípicos y redes inusuales entre prescriptor, IPS y proveedor.</li>
+<li>Anticipar desabastecimientos por medicamento y territorio.</li>
+<li>Clasificar el texto de quejas y tutelas por tipo de barrera.</li>
+<li>Confirmar entregas con el paciente por mensaje o llamada automatizada.</li>
+<li>Medir el efecto de cada política y cada medida con métodos cuasiexperimentales.</li>
+</ul>
+<p class="read">Todas se rigen por la Política Nacional de Inteligencia Artificial ${cite('[[conpes4144]]')}: explicabilidad, revisión de sesgos, ninguna decisión sancionatoria automática y una ficha pública de cada modelo.</p>
+<div class="box note read"><h3>Una idea para discusión posterior</h3><p>Más adelante podría estudiarse que los giros y créditos del sistema se vinculen con cierres verificados y que se marquen posibles servicios de bajo valor. Es una idea que requiere análisis jurídico y financiero y acuerdo entre las entidades; no hace parte de esta propuesta.</p></div>
+</div></section>`;
+
+const vacios=[['No hay un identificador de caso compartido','Cada sistema cuenta algo distinto: registros, facturas, prescripciones o quejas, y las cifras de distintas fuentes no siempre se pueden conciliar.','Columna del caso con identificador seudonimizado común.'],
+['El seguimiento se apoya en el reporte de los vigilados','El tablero del plan de choque y los indicadores de alerta temprana se construyen con lo que reportan EPS e IPS.','Verificación cruzada con RIPS, dispensación y confirmación del paciente, que complementa ese reporte.'],
+['Los cortes son por cohorte','El plan de choque sigue los pendientes reportados entre el 1 y el 20 de septiembre de 2026 [[r2445]].','Flujo continuo de entrada y salida de casos en cada corte.'],
+['El seguimiento termina con el cierre','No se sabe si después hubo continuidad, recaída, hospitalización o muerte.','Cohorte centinela con desenlaces a 90 y 365 días.'],
+['Cada entidad ve un tramo de la cadena','Es difícil saber si el cuello de botella está en la EPS, el gestor, la IPS o el mercado.','Reconstrucción de la ruta: prescripción, autorización, dispensación y atención.'],
+['Las alertas llegan con la queja o la auditoría','Se actúa cuando el daño ya empezó.','Alertas por tiempo al daño y por riesgo anticipado.'],
+['La retroalimentación a prestadores, prescriptores y territorios es escasa','La práctica cambia poco sin información comparada.','Tableros privados de comparación con pares y vista territorial.'],
+['La evaluación de impacto no es sistemática','No siempre se sabe qué política o medida funciona.','Agenda de evaluación y registro de actuaciones.'],
+['La persona no ve su caso','Depende de la queja o la tutela para saber qué pasa.','Consulta del propio caso y botón de no recibí esto.']];
+const vaciosSec=`<section id="vacios" role="tabpanel"><div class="wrap">
+<h2>Vacíos entre plataformas</h2>
+<p class="read">Cada plataforma hace bien su parte. Los vacíos están entre ellas, y son los que la plataforma de listas ayuda a llenar.</p>
+<div class="tw"><table><thead><tr><th>Vacío</th><th>Consecuencia</th><th>Cómo lo complementa la plataforma</th></tr></thead><tbody>${vacios.map(v=>'<tr><td><b>'+v[0]+'</b></td><td>'+cite(v[1])+'</td><td>'+v[2]+'</td></tr>').join('')}</tbody></table></div>
+<div class="box note read"><h3>Un ejemplo: leer cifras de fuentes y cortes distintos</h3><p>El plan de choque se anunció con 1.069.196 pacientes identificados ${cite('[[infobae22]]')}; el tablero público llegó a 1.849.649 personas tras ampliar la base de datos ${cite('[[infobae27]]')}. El boletín del Ministerio con corte al 14 de octubre reportó que 51% de los pacientes con medicamentos pendientes tenía su caso cerrado ${cite('[[bol155]]')}, y el tablero muestra 236.640 personas con cierre en medicamentos al 13 de octubre y 286.924 al 27 de octubre, sobre 602.156 ${cite('[[tablero]]')}. Las fuentes usan universos y definiciones distintos; un identificador de caso y un diccionario común permiten conciliarlas y explicar cada cambio entre cortes.</p></div>
+</div></section>`;
+
+const gobernanza=`<section id="gobernanza" role="tabpanel"><div class="wrap">
+<h2>Gobernanza</h2>
+<div class="two">
+<div class="card"><h3>Comité directivo</h3><dl><dt>Quién</dt><dd>La Mesa Técnica de Control del plan de choque, que ya reúne al Ministerio, la Supersalud y la ADRES, o una instancia permanente equivalente después del 31 de diciembre de 2026.</dd></dl></div>
+<div class="card" style="--k:var(--blue)"><h3>Custodia de los datos</h3><dl><dt>Quién</dt><dd>El Ministerio, en SISPRO. Cada entidad accede según su función y con registro de consultas. El sitio público muestra solo agregados.</dd></dl></div>
+<div class="card" style="--k:var(--green)"><h3>Comité asesor independiente</h3><dl><dt>Quién</dt><dd>Academia, sociedades científicas y asociaciones de pacientes. Revisa indicadores, modelos y métodos.</dd></dl></div>
+<div class="card" style="--k:var(--deep)"><h3>Independencia</h3><dl><dt>Cómo</dt><dd>Código y contenidos con licencia abierta y operación en manos públicas. Ningún particular accede a datos nominales.</dd></dl></div>
+</div>
+<h3>Reglas</h3>
+<ul class="clean">
+<li>Cada cifra cita su fuente oficial y su fecha de corte, y se identifica como dato publicado, estimación, cálculo propio o propuesta.</li>
+<li>Cada entidad conserva sus competencias; ninguna cede funciones.</li>
+<li>Ningún indicador se usa para negar servicios; ningún modelo sanciona por sí solo.</li>
+<li>Todo indicador clínico lo valida un especialista antes de publicarse, y se señala cuando algo requiere validación clínica o jurídica.</li>
+<li>El uso de inteligencia artificial, tanto en el análisis como en los modelos, se declara y sigue la Política Nacional de Inteligencia Artificial ${cite('[[conpes4144]]')}.</li>
+</ul>
 </div></section>`;
 
 /* ---------- CAC ---------- */
@@ -342,10 +425,23 @@ const listas=L.map(listSec).join('\n');
 /* ---------- INSTRUMENTOS ---------- */
 const supersalud=`<section id="supersalud" role="tabpanel"><div class="wrap">
 <h2>La Supersalud en el ciclo</h2>
-<p class="read">El Ministerio identifica, prioriza y envía. La Supersalud verifica que las EPS e IPS actúen, sin calificar la práctica individual del médico. En las EPS intervenidas, que agrupan cerca de 21 millones de afiliados ${cite('[[infobae27]]')}, la administración la designa la propia Superintendencia, de modo que las listas pueden ejecutarse desde la primera vuelta.</p>
+<p class="read">El Ministerio identifica, prioriza y envía. La Supersalud sigue los casos, verifica que las EPS e IPS actúen y controla, sin calificar la práctica individual del médico. En las EPS intervenidas, que agrupan cerca de 21 millones de afiliados ${cite('[[infobae27]]')}, la administración la designa la propia Superintendencia, de modo que las listas pueden ejecutarse desde la primera vuelta.</p>
+<h3>Lo que la Supersalud ya tiene</h3>
+<div class="tw"><table><thead><tr><th>Sistema o iniciativa</th><th>Qué hace</th><th>Cómo se conecta con las listas</th></tr></thead><tbody>
+<tr><td><b>Subdirección de Analítica</b>, en la Dirección de Innovación y Desarrollo</td><td>Estrategias de analítica, modelos de inteligencia artificial y econometría, sistema de alertas tempranas y validación de la calidad del dato (Decreto 1080 de 2021, art. 17) ${cite('[[d1080]]')}.</td><td>Opera el seguimiento y la verificación de las listas.</td></tr>
+<tr><td><b>Subdirección de Metodologías e Instrumentos de Supervisión</b></td><td>Diseña el modelo integral de supervisión basada en riesgos y el sistema de alertas tempranas (art. 16, num. 4 y 6).</td><td>Incorpora las listas como riesgos priorizados y sus indicadores.</td></tr>
+<tr><td><b>FÉNIX</b></td><td>Sistema de gestión y control de las medidas especiales: recibe y sigue indicadores y planes de las entidades intervenidas ${cite('[[fenix]]')}.</td><td>Los indicadores de cierre de las listas pueden proponerse como trazadores para las EPS intervenidas.</td></tr>
+<tr><td><b>46 indicadores de seguimiento a EPS</b></td><td>La Delegada de Aseguramiento pasó de 30 a 46 indicadores en 2026 ${cite('[[rcsuper]]')}.</td><td>Alinear definiciones y proponer indicadores de continuidad y de cierre verificado.</td></tr>
+<tr><td><b>Indicadores de alerta temprana</b></td><td>EPS e IPS reportan indicadores de oportunidad y calidad ${cite('[[circ09]]')}.</td><td>Las listas aportan una verificación independiente de esos indicadores.</td></tr>
+<tr><td><b>GAUDI</b></td><td>Convierte hallazgos de auditoría en alertas visuales e indicadores; cubre los 32 departamentos, 6 distritos y más de 1.000 municipios, con más de 1.800 usuarios y cerca de 4.800 auditorías ${cite('[[gaudi]]')}.</td><td>La muestra de auditoría dirigida por las listas puede alimentar a GAUDI, y GAUDI puede devolver hallazgos.</td></tr>
+<tr><td><b>Gestión de PQRD</b></td><td>Peticiones, quejas, reclamos y denuncias, con priorización y alertas de la Delegada para la Protección al Usuario (art. 19, num. 5).</td><td>Fuente de la voz del paciente y de la lista de quejas repetidas.</td></tr>
+<tr><td><b>Centro de Excelencia en Inteligencia de Negocios y Analítica</b> y <b>Política de Gobernanza de Datos</b></td><td>Impulsan la cultura analítica de la entidad ${cite('[[gaudi]]')}.</td><td>Puerta de entrada natural para presentar la plataforma.</td></tr>
+<tr><td><b>Modelo de Gobierno y Gestión de Datos y sistema de alertas tempranas</b></td><td>Siete proyectos de datos y un sistema de alertas tempranas en desarrollo para 2026 ${cite('[[suptec]]')}.</td><td>Las listas pueden ofrecerse como caso de uso ya diseñado.</td></tr>
+<tr><td><b>Ruta de inspección, vigilancia y control</b></td><td>Auditorías aleatorias y representativas para comprobar que lo reportado en el plan de choque se prestó, alertas tempranas en el flujo de recursos y mesas de medicamentos ${cite('[[rutaivc]]')}.</td><td>Coincide con la verificación por muestreo de la plataforma.</td></tr>
+</tbody></table></div>
 <div class="two"><div>
 <h3>Cómo se reporta y se verifica</h3>
-<p>La EPS devuelve un archivo por persona con fecha de contacto, código del servicio entregado, CUM o CUPS, fecha de atención y estado de cierre. La Subdirección de Analítica cruza ese archivo con RIPS, factura electrónica, resúmenes digitales y quejas, y llama a una muestra de pacientes para confirmar el recibo. La tasa de cierre verificado por EPS entra en la matriz de riesgo de la Delegada de Aseguramiento.</p>
+<p>La EPS mantiene actualizado su reporte de pendientes, como ya lo exige la Resolución 2445 de 2026 ${cite('[[r2445]]')}, con fecha de contacto, código del servicio entregado, CUM o CUPS, fecha de atención y estado de cierre. La Subdirección de Analítica triangula el cierre: lo cruza con RIPS, factura electrónica y resúmenes digitales, lo confirma con una muestra de pacientes y orienta la auditoría por muestreo. La tasa de cierre verificado por EPS entra en la matriz de riesgo de la Delegada de Aseguramiento.</p>
 <h3>Prescriptores y prestadores</h3>
 <p>La Subdirección de Analítica compara a cada prescriptor con sus pares y entrega la señal, confidencial, a la IPS. Si la señal persiste, la revisa el comité clínico de la IPS. La Delegada de Prestadores vigila que la revisión ocurra y que la señal nunca se use para negar servicios; la ética médica la juzgan los tribunales de la Ley 23 de 1981. Ver <a href="#l-presc" data-go="l-presc">Prescriptores atípicos</a>.</p>
 </div><div>
@@ -436,21 +532,24 @@ const evidencia=`<section id="evidencia" role="tabpanel"><div class="wrap">
 
 const ruta=`<section id="ruta" role="tabpanel"><div class="wrap">
 <h2>Ruta de implementación</h2>
-<p class="read">Por fases, sin fechas: cada fase empieza cuando la anterior deja su producto.</p>
+<p class="read">Por fases: cada fase empieza cuando la anterior deja su producto${cite('<sup class="cit"><a href="#ruta-tiempos">a</a></sup>')}.</p>
 <ol class="steps">
-<li class="step"><div class="h">Primera vuelta<small>Decidir y correr</small></div><div class="b"><p>Mesa técnica entre viceministerios, Epidemiología y Demografía, Tecnología, Cuenta de Alto Costo, INS y Supersalud. Primera corrida de tres listas: plan de choque con riesgo vital, continuidad vital y estudio renal pendiente.</p></div></li>
+<li class="step"><div class="h">Presentación<small>Llevarlo al sistema</small></div><div class="b"><p>Una nota técnica breve y una demostración con datos públicos se presentan a la Mesa Técnica de Control del plan de choque, que ya reúne al Ministerio, la Supersalud y la ADRES. En paralelo, a la Dirección Estratégica de Tecnología de la Información del Ministerio y a la Subdirección de Analítica y el Centro de Excelencia en Inteligencia de Negocios y Analítica de la Supersalud, como caso de uso del sistema de alertas tempranas.</p></div></li>
+<li class="step"><div class="h">Primera vuelta<small>Decidir y correr</small></div><div class="b"><p>Mesa técnica entre viceministerios, Epidemiología y Demografía, Tecnología, Cuenta de Alto Costo, INS y Supersalud. Primera corrida de tres listas: plan de choque con riesgo vital, continuidad vital y estudio renal pendiente. Un piloto de punta a punta con una lista, por ejemplo diálisis o trasplante sin continuidad, en uno o dos departamentos: identificación en el Ministerio, gestión de la EPS, seguimiento, verificación y alerta en la Supersalud, y consulta del paciente.</p></div></li>
 <li class="step" style="--k:var(--blue)"><div class="h">Piloto<small>Pilotear y validar</small></div><div class="b"><p>Envío a las EPS intervenidas y a cinco secretarías departamentales. Sociedades científicas de cardiología, nefrología, endocrinología, medicina interna, neurología, reumatología, oncología, infectología, ginecología, pediatría, psiquiatría y medicina familiar revisan criterios; el IETS los valida. Proyecto de circular publicado para comentarios.</p></div></li>
-<li class="step" style="--k:var(--green)"><div class="h">Formalización<small>Circulares</small></div><div class="b"><p>Circular externa del Ministerio y circular conjunta con la Supersalud. Las tres cifras por lista entran al tablero.</p></div></li>
+<li class="step" style="--k:var(--green)"><div class="h">Formalización<small>Circulares</small></div><div class="b"><p>Circular externa del Ministerio y circular conjunta con la Supersalud. Un acuerdo interinstitucional de intercambio de datos y un acto administrativo conjunto adoptan el identificador de caso, el diccionario común y los roles. Las cifras por lista entran al tablero.</p></div></li>
 <li class="step" style="--k:var(--yellow)"><div class="h d">Ampliación<small>Todas las listas</small></div><div class="b"><p>Todas las EPS y las 33 secretarías. Se agregan las listas cardiometabólicas, de cáncer, de cohortes de la Cuenta de Alto Costo, materno infantiles, de salud mental y de uso del sistema.</p></div></li>
 <li class="step" style="--k:var(--deep)"><div class="h">Consolidación<small>Médicos y prestadores</small></div><div class="b"><p>Listas de prescriptores con práctica atípica y de prestadores con demoras, con retroalimentación entre pares. Resultados usados en la UPC y en la regulación de beneficios. Evaluación independiente del Observatorio Nacional de Salud y del IETS.</p></div></li>
 </ol>
-<div class="box note read"><h3>Con qué recursos</h3><p>SISPRO y la Dirección de Tecnología para el procesamiento; Epidemiología y Demografía para los criterios; la Cuenta de Alto Costo y el INS con sus bases; las secretarías con sus equipos de salud pública; la Subdirección de Analítica de la Supersalud para la verificación. No se contrata plataforma ni se amplía planta.</p></div>
+<div class="box note read"><h3>Con qué capacidades</h3><p>SISPRO y la Dirección de Tecnología para el procesamiento; Epidemiología y Demografía para los criterios; la Cuenta de Alto Costo y el INS con sus bases; las secretarías con sus equipos de salud pública; la Subdirección de Analítica de la Supersalud para el seguimiento y la verificación. La operación se apoya en un equipo técnico interinstitucional pequeño, conformado por personas de las entidades participantes, y en la infraestructura de datos y analítica que ya existe.</p></div>
+<p class="small read" id="ruta-tiempos"><b>a</b> Propuesta de tiempos para considerar, aportada por la curaduría: unas cuatro semanas para ajustar el sitio y preparar la nota técnica y la demostración; un piloto de tres meses con una lista en uno o dos departamentos; luego, ampliación lista por lista.</p>
 </div></section>`;
 
 const avisos=`<section id="avisos" role="tabpanel"><div class="wrap read">
 <h2>Fuentes, método y avisos</h2>
-<h3>Autoría</h3><p>Análisis y redacción: Claude, modelo de inteligencia artificial de Anthropic, que consultó fuentes públicas, PubMed y la base del Estudio de Carga Global de Enfermedad 2023 del IHME. Curaduría y responsabilidad editorial: David Aguilar, economista colombiano residente en el exterior.</p>
-<h3>Declaración de vínculo</h3><p>David Aguilar está vinculado laboralmente a un conglomerado de salud con operación en Colombia. Las ideas de este documento son personales, se comparten en el espíritu democrático de aportar al debate público y no representan la posición de esa entidad ni la comprometen.</p>
+<h3>Autoría</h3><p>Análisis y redacción: Claude, modelo de inteligencia artificial de Anthropic, que consultó fuentes públicas, PubMed y la base del Estudio de Carga Global de Enfermedad 2023 del IHME. Curaduría y responsabilidad editorial: David Aguilar, economista colombiano residente en el exterior, y Nancy Yomayusa, consultora independiente, quien aportó la visión de plataforma interinstitucional, la revisión de los sistemas de la Supersalud y la propuesta de gobernanza.</p>
+<h3>Declaración de vínculo</h3><p>David Aguilar está vinculado laboralmente a un conglomerado de salud con operación en Colombia. Las ideas de este documento son personales, se comparten en el espíritu democrático de aportar al debate público y no representan la posición de esa entidad ni la comprometen. Nancy Yomayusa participa a título personal como consultora independiente.</p>
+<h3>Tipos de cifra</h3><p>Cada cifra se presenta como dato publicado, cuando proviene de una fuente oficial o de un informe citado; estimación modelada, cuando proviene del IHME; cálculo propio, cuando es una suma o diferencia hecha en este documento y así se indica; o propuesta, como los códigos, umbrales y plazos de cada lista.</p>
 <h3>Alcance</h3><ul class="clean">
 <li>Es un documento de propuesta, no una publicación oficial de ninguna entidad del Estado.</li>
 <li>Los códigos CIE 10, CUPS y ATC y los umbrales de cada lista son la propuesta técnica para la primera corrida; su ajuste corresponde a las sociedades científicas y al IETS dentro del propio ciclo. Los CUPS se verificaron en los conjuntos de datos abiertos del Ministerio; los ATC siguen la clasificación de la OMS.</li>
@@ -479,6 +578,16 @@ ul.ev{padding-left:18px}ul.ev li{margin:0 0 .6em}
 .gh{margin:26px 0 2px;color:var(--k);border-bottom:3px solid var(--k);padding-bottom:4px}
 .gd{margin:4px 0 0;font-size:.92rem}
 td.n{text-align:right;white-space:nowrap}
+.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0 8px}
+.roles div{border-top:5px solid var(--k);background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 12px;font-size:.93rem}
+.roles b{display:block;font:700 .98rem Montserrat,sans-serif;color:var(--k);margin-bottom:2px}
+.tipo{font-weight:700;color:var(--ink)}
+.layers{display:grid;gap:8px;margin:14px 0 22px}
+.layers div{display:grid;grid-template-columns:210px 1fr;border:1px solid var(--line);border-left:8px solid var(--k);background:#fff}
+.layers b{background:color-mix(in srgb,var(--k) 12%,#fff);color:var(--k);font:700 .95rem Montserrat,sans-serif;padding:10px 12px}
+.layers span{padding:10px 12px;font-size:.93rem}
+@media (max-width:860px){.roles{grid-template-columns:1fr 1fr}.layers div{grid-template-columns:1fr}}
+@media (max-width:520px){.roles{grid-template-columns:1fr}}
 .hcta{margin:14px 0 4px}
 .cta{display:inline-block;background:var(--yellow);color:#1f2933;font:700 .95rem Montserrat,sans-serif;text-decoration:none;padding:9px 16px}
 .cta:hover{background:#ffc53d}
@@ -550,7 +659,7 @@ const RIX={},RU={};REFS.forEach((r,i)=>{r.n=i+1;RIX[r.id]=r;RU[r.url]=r;});
 function cite(r,secId){return '<sup class="cit"><a href="#'+secId+'-n'+r.n+'" data-note="'+secId+'-n'+r.n+'">['+r.n+']</a></sup>';}
 document.querySelectorAll('main section').forEach(sec=>{const used=new Set();
  sec.querySelectorAll('a.f').forEach(a=>{const r=RU[a.getAttribute('href')];if(!r)return;used.add(r);const fig=a.closest('.fig');a.outerHTML=cite(r,sec.id);
-  if(fig&&!fig.querySelector('.src'))fig.insertAdjacentHTML('beforeend','<small class="src">Fuente: '+r.short+'.</small>');});
+  if(fig&&!fig.querySelector('.src'))fig.insertAdjacentHTML('beforeend','<small class="src"><b class="tipo">'+(r.id==='ihme'?'Estimación modelada':'Dato publicado')+'.</b> Fuente: '+r.short+'.</small>');});
  if(used.size){const list=[...used].sort((a,b)=>a.n-b.n).map(r=>'<li id="'+sec.id+'-n'+r.n+'"><span class="nn">['+r.n+']</span> '+r.apa+' <a href="'+r.url+'">Disponible en línea</a></li>').join('');
   sec.querySelector('.wrap').insertAdjacentHTML('beforeend','<div class="notes"><h3>Notas y fuentes de esta sección</h3><ol>'+list+'</ol></div>');}});
 document.getElementById('allrefs').innerHTML=REFS.map(r=>'<li><span class="nn">['+r.n+']</span> '+r.apa+' <a href="'+r.url+'">Disponible en línea</a></li>').join('');
@@ -573,7 +682,7 @@ window.addEventListener('hashchange',()=>show(location.hash.slice(1)||'brief',fa
 const html=`<!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${TITLE}</title>
-<meta name="description" content="Brief técnico: un ciclo continuo de listas nominales de pacientes, médicos y prestadores que Colombia ya puede ejecutar con normas, datos y equipos existentes.">
+<meta name="description" content="Plataforma interinstitucional de seguimiento y control: listas nominales de pacientes, médicos y prestadores que Colombia ya puede ejecutar con normas, datos y equipos existentes.">
 <meta property="og:title" content="${TITLE}">
 <meta property="og:description" content="${L.length} listas con dueño, construidas con datos que el sistema ya tiene, para que la atención llegue primero a quien más la necesita.">
 <meta property="og:type" content="website"><meta property="og:url" content="https://doar95.github.io/listas-de-pacientes-colombia/">
@@ -585,12 +694,15 @@ const html=`<!doctype html>
 <style>${css}</style></head><body>
 <header class="top"><div class="wrap">
 <h1>${TITLE}</h1>
-<p>Un ciclo de política continuo que convierte lo que el sistema ya sabe en listas con dueño, con las normas, los datos y los equipos que Colombia tiene hoy, sin ley nueva, sin planta nueva y sin presupuesto adicional.</p>
+<p>Una plataforma que une lo que el sistema ya tiene alrededor del caso de cada paciente: el Ministerio identifica y prioriza, las EPS, IPS y secretarías actúan, la Supersalud sigue, verifica y controla, y todos ven la misma historia. Funciona con las normas vigentes y con las capacidades que las entidades ya tienen. Listas de pacientes, médicos y prestadores.</p>
 <p class="hcta"><a class="cta" href="presentacion.html">Ver la presentación de 60 segundos</a></p>
-<p class="by">Brief técnico para tomadores de decisión del Ministerio de Salud y Protección Social. Información con corte al 1 de noviembre de 2026. Análisis y redacción: Claude, modelo de inteligencia artificial de Anthropic. Curaduría: David Aguilar, economista colombiano residente en el exterior. Ver <a href="#avisos" style="color:#fff" data-go="avisos">avisos y alcance</a>.</p>
+<p class="by">Propuesta técnica para el Ministerio de Salud y Protección Social, la Superintendencia Nacional de Salud, la ADRES y las secretarías de salud. Información con corte al 1 de noviembre de 2026. Análisis y redacción: Claude, modelo de inteligencia artificial de Anthropic. Curaduría: David Aguilar, economista colombiano residente en el exterior, y Nancy Yomayusa, consultora independiente. Ver <a href="#avisos" style="color:#fff" data-go="avisos">avisos y alcance</a>.</p>
 </div></header>
 <div class="layout">${nav}<main>
 ${brief}
+${plataforma}
+${vaciosSec}
+${gobernanza}
 ${sistema}
 ${tableroSec}
 ${cac}
@@ -606,7 +718,7 @@ ${evidencia}
 ${ruta}
 ${avisos}
 </main></div>
-<footer><div class="wrap small">Brief técnico independiente. Corte de información: 1 de noviembre de 2026. Análisis y redacción: Claude (Anthropic). Curaduría: David Aguilar, economista. No es una publicación oficial.</div></footer>
+<footer><div class="wrap small">Brief técnico independiente. Corte de información: 1 de noviembre de 2026. Análisis y redacción: Claude (Anthropic). Curaduría: David Aguilar, economista, y Nancy Yomayusa, consultora independiente. No es una publicación oficial.</div></footer>
 <script>${js}</script></body></html>`;
 fs.writeFileSync('/home/claude/listas-de-pacientes-colombia/index.html',html);
 console.log('ok',html.length,L.length);

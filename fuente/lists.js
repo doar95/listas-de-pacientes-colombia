@@ -439,7 +439,7 @@ module.exports={
     "personas en terapia de reemplazo renal sin la continuidad requerida en 2025",
     "cacerc"
    ],
-   "problema": "La Cuenta de Alto Costo reportó 54.594 personas en terapia de reemplazo renal y 2.103 sin la continuidad requerida en 2025 [[cacerc]]. Es la cohorte de mayor costo por persona del sistema y la de consecuencias más rápidas.",
+   "problema": "La Cuenta de Alto Costo reportó 54.594 personas en terapia de reemplazo renal y 2.103 sin la continuidad requerida en 2025 [[cacerc]]. Es la cohorte de mayor costo por persona del sistema y la de consecuencias más rápidas. Por su tamaño y su riesgo, es una buena candidata para un piloto de punta a punta en uno o dos departamentos.",
    "clinica": "En el estudio internacional DOPPS, saltarse sesiones de hemodiálisis se asoció con mayor mortalidad y más hospitalizaciones [[saran]]. En trasplante, la falta de adherencia al inmunosupresor es una causa principal de rechazo; las intervenciones para mejorarla tienen evidencia de baja calidad, lo que refuerza el valor de detectar la interrupción a tiempo [[mellon]].",
    "factores": [
     "Sesiones de hemodiálisis faltantes en el mes",
@@ -2340,7 +2340,7 @@ module.exports={
     "de las quejas ante la Supersalud entre enero y julio de 2026 fueron por barreras de acceso",
     "infobae22"
    ],
-   "problema": "La Supersalud recibió cerca de 1,2 millones de quejas entre enero y julio de 2026, 92% por barreras de acceso [[infobae22]]. Una persona con dos o más quejas por el mismo servicio es una persona que el sistema no ha resuelto.",
+   "problema": "La Supersalud recibió cerca de 1,2 millones de quejas entre enero y julio de 2026, 92% por barreras de acceso [[infobae22]]. Una persona con dos o más quejas por el mismo servicio es una persona que el sistema no ha resuelto. La plataforma suma la voz del paciente: la consulta del propio caso y un botón de no recibí esto alimentan la gestión de PQRD de la Supersalud.",
    "clinica": "Las quejas de pacientes contienen información útil sobre problemas de calidad y seguridad que otros sistemas no capturan, si se clasifican y analizan [[reader]].",
    "factores": [
     "Dos o más quejas por el mismo servicio en 6 meses",
@@ -2399,7 +2399,7 @@ module.exports={
    "g": "medicos",
    "t": "Prescriptores con práctica atípica",
    "valor": "Retroalimentación confidencial entre pares para reducir lo que no aporta valor y detectar lo que falta, sin calificar al médico desde el gobierno.",
-   "problema": "La prescripción electrónica en MIPRES y la dispensación nominal permiten comparar a cada prescriptor con sus pares de la misma especialidad y ámbito. El acuerdo de 2026 entre la ADRES y el Invima cruza prescripción, suministro y gasto para encontrar inconsistencias en productos, pero no compara médicos ni les devuelve información [[adresinvima]]. Esta lista se apoya en ese acuerdo y agrega la comparación entre pares, por exceso o por defecto, con entrega confidencial a la IPS.",
+   "problema": "La prescripción electrónica en MIPRES y la dispensación nominal permiten comparar a cada prescriptor con sus pares de la misma especialidad y ámbito. El acuerdo de 2026 entre la ADRES y el Invima cruza prescripción, suministro y gasto para encontrar inconsistencias en productos, pero no compara médicos ni les devuelve información [[adresinvima]]. Esta lista se apoya en ese acuerdo y agrega la comparación entre pares, por exceso o por defecto, con entrega confidencial a la IPS. Se organiza como un programa de bajo valor: indicadores con aval clínico de las sociedades científicas y el IETS, comparación con pares en tableros privados y una pirámide de intervención que va de la retroalimentación confidencial a la revisión por el comité clínico de la IPS; la Supersalud interviene solo ante irregularidades.",
    "clinica": "Cartas con comparación social a médicos de alta prescripción de antibióticos redujeron la prescripción en un ensayo nacional en Inglaterra [[hallsworth]]. Cartas a prescriptores de quetiapina en Medicare la redujeron de forma sostenida sin daño a los pacientes [[sacarny]]. La auditoría con retroalimentación funciona mejor cuando apunta a prioridades claras [[ivers]]. Entrenar y comparar a médicos generales redujo 23% las pruebas de vitamina D [[vugt]].",
    "factores": [
     "Indicadores de exceso: pruebas sin indicación, antibióticos en infecciones virales, benzodiacepinas en mayores",

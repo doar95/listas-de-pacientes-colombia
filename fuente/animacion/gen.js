@@ -87,7 +87,7 @@ p{margin:0 0 10px;color:var(--soft);font-size:clamp(.95rem,1.6vw,1.12rem)}
   <p>El brief completo, con las fuentes de cada cifra, está en el enlace Abrir el brief.</p>
  </section>
 </div>
-<div class="foot">Análisis y redacción: Claude (Anthropic). Curaduría: David Aguilar, economista, y Nancy Yomayusa, consultora independiente. Altura y color de cada departamento: pobreza multidimensional 2025 del DANE, de azul a amarillo a mayor pobreza.</div>
+<div class="foot">Análisis y redacción: Claude (Anthropic). Curaduría: David Aguilar, economista, y Nancy Yomayusa González, médica internista y nefróloga. Altura y color de cada departamento: pobreza multidimensional 2025 del DANE, de azul a amarillo a mayor pobreza.</div>
 <div class="ctl" role="group" aria-label="Controles de la presentación">
  <button id="play" aria-label="Pausar">Pausa</button>
  <button id="rep" class="sec">Repetir</button>

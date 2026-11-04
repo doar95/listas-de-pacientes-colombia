@@ -12,8 +12,8 @@ Sitio: https://doar95.github.io/listas-de-pacientes-colombia/
 
 ## Autoría y avisos
 
-Análisis y redacción: Claude, modelo de inteligencia artificial de Anthropic. Curaduría: David Aguilar, economista colombiano residente en el exterior, y Nancy Yomayusa, consultora independiente.
+Análisis y redacción: Claude, modelo de inteligencia artificial de Anthropic. Curaduría: David Aguilar, economista colombiano residente en el exterior, y Nancy Yomayusa González, médica internista y nefróloga, consultora independiente.
 
-David Aguilar está vinculado laboralmente a un conglomerado de salud con operación en Colombia. Las ideas de este documento son personales y no representan a esa entidad. Nancy Yomayusa participa a título personal como consultora independiente.
+David Aguilar está vinculado laboralmente a un conglomerado de salud con operación en Colombia. Las ideas de este documento son personales y no representan a esa entidad. Nancy Yomayusa González, médica especialista en medicina interna y nefrología, participa a título personal como consultora independiente.
 
 No es una publicación oficial. Las estimaciones de carga de enfermedad provienen del Estudio de Carga Global de Enfermedad 2023 del IHME y están sujetas a su acuerdo de uso no comercial. Cada cifra del brief enlaza a su fuente.

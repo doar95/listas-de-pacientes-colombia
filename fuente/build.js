@@ -547,8 +547,8 @@ const ruta=`<section id="ruta" role="tabpanel"><div class="wrap">
 
 const avisos=`<section id="avisos" role="tabpanel"><div class="wrap read">
 <h2>Fuentes, método y avisos</h2>
-<h3>Autoría</h3><p>Análisis y redacción: Claude, modelo de inteligencia artificial de Anthropic, que consultó fuentes públicas, PubMed y la base del Estudio de Carga Global de Enfermedad 2023 del IHME. Curaduría y responsabilidad editorial: David Aguilar, economista colombiano residente en el exterior, y Nancy Yomayusa, consultora independiente, quien aportó la visión de plataforma interinstitucional, la revisión de los sistemas de la Supersalud y la propuesta de gobernanza.</p>
-<h3>Declaración de vínculo</h3><p>David Aguilar está vinculado laboralmente a un conglomerado de salud con operación en Colombia. Las ideas de este documento son personales, se comparten en el espíritu democrático de aportar al debate público y no representan la posición de esa entidad ni la comprometen. Nancy Yomayusa participa a título personal como consultora independiente.</p>
+<h3>Autoría</h3><p>Análisis y redacción: Claude, modelo de inteligencia artificial de Anthropic, que consultó fuentes públicas, PubMed y la base del Estudio de Carga Global de Enfermedad 2023 del IHME. Curaduría y responsabilidad editorial: David Aguilar, economista colombiano residente en el exterior, y Nancy Yomayusa González, médica internista y nefróloga, quien aportó la visión de plataforma interinstitucional, la revisión de los sistemas de la Supersalud y la propuesta de gobernanza.</p>
+<h3>Declaración de vínculo</h3><p>David Aguilar está vinculado laboralmente a un conglomerado de salud con operación en Colombia. Las ideas de este documento son personales, se comparten en el espíritu democrático de aportar al debate público y no representan la posición de esa entidad ni la comprometen. Nancy Yomayusa González es médica especialista en medicina interna y nefrología, con trayectoria en investigación traslacional, consensos clínicos informados en la evidencia y recomendaciones de uso racional de tecnologías en salud. Participa a título personal como consultora independiente.</p>
 <h3>Tipos de cifra</h3><p>Cada cifra se presenta como dato publicado, cuando proviene de una fuente oficial o de un informe citado; estimación modelada, cuando proviene del IHME; cálculo propio, cuando es una suma o diferencia hecha en este documento y así se indica; o propuesta, como los códigos, umbrales y plazos de cada lista.</p>
 <h3>Alcance</h3><ul class="clean">
 <li>Es un documento de propuesta, no una publicación oficial de ninguna entidad del Estado.</li>
@@ -696,7 +696,7 @@ const html=`<!doctype html>
 <h1>${TITLE}</h1>
 <p>Una plataforma que une lo que el sistema ya tiene alrededor del caso de cada paciente: el Ministerio identifica y prioriza, las EPS, IPS y secretarías actúan, la Supersalud sigue, verifica y controla, y todos ven la misma historia. Funciona con las normas vigentes y con las capacidades que las entidades ya tienen. Listas de pacientes, médicos y prestadores.</p>
 <p class="hcta"><a class="cta" href="presentacion.html">Ver la presentación de 60 segundos</a></p>
-<p class="by">Propuesta técnica para el Ministerio de Salud y Protección Social, la Superintendencia Nacional de Salud, la ADRES y las secretarías de salud. Información con corte al 1 de noviembre de 2026. Análisis y redacción: Claude, modelo de inteligencia artificial de Anthropic. Curaduría: David Aguilar, economista colombiano residente en el exterior, y Nancy Yomayusa, consultora independiente. Ver <a href="#avisos" style="color:#fff" data-go="avisos">avisos y alcance</a>.</p>
+<p class="by">Propuesta técnica para el Ministerio de Salud y Protección Social, la Superintendencia Nacional de Salud, la ADRES y las secretarías de salud. Información con corte al 1 de noviembre de 2026. Análisis y redacción: Claude, modelo de inteligencia artificial de Anthropic. Curaduría: David Aguilar, economista colombiano residente en el exterior, y Nancy Yomayusa González, médica internista y nefróloga, investigadora y autora de consensos colombianos basados en la evidencia, consultora independiente. Ver <a href="#avisos" style="color:#fff" data-go="avisos">avisos y alcance</a>.</p>
 </div></header>
 <div class="layout">${nav}<main>
 ${brief}
@@ -718,7 +718,7 @@ ${evidencia}
 ${ruta}
 ${avisos}
 </main></div>
-<footer><div class="wrap small">Brief técnico independiente. Corte de información: 1 de noviembre de 2026. Análisis y redacción: Claude (Anthropic). Curaduría: David Aguilar, economista, y Nancy Yomayusa, consultora independiente. No es una publicación oficial.</div></footer>
+<footer><div class="wrap small">Brief técnico independiente. Corte de información: 1 de noviembre de 2026. Análisis y redacción: Claude (Anthropic). Curaduría: David Aguilar, economista, y Nancy Yomayusa González, médica internista y nefróloga. No es una publicación oficial.</div></footer>
 <script>${js}</script></body></html>`;
 fs.writeFileSync('/home/claude/listas-de-pacientes-colombia/index.html',html);
 console.log('ok',html.length,L.length);

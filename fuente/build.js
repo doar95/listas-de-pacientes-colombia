@@ -135,6 +135,16 @@ ${index}
 <div class="fig"><b>7 millones</b><span>de personas con hipertensión, diabetes o enfermedad renal crónica en la Cuenta de Alto Costo</span>${cite('[[caccv]]')}</div>
 <div class="fig k-b"><b>6,9 millones</b><span>de personas con historia clínica interoperable al 4 de agosto de 2026</span>${cite('[[ihce]]')}</div>
 </div>
+<div class="box suf read"><h3>Las listas y la suficiencia de recursos</h3>
+<p>Cada lista identifica personas que necesitan una atención, y por eso también hace visible una demanda que hoy no siempre se registra. En un momento en que la suficiencia de los recursos del sistema está en discusión, su implementación debe ir de la mano con ella:</p>
+<ul class="clean">
+<li><b>Priorizar dentro de lo disponible.</b> Las listas ordenan a quién atender primero con los recursos existentes; no crean derechos ni obligaciones nuevas por fuera del plan de beneficios.</li>
+<li><b>Medir antes de ampliar.</b> Cada lista nueva se acompaña de una estimación de la demanda que destapa y de su costo, para que se incorpore al análisis de suficiencia de la UPC y de los presupuestos máximos antes de exigir su cierre.</li>
+<li><b>No trasladar el desbalance.</b> El cierre que se exige a una EPS debe ser coherente con su situación financiera y con el flujo de recursos hacia los prestadores; de lo contrario, el costo termina en la IPS o en el paciente.</li>
+<li><b>Gradualidad.</b> Se empieza por las listas de mayor riesgo y menor costo de cierre, como la continuidad de tratamientos que ya se financian y los exámenes de control, y se amplía a medida que se confirma la capacidad.</li>
+<li><b>Compensar con valor.</b> Las listas de bajo valor, polifarmacia y prescripción atípica liberan recursos que pueden reorientarse a las de mayor riesgo.</li>
+</ul>
+<p>La información que producen las listas, cuánta necesidad hay, dónde está y cuánto cuesta atenderla, es en sí misma un insumo para que las decisiones sobre la suficiencia se tomen con datos.</p></div>
 <div class="box red read"><h3>Lo que esto no es</h3><p>No reemplaza ninguna fuente ni ningún sistema de control: los une alrededor del caso del paciente. No traslada funciones entre entidades. No sustituye al médico tratante: la lista dice a quién mirar primero y el médico decide qué hacer. La lista de prescriptores no califica a ningún médico desde el gobierno: se entrega en confidencialidad a su IPS para revisión entre pares. Ninguna lista es un instrumento para negar servicios.</p></div>
 <p class="small read">Cada cifra lleva su fuente debajo y una nota numerada con la referencia completa al final de la sección. Uno de los curadores está vinculado a un conglomerado de salud con operación en Colombia; las ideas son personales y no representan a esa entidad. Detalles en <a href="#avisos" data-go="avisos">Fuentes y avisos</a>.</p>
 </div></section>`;
@@ -549,6 +559,7 @@ const avisos=`<section id="avisos" role="tabpanel"><div class="wrap read">
 <h2>Fuentes, método y avisos</h2>
 <h3>Autoría</h3><p>Análisis y redacción: Claude, modelo de inteligencia artificial de Anthropic, que consultó fuentes públicas, PubMed y la base del Estudio de Carga Global de Enfermedad 2023 del IHME. Curaduría y responsabilidad editorial: David Aguilar, economista colombiano residente en el exterior, y Nancy Yomayusa González, médica internista y nefróloga, quien aportó la visión de plataforma interinstitucional, la revisión de los sistemas de la Supersalud y la propuesta de gobernanza.</p>
 <h3>Declaración de vínculo</h3><p>David Aguilar está vinculado laboralmente a un conglomerado de salud con operación en Colombia. Las ideas de este documento son personales, se comparten en el espíritu democrático de aportar al debate público y no representan la posición de esa entidad ni la comprometen. Nancy Yomayusa González es médica especialista en medicina interna y nefrología, con trayectoria en investigación traslacional, consensos clínicos informados en la evidencia y recomendaciones de uso racional de tecnologías en salud. Participa a título personal como consultora independiente.</p>
+<h3>Suficiencia de recursos</h3><p>Esta propuesta no estima el costo de cerrar cada lista. Su implementación debe tener en cuenta la suficiencia de los recursos del sistema y el flujo hacia los prestadores, y avanzar de forma gradual según la capacidad disponible.</p>
 <h3>Tipos de cifra</h3><p>Cada cifra se presenta como dato publicado, cuando proviene de una fuente oficial o de un informe citado; estimación modelada, cuando proviene del IHME; cálculo propio, cuando es una suma o diferencia hecha en este documento y así se indica; o propuesta, como los códigos, umbrales y plazos de cada lista.</p>
 <h3>Alcance</h3><ul class="clean">
 <li>Es un documento de propuesta, no una publicación oficial de ninguna entidad del Estado.</li>
@@ -578,6 +589,7 @@ ul.ev{padding-left:18px}ul.ev li{margin:0 0 .6em}
 .gh{margin:26px 0 2px;color:var(--k);border-bottom:3px solid var(--k);padding-bottom:4px}
 .gd{margin:4px 0 0;font-size:.92rem}
 td.n{text-align:right;white-space:nowrap}
+.box.suf{border:3px solid var(--yellow);border-left-width:10px;background:#FFF8E6}.box.suf h3{color:#7A5200;font-size:1.25rem}.box.suf li{margin:0 0 .5em}
 .roles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0 8px}
 .roles div{border-top:5px solid var(--k);background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 12px;font-size:.93rem}
 .roles b{display:block;font:700 .98rem Montserrat,sans-serif;color:var(--k);margin-bottom:2px}
